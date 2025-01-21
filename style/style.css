@@ -1,0 +1,760 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+a{
+  color: #0d6ca6;
+  text-decoration: none;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #ccf5ff;
+    height: 100%; /* Conferma che il body occupa l'intera altezza */
+    overflow-x: hidden; /* Evita scroll orizzontale se non necessario */
+     font-family: 'Poppins', sans-serif;
+}
+.navbar {
+  font-family: 'Marck Script', cursive; /* Stile del font */
+  font-size: 24px; /* Dimensione del testo */
+  background-color: #00a3cc; /* Colore di sfondo */
+  color: white; /* Colore del testo */
+  padding: 10px 20px; /* Spaziatura interna */
+  border-bottom: 2px solid #076578; /* Linea decorativa sotto la navbar */
+}
+.navbar-brand {
+  font-size: 27px;
+  color: white !important;
+}
+.navbar a {
+  color:  black;
+  text-decoration: none;
+  margin: 0 10px; /* Spaziatura tra i link */
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: white;/* Cambia colore al passaggio del mouse */
+}
+.navbar .dropdown-menu {
+  font-size: 22px;
+}
+
+.navbar .dropdown-item {
+  font-size: 22px;
+}
+.navbar .dropdown-item:hover {
+  color: #0d6ca6; /* Colore del testo durante l'hover */
+}
+.navbar #searchInput {
+  font-size: 24px; /* Imposta la dimensione del testo */
+}
+.navbar .btn-info {
+  font-size: 24px; /* Dimensione del font */
+}
+.imgaut {
+  max-width: 100%; /* L'immagine non supera la larghezza del contenitore */
+  max-height: 500px; /* Imposta un'altezza massima */
+  height: auto; /* Mantiene le proporzioni */
+  margin: 20px auto; /* Centra l'immagine orizzontalmente */
+  display: block; /* Rende l'immagine un elemento a blocco */
+}
+
+.imglis {
+  max-width: 100%; /* L'immagine non supera la larghezza del contenitore */
+  max-height: 350px; /* Imposta un'altezza massima */
+  height: auto; /* Mantiene le proporzioni */
+  margin: 20px auto; /* Centra l'immagine orizzontalmente */
+  display: block; /* Rende l'immagine un elemento a blocco */
+}
+.imgucc {
+  max-width: 100%; /* L'immagine non supera la larghezza del contenitore */
+  height: 18rem; /* Mantiene le proporzioni */
+  width: 27rem;
+  margin: 20px auto; /* Centra l'immagine orizzontalmente */
+  display: block; /* Rende l'immagine un elemento a blocco */
+}
+
+
+.colonnasx, .colonnadx {
+    min-height: 100vh; /* Estende le colonne a tutta l'altezza della finestra */
+}
+
+.footer {
+    margin-top: auto; /* Mantiene il footer in fondo alla pagina */
+    background-color: #0dcaf0;
+    text-align: center;
+    color: white;
+    padding: 10px;
+}
+
+/* Hero image e testo */
+.hero-image {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../img/meandro.png");
+    height: 40vh; /* O un valore fisso come 600px */
+    max-height: none;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+}
+
+
+.hero-text {
+    text-align: center;
+    color: white;
+    z-index: 1; /* Mantenere sopra lo sfondo */
+    padding: 0 20px; /* Evita che il testo sia troppo vicino ai bordi */
+}
+
+
+/*bottone celeste scopri di più*/
+.bottone {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #0dcaf0;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 10px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.bottone span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.bottone span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.bottone:hover span {
+  padding-right: 25px;
+}
+
+.bottone:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+.btn-outline-info:hover {
+  background-color: #0dcaf0;
+  color: white;
+  transition: all 0.3s;
+}
+
+.pre-footer{text-align: center;}
+
+.link {color: #076578;}
+
+/*accordion con icone*/
+.accordion {
+  background-color: #00a3cc;
+  font-family: 'Marck Script', cursive;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+.accordion:hover {
+  background-color: #0d6ca6;
+}
+.accordion:after {
+  content: "\02795";
+  font-size: 13px;
+  color: #777;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796";
+}
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+  overflow: hidden;
+}
+.active, .paginacorrente{background-color: #0dcaf0;}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/*cards*/
+.card img {
+  border-radius: 5px 5px 0 0;
+}
+.cardhome {
+    max-width: 300px; /* Limita la larghezza massima */
+    margin: 0 auto;   /* Centra le card */
+    text-align: center; /* Allinea il contenuto */
+}
+
+.cardhome img {
+    width: 100%; /* L'immagine occupa la larghezza della card */
+    height: auto; /* Mantiene le proporzioni originali */
+}
+
+.cardhome h5, .cardhome h4 {
+    font-size: 18px; /* Riduci la dimensione del testo */
+    margin-bottom: 10px;
+}
+
+
+/*breadcrumbs*/
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  background-color: white;
+}
+
+/* Display list items side by side */
+ul.breadcrumb li {
+  display: inline;
+  font-size: 16px;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.breadcrumb li+li:before {
+  padding: 3px;
+  color: black;
+  content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}
+
+.bottone-elenco {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #0dcaf0;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 10px;
+  width: 150px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.pulsanti{
+  padding: 15px;
+  margin-left: 0px;
+}
+.elementi{
+  text-align: center;
+}
+.colonnasx {
+  background-color: #0d6ca6;
+  position: relative;
+}
+
+
+.colonnadx {
+  background-color: azure;
+  position: relative;
+  padding: 30px;
+}
+
+.colonnadx h1 {
+  font-size: 50px;
+  word-break: break-all;
+}
+
+.colonnadx row {
+  margin: 8px -16px;
+}
+
+/* Add padding BETWEEN each column (if you want) */
+.row,
+.row > .column {
+  padding: 25px;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 33.33%;
+  display: block; /* Hide columns by default */
+}
+
+/* Clear floats after rows */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Content */
+.content {
+  padding: 10px;
+}
+
+/* The "show" class is added to the filtered elements */
+.show {
+  display: block;
+}
+
+/* Imposta un'altezza minima e controlla il ridimensionamento delle immagini */
+.card-img-top {
+    max-height: 250px; /* Altezza massima per evitare immagini troppo grandi */
+    min-height: 250px; /* Altezza minima per uniformare le immagini */
+    width: 100%; /* La larghezza si adatta al contenitore */
+    object-fit: cover; /* Ritaglia l'immagine mantenendo le proporzioni */
+    object-position: center; /* Centra il contenuto dell'immagine ritagliata */
+}
+
+/* Imposta un'altezza uniforme per tutte le card */
+.cardcat {
+    height: 400px; /* Altezza totale delle card */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribuzione uniforme tra immagine, testo e pulsante */
+}
+
+/* Stile del corpo delle card */
+.card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+}
+
+/* Pulsante sempre in basso */
+.cardcat .btn {
+    margin-top: auto;
+}
+
+
+.pill {
+  background-color: #00a3cc;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+}
+.pill span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.pill span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.pill:hover span {
+  padding-right: 25px;
+}
+
+.pill:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+.pagination {
+  display: flex; /* Allinea i link in riga */
+  justify-content: center; /* Centra orizzontalmente */
+  margin-top: 3rem; /* Spinge la paginazione verso il basso */
+  margin-bottom: 20px; /* Aggiungi uno spazio dal bordo inferiore */
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pagination a.paginacorrente {
+  background-color: #0dcaf0;
+  color: white;
+  border-radius: 5px;
+}
+
+.pagination a:hover:not(.paginacorrente) {
+  background-color: #0d6ca6;
+  border-radius: 5px;
+}
+.paginazione{text-align: center;}
+
+.metadati{text-align: left;}
+
+ult {
+  --col-gap: 2rem;
+  --row-gap: 2rem;
+  --line-w: 0.25rem;
+  display: grid;
+  grid-template-columns: var(--line-w) 1fr;
+  grid-auto-columns: max-content;
+  column-gap: var(--col-gap);
+  list-style: none;
+  width: min(60rem, 90%);
+  margin-inline: auto;
+}
+
+/* line */
+ult::before {
+  content: "";
+  grid-column: 1;
+  grid-row: 1 / span 20;
+  background: rgb(225, 225, 225);
+  border-radius: calc(var(--line-w) / 2);
+}
+
+/* columns*/
+
+/* row gaps */
+ult li:not(:last-child) {
+  margin-bottom: var(--row-gap);
+}
+
+/* card */
+ult li {
+  grid-column: 2;
+  --inlineP: 1.5rem;
+  margin-inline: var(--inlineP);
+  grid-row: span 2;
+  display: grid;
+  grid-template-rows: min-content min-content min-content;
+}
+
+/* date */
+ult li .date {
+  --dateH: 3rem;
+  height: var(--dateH);
+  margin-inline: calc(var(--inlineP) * -1);
+
+  text-align: center;
+  background-color: var(--accent-color);
+
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+
+  display: grid;
+  place-content: center;
+  position: relative;
+
+  border-radius: calc(var(--dateH) / 2) 0 0 calc(var(--dateH) / 2);
+}
+
+/* date flap */
+ult li .date::before {
+  content: "";
+  width: var(--inlineP);
+  aspect-ratio: 1;
+  background: var(--accent-color);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2) 100%, transparent);
+  position: absolute;
+  top: 100%;
+
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  right: 0;
+}
+
+/* circle */
+ult li .date::after {
+  content: "";
+  position: absolute;
+  width: 2rem;
+  aspect-ratio: 1;
+  background: var(--bgColor);
+  border: 0.3rem solid var(--accent-color);
+  border-radius: 50%;
+  top: 50%;
+
+  transform: translate(50%, -50%);
+  right: calc(100% + var(--col-gap) + var(--line-w) / 2);
+}
+
+/* title descr */
+ult li .title,
+ult li .descr {
+  background: white; /* Colore di sfondo bianco */
+  position: relative;
+  padding: 1.5rem; /* Aggiungi un'imbottitura uniforme */
+  border: 1px solid #ddd; /* Bordo sottile grigio */
+  border-radius: 8px; /* Angoli arrotondati */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Effetto ombra */
+}
+
+ult li .title {
+  font-family: 'Marck Script', cursive; /* Stile del logo */
+  font-size: 2.5rem; /* Dimensione del font più grande */
+  color: #333; /* Colore del testo (puoi cambiarlo in base al design) */
+  margin-bottom: 0; /* Rimuovi lo spazio sotto il titolo */
+  font-weight: bold; /* Rendi il titolo più evidente */
+  text-align: center; /* Allinea il titolo al centro */
+}
+
+ult li .descr {
+  padding-block-end: 1.5rem;
+}
+
+/* shadows */
+ult li .title::before,
+ult li .descr::before {
+  content: "";
+  position: absolute;
+  width: 90%;
+  height: 0.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  left: 50%;
+  border-radius: 50%;
+  filter: blur(4px);
+  transform: translate(-50%, 50%);
+}
+ult li .title::before {
+  bottom: calc(100% + 0.125rem);
+}
+
+ult li .descr::before {
+  z-index: -1;
+  bottom: 0.25rem;
+}
+
+@media (min-width: 40rem) {
+  ult {
+    grid-template-columns: 1fr var(--line-w) 1fr;
+  }
+  ult::before {
+    grid-column: 2;
+  }
+  ult li:nth-child(odd) {
+    grid-column: 1;
+  }
+  ult li:nth-child(even) {
+    grid-column: 3;
+  }
+
+  /* start second card */
+  ult li:nth-child(2) {
+    grid-row: 2/4;
+  }
+
+  ult li:nth-child(odd) .date::before {
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    left: 0;
+  }
+
+  ult li:nth-child(odd) .date::after {
+    transform: translate(-50%, -50%);
+    left: calc(100% + var(--col-gap) + var(--line-w) / 2);
+  }
+  ult li:nth-child(odd) .date {
+    border-radius: 0 calc(var(--dateH) / 2) calc(var(--dateH) / 2) 0;
+  }
+}
+
+.bolle-container {
+  display: flex; /* Usare flexbox */
+  flex-wrap: wrap; /* Permette il wrapping se necessario */
+  justify-content: center; /* Centrare orizzontalmente */
+  gap: 15px; /* Spazio tra le bolle */
+}
+
+.bolla {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  background-color: #00a3cc;
+  color: white;
+  text-decoration: none;
+  font-size: 24px; 
+  border-radius: 50%;
+  width: 200px; 
+  height: 200px;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.bolla:hover {
+  background-color: #0dcaf0;
+  transform: scale(1.1);
+}
+
+/* Stile per il modale circolare */
+.modalebolla {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90%; /* Limita la larghezza massima al 90% dello schermo */
+  max-height: 80%; /* Limita l'altezza massima all'80% dello schermo */
+  background-color: #0d6ca6;
+  color: white;
+  text-align: center;
+  padding: 20px; /* Aggiungi spazio interno */
+  font-size: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow-y: auto; /* Aggiungi uno scorrimento verticale se il contenuto eccede l'altezza */
+  border-radius: 16px; /* Mantieni un aspetto arrotondato */
+}
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  z-index: 999; /* Deve essere sotto il modale */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Sfondo semi-trasparente */
+}
+
+.modal-overlay.show {
+  display: block;
+}
+
+.modalebolla.show {
+  display: block; /* Mostra il modale */
+}
+
+.modalebolla-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+/* Stile per section-title */
+.section-title {
+    font-family: 'Marck Script', cursive;
+    font-size: 2rem;
+    color: #00a3cc;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+    position: relative; /* Necessario per posizionare il pallino */
+    padding-left: 20px; /* Spazio per il pallino */
+}
+
+.section-title::before {
+    content: '●'; /* Pallino */
+    font-size: 2rem; /* Dimensione del pallino */
+    color: #00a3cc; /* Colore predefinito del pallino */
+    position: absolute;
+    left: 0; /* Posizione a sinistra */
+    top: 50%; /* Centra verticalmente il pallino */
+    transform: translateY(-50%);
+    transition: color 0.3s ease; /* Transizione del colore */
+}
+
+.section-title:hover::before {
+    color: #0d6ca6; /* Cambia colore del pallino al passaggio del mouse */
+}
+
+.section-title-selected {
+    color: #0d6ca6; /* Cambia colore del titolo quando selezionato */
+    font-weight: bold;
+}
+
+.section-title-selected::before {
+    color: #0d6ca6; /* Cambia colore del pallino quando selezionato */
+}
+
+/* Stile per termgl */
+.termgl {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.5rem;
+    color: #00a3cc;
+    cursor: pointer;
+    margin-bottom: 10px;
+    display: inline-block; /* Rende i termini simili ai pulsanti */
+    transition: color 0.3s ease;
+    text-decoration: none;
+}
+
+.termgl:hover {
+    color: #0d6ca6;
+    text-decoration: none;
+}
+
+.termgl-selected {
+    color: #0d6ca6; /* Colore per il termine selezionato */
+    font-weight: bold; /* Enfatizza il termine selezionato */
+    text-decoration: none;
+}
+
+.term-description {
+    color: white;
+   background-color: #00a3cc;
+    border: 1px solid #00a3cc; 
+    padding: 10px; 
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    margin-top: 10px;
+    font-size: 1.2rem;
+    margin-left: 20px;
+    margin-top: 5px;
+     text-decoration: none;
+
+}
+.term {
+    font-size: 1.2rem;
+}
+
+.term b {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0d6ca6;
+}
+
+.term-description a{
+  text-decoration: none; 
+  color: black;
+}

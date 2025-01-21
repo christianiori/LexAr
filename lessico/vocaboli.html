@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Il lessico nelle commedie aristofanee</title>
+		<link rel="icon" type="image/x-icon" href="../img/aristofane.jpg">
+		<meta charset="UTF-8"  />
+		<meta http-equiv="Content-Type" content="text/html">
+		<meta name="description" content="Sito dedicato al lessico di Aristofane"  />
+		<meta name="keywords" content="Commedie, lessico, testi" />
+		<meta name="author" content="Christian Iori"  />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="DC.Title" content="Commedie aristofanee">
+		<meta name="DC.Creator" content="Christian Iori">
+		<meta name="DC.Subject" content="Testi drammatici">
+		<meta name="DC.Subject" content="Commedie">
+		<meta name="DC.Description" content="Lessico dei testi di Aristofane in formato digitale">
+		<meta name="DC.Publisher" content="Università di Bologna">
+		<meta name="DC.Date" content="2024">
+		<meta name="DC.Type" content="Text">
+		<meta name="DC.Format" content="HTML">
+		<meta name="DC.Identifier" content="tbd">
+		<meta name="DC.Coverage" content="Bologna">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet"    />
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"   />
+		<link rel="stylesheet" type="text/css" href="../style/style.css" />
+		<script src="../script/script.js" defer></script>
+	</head>
+	<body>
+		<!--Navbar !-->
+		<nav class="navbar navbar-expand-lg sticky-top">
+  			<div class="container-fluid">
+  				<a class="navbar-brand" href="#">LexAr</a>
+  				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  				<span class="navbar-toggler-icon"></span>
+				</button>
+    			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+      				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        				<li class="nav-item">
+          				<a class="nav-link" aria-current="page" href="../index.html">Home</a>
+        				</li>
+        				<li class="nav-item">
+          				<a class="nav-link" href="../infogen/intro.html">Introduzione</a>
+        				</li>
+        				<li class="nav-item">
+          				<a class="nav-link" href="../infogen/timeline.html">Linea del tempo</a>
+        				</li>
+        				<li class="nav-item">
+          				<a class="nav-link" href="../infogen/autore.html">Autore</a>
+        				</li>
+        				<li class="nav-item">
+                        <a class="nav-link" href="../infogen/glossario.html">Glossario</a>
+                        </li>
+        				<li class="nav-item dropdown">
+          					<a class="nav-link paginacorrente dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            				Lessico
+          					</a>
+          					<ul class="dropdown-menu">
+          						<li><a class="dropdown-item" href="lessicogen.html">Lessico generale</a></li>
+            					<li><a class="dropdown-item" href="vocaboli.html">Tutti i vocaboli</a></li>
+            					<li><a class="dropdown-item" href="lesamb.html">Esplora per campo semantico</a></li>
+            					<li><a class="dropdown-item" href="radici.html">Esplora per radice</a></li>
+          					</ul>
+        				</li>
+        				<li class="nav-item dropdown">
+          					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            				Testi
+          					</a>
+          					<ul class="dropdown-menu">
+            					<li><a class="dropdown-item" href="../item/pluto.html">Ultimo testo inserito</a></li>
+            					<li><a class="dropdown-item" href="../catalogo/catalogo1.html">Catalogo testi</a></li>
+          					</ul>
+        				</li>
+      				</ul>
+    			</div>
+  			</div>
+		</nav>
+		<!-- Modale per l'avviso -->
+		<div class="modal fade" id="filter-modal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+  			<div class="modal-dialog">
+    			<div class="modal-content" style="background-color: #ccf5ff; border: 3px solid #0dcaf0;">
+      				<div class="modal-header" style="border-bottom: 2px solid #0dcaf0;">
+        				<h5 class="modal-title" id="filterModalLabel">Avviso filtri applicati dall'URL</h5>
+        				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      				</div>
+      				<div class="modal-body">
+       		 			<p>Attenzione! Stai visualizzando dei risultati filtrati!</p>
+      				</div>
+      				<div class="modal-footer" style="border-top: 2px solid #0dcaf0;">
+        				<button type="button" class="btn btn-info" data-bs-dismiss="modal">Chiudi</button>
+      				</div>
+    			</div>
+  			</div>
+		</div>
+		<div class="container-fluid text-center">
+  			<div class="row">
+    			<div class="col-2 colonnasx">
+      			<ul class="breadcrumb">
+  						<li><a href="../index.html">Home</a></li>
+  						<li><a href="lessicogen">Lessico generale</a></li>
+  						<li>Tutti i vocaboli</li>
+  					</ul>
+					<input class="form-control mb-2" id="search-bar" type="text" placeholder="Cerca un vocabolo..." data-bs-toggle="tooltip" title="Inserisci un vocabolo in traslitterazione o in greco">
+					<div class="btn-group-vertical w-100" role="group" aria-label="Vertical button group">
+						<div class="btn-group dropend" role="group" aria-label="Filtra per iniziale">
+    						<button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+       						 Filtra per iniziale
+   							</button>
+    						<ul class="dropdown-menu">
+       	 						<li><button class="dropdown-item" data-filter="Α">Α</button></li>
+        						<li><button class="dropdown-item" data-filter="Β">Β</button></li>
+        						<li><button class="dropdown-item" data-filter="Γ">Γ</button></li>
+        						<li><button class="dropdown-item" data-filter="Δ">Δ</button></li>
+        						<li><button class="dropdown-item" data-filter="Ε">Ε</button></li>
+        						<li><button class="dropdown-item" data-filter="Ζ">Ζ</button></li>
+        						<li><button class="dropdown-item" data-filter="Η">Η</button></li>
+        						<li><button class="dropdown-item" data-filter="Θ">Θ</button></li>
+        						<li><button class="dropdown-item" data-filter="Ι">Ι</button></li>
+        						<li><button class="dropdown-item" data-filter="Κ">Κ</button></li>
+        						<li><button class="dropdown-item" data-filter="Λ">Λ</button></li>
+        						<li><button class="dropdown-item" data-filter="Μ">Μ</button></li>
+        						<li><button class="dropdown-item" data-filter="Ν">Ν</button></li>
+        						<li><button class="dropdown-item" data-filter="Ξ">Ξ</button></li>
+        						<li><button class="dropdown-item" data-filter="Ο">Ο</button></li>
+        						<li><button class="dropdown-item" data-filter="Π">Π</button></li>
+        						<li><button class="dropdown-item" data-filter="Ρ">Ρ</button></li>
+        						<li><button class="dropdown-item" data-filter="Σ">Σ</button></li>
+        						<li><button class="dropdown-item" data-filter="Τ">Τ</button></li>
+        						<li><button class="dropdown-item" data-filter="Υ">Υ</button></li>
+        						<li><button class="dropdown-item" data-filter="Φ">Φ</button></li>
+        						<li><button class="dropdown-item" data-filter="Χ">Χ</button></li>
+        						<li><button class="dropdown-item" data-filter="Ψ">Ψ</button></li>
+        						<li><button class="dropdown-item" data-filter="Ω">Ω</button></li>
+    						</ul>
+						</div>
+						 <div class="btn-group dropend" role="group">
+						 	<button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+						 		Filtra per testo
+						 	</button>
+						 	<ul class="dropdown-menu" aria-label="Filtra per testo">
+						 		<li><button class="dropdown-item" data-filter="Acarnesi">Acarnesi</button></li>
+						 		<li><button class="dropdown-item" data-filter="Cavalieri">Cavalieri</button></li>
+						 		<li><button class="dropdown-item" data-filter="Nuvole">Nuvole</button></li>
+						 		<li><button class="dropdown-item" data-filter="Vespe">Vespe</button></li>
+						 		<li><button class="dropdown-item" data-filter="Pace">Pace</button></li>
+						 		<li><button class="dropdown-item" data-filter="Uccelli">Uccelli</button></li>
+						 		<li><button class="dropdown-item" data-filter="Tesmoforie">Donne alle Tesmoforie</button></li>
+						 		<li><button class="dropdown-item" data-filter="Lisistrata">Lisistrata</button></li>
+						 		<li><button class="dropdown-item" data-filter="Rane">Rane</button></li>
+						 		<li><button class="dropdown-item" data-filter="Donne">Donne al Parlamento</button></li>
+						 		<li><button class="dropdown-item" data-filter="Pluto">Pluto</button></li>
+						 	</ul>
+						 </div>
+						 <div class="btn-group dropend" role="group" aria-label="Filtra per categoria grammaticale">
+						 	<button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+						 		Filtra per categoria
+						 	</button>
+						 	<ul class="dropdown-menu">
+						 		<li><button class="dropdown-item" data-filter="sost">Sostantivi</button></li>
+						 		<li><button class="dropdown-item" data-filter="verbi">Verbi</button></li>
+						 		<li><button class="dropdown-item" data-filter="agg">Aggettivi</button></li>
+						 		<li><button class="dropdown-item" data-filter="avv">Avverbi</button></li>
+						 		<li><button class="dropdown-item" data-filter="int">Interiezioni</button></li>
+						 		<li><button class="dropdown-item" data-filter="comp">Composti</button></li>
+						 		<li><button class="dropdown-item" data-filter="neo">Neologismi</button></li>
+						 	</ul>
+						 </div>
+						 <div class="btn-group dropend" role="group" aria-label="Filtra per campo semantico">
+						 	<button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+						 		Filtra per ambito
+						 	</button>
+						 	<ul class="dropdown-menu">
+						 		<li><button class="dropdown-item" data-filter="tea">Teatro ed arte</button></li>
+						 		<li><button class="dropdown-item" data-filter="emo">Emozioni</button></li>
+						 		<li><button class="dropdown-item" data-filter="parola">Parlato</button></li>
+						 		<li><button class="dropdown-item" data-filter="sap">Sapienza e filosofia</button></li>
+						 		<li><button class="dropdown-item" data-filter="sche">Scherno ed offese</button></li>
+						 		<li><button class="dropdown-item" data-filter="poli">Politica e vita cittadina</button></li>
+						 		<li><button class="dropdown-item" data-filter="trib">Tribunale e leggi</button></li>
+						 		<li><button class="dropdown-item" data-filter="guerra">Guerra e pace</button></li>
+						 		<li><button class="dropdown-item" data-filter="sac">Riti e sacralità</button></li>
+						 		<li><button class="dropdown-item" data-filter="cibo">Compravendita e cibo</button></li>
+						 		<li><button class="dropdown-item" data-filter="pers">Personaggi storici</button></li>
+						 	</ul>
+						 </div>
+						<button id="clear-vocabulary-filters" class="btn btn-outline-info">Rimuovi filtri</button>
+					</div>
+  						<div class="card border-info bg-info mt-3">
+  							<div class="card-header text-center">
+    							<h5 class="mb-0">
+      								<button class="btn btn-link"type="button"data-bs-toggle="collapse"data-bs-target="#legendaCollapse"aria-expanded="false"aria-controls="legendaCollapse"style="color: black; text-decoration: none;">
+        								<span>Legenda</span>
+        								<i class="ms-2 fas fa-chevron-down" id="legendaIcon"></i>
+     								</button>
+    							</h5>
+  							</div>
+  							<div id="legendaCollapse" class="collapse">
+    							<ul class="list-group list-group-flush">
+							    	<li class="list-group-item">S= sostantivo</li>
+							    	<li class="list-group-item">V= verbo</li>
+							    	<li class="list-group-item">Agg= aggettivo</li>
+  							    	<li class="list-group-item">Avv= avverbio</li>
+    								<li class="list-group-item">Part= participio</li>
+      								<li class="list-group-item">I= interiezione</li>
+      								<li class="list-group-item">Met= significato metaforico</li>
+      								<li class="list-group-item">Concr= significato concreto</li>
+      								<li class="list-group-item">Trasl= significato traslato</li>
+      								<li class="list-group-item">Est= per estensione</li>
+      								<li class="list-group-item">Sost= sostantivato</li>
+      								<li class="list-group-item">Ant= per antonomasia</li>
+    							</ul>
+  							</div>
+						</div>
+					<div class="card cardhome mt-3 mb-3">
+  						<img src="../img/radice.png" class="card-img-top" alt="albero">
+  						<div class="card-body">
+  						<p class="card-text">Esplora il lessico per radici</p>
+    						<a href="radici.html" class="btn btn-info">Vai a lessico per radici</a>
+    					</div>
+    				</div>
+    				<div class="card cardhome mb-3">
+  						<img src="../img/insiemi.png" class="card-img-top" alt="insiemi">
+  						<div class="card-body">
+  						<p class="card-text">Esplora il lessico per campo semantico</p>
+    						<a href="lesamb.html" class="btn btn-info">Vai a lessico per campo semantico</a>
+    					</div>
+    				</div>
+    				<div class="card cardhome mb-3">
+  						<img src="../img/lente.jpg" class="card-img-top" alt="lente e libro">
+  						<div class="card-body">
+  							<p class="card-text">Vuoi sapere di più su alcuni termini?</p>
+    						<a href="../infogen/glossario.html" class="btn btn-info">Vai al Glossario</a>
+    					</div>
+    				</div>
+    				<div class="card cardhome mb-3">
+  							<img src="../img/libro.jpg" class="card-img-top" alt="libro">
+  						<div class="card-body">
+  						<p class="card-text">Visualizza il catalogo delle opere</p>
+    						<a href="../catalogo/catalogo1.html" class="btn btn-info">Vai a Catalogo testi</a>
+    					</div>
+    				</div>
+					<div class="card cardhome mb-3">
+  						<img src="../img/aristofane.jpg" class="card-img-top" alt="Aristofane">
+  						<div class="card-body">
+  							<p class="card-text">Vuoi sapere di più sull'autore?</p>
+    						<a href="../infogen/autore.html" class="btn btn-info">Vai alla sezione autore</a>
+    					</div>
+    				</div>
+  			</div>
+				<div class="col-10 colonnadx">
+					<h1 style="font-family: 'Marck Script', cursive; font-size: 5rem;">Tutti i vocaboli</h1>
+					<div id="terms-container" class="metadati">
+
+						<h3>Α</h3>
+
+						<div class="term" data-category="Tesmoforie sost tea pers"><b>Ἀγάθων</b> (Th 29-31, 65, 88, 95)= s: Agatone, tragediografo famoso e importante, contemporaneo di Aristofane, dileggiato per effeminatezza.</div>
+						<div class="term" data-category="Acarnesi sost parola poli guerra"><b>ἀγγελία</b> (Ach 1083)= s: messaggio, annuncio, responso.</div>
+						<div class="term" data-category="Acarnesi verbi parola poli guerra"><b>ἀγγέλλω</b> (Ach 1070, 1077, 1083-4)= v: annunciare, proclamare, dare un messaggio.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἄγλις</b> (Ach 763)= s: testa d'aglio, spicchio d'aglio.</div>
+						<div class="term" data-category="Acarnesi sost poli cibo"><b>ἀγορά</b> (Ach 21, 533, 719, 728-9, 838, 848, 854, 877, 896)= s: agorà, piazza cittadina, assemblea, mercato.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>ἀγοράζω</b> (Ach 625, 720, 750)= v: frequentare l'agorà, comprare, commerciare.</div>
+						<div class="term" data-category="Acarnesi sost cibo trib"><b>ἀγορανόμος</b> (Ach 723, 824, 968)= s: agoranomo, ispettore del mercato.</div>
+						<div class="term" data-category="Acarnesi verbi parola poli"><b>ἀγορεύω</b> (Ach 41, 45)= v: dire, parlare pubblicamente.</div>
+						<div class="term" data-category="Acarnesi agg comp poli"><b>ἀγροικότονος</b> (Ach 674)= agg: dal suono campestre. Composto formato da <b>ἄγροικος</b> (campestre) e <b>τόνος</b> (suono, musica, accento).</div>
+						<div class="term" data-category="Tesmoforie sost agg poli shce"><b>ἀγροιώτης</b> (Th 58)= s/agg: rustico, contadino, campagnolo, est. villano, rozzo.</div>
+						<div class="term" data-category="Acarnesi sost poli"><b>ἀγρός</b> (Ach 32)= s: concr. campo, est. campagna.</div>
+						<div class="term" data-category="Acarnesi sost poli tea guerra trib"><b>ἀγών</b> (Ach 392, 481, 504)= s: contesa, scontro, gara, processo.</div>
+						<div class="term" data-category="Acarnesi verbi tea"><b>ἀγωνίζομαι</b> (Ach 140, 419, 481)= v: gareggiare, competere, partecipare ad un agone teatrale.</div>
+						<div class="term" data-category="Acarnesi agg cibo sche"><b>ἄδειπνος</b> (Ach 1152)= agg: senza cena, digiuno, senza pasto.</div>
+						<div class="term" data-category="Acarnesi verbi tea"><b>ᾄδω</b> (Ach 261, 979, 1231-2)= v: cantare.</div>
+						<div class="term" data-category="Acarnesi sost agg sac"><b>ἀθάνατος</b> (Ach 47, 51)= s/agg: immortale.</div>
+						<div class="term" data-category="Acarnesi sost sac"><b>Ἅιδης</b> (Ach 390)= s: Ade, dio dell'oltretomba, fratello di Zeus.</div>
+						<div class="term" data-category="Tesmoforie sost sac sche"><b>Αἰθήρ</b> (Th 14)= s: Etere, personificazione divina dell'etere, probabilmente qui citata come uno dei <b>ἰδιῶται θεοί</b> (dei privati) di Euripide per schernire i suoi interessi cosmogonici.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>αἴλουρος</b> (Ach 879)= s: gatto.</div>
+						<div class="term" data-category="Acarnesi sost tea pers"><b>Αἰσχύλος</b> (Ach 10)= s: Eschilo, tragediografo ateniese di spicco.</div>
+						<div class="term" data-category="Acarnesi agg cibo"><b>ἄκρατος</b> (Ach 1229)= agg: schietto, non mescolato, est. puro, assoluto.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἀκρίς</b> (Ach 1116-7)= s: cavalletta, grillo.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>ἀλαζόνευμα</b> (Ach 63, 87)= s: fanfaronata, spacconata, buffonata.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>ἀλαζών</b> (Ach 109, 135, 374)= s: ciarlatano, imbroglione.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἀλλᾶς</b> (Ach 146)= s: salsiccia, sanguinaccio.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἀλώπηξ</b> (Ach 878)= s: volpe.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἅλς</b> (Ach 521, 750, 772, 814, 831, 1099)= s: sale, est. mare.</div>
+						<div class="term" data-category="Acarnesi sost cibo sac"><b>ἀμβροσία</b> (Ach 196)= s: ambrosia, cibo degli dei.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἄμπελος</b> (Ach 183, 232, 512, 987, 995)= s: vite, vite selvatica, vigna.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἄμυλος</b> (Ach 1092)= s: focaccia.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἄμυστις</b> (Ach 1229)= s: lungo sorso, grande coppa.</div>
+						<div class="term" data-category="Acarnesi sost comp"><b>Ἀμφίθεος</b> (Ach 46-7, 129, 175-6)= s: Anfiteo, nome parlante composto da <b>ἀμφί</b> (attorno) e <b>θεός</b> (dio) che indica la pretesa discendenza divina da ambo le parti.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>ἀναβράσσω</b> (Ach 1005)= v: bollire, lessare.</div>
+						<div class="term" data-category="Acarnesi verbi parola poli guerra"><b>ἀναγορεύω</b> (Ach 11)= v: annunciare pubblicamente, proclamare.</div>
+						<div class="term" data-category="Acarnesi agg sche"><b>ἀναίσχυντος</b> (Ach 289, 491)= agg: sfrontato, impudente.</div>
+						<div class="term" data-category="Acarnesi verbi parola"><b>ἀνακράζω</b> (Ach 182)= v: gridare.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>ἀνάπαιστος</b> (Ach 627)= s: anapesto, tipologia di verso.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>ἀνδράριον</b> (Ach 517)= s: omuncolo, ometto.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἄνθραξ</b> (Ach 34, 212, 332, 348, 667, 891)= s: carbone, carbonella, antrace.</div>
+						<div class="term" data-category="Acarnesi verbi guerra sche"><b>ἀνταποκτείνω</b> (Ach 326)= v: uccidere in cambio, uccidere come risposta.</div>
+						<div class="term" data-category="Acarnesi sost tea pers"><b>Ἀντίμαχος</b> (Ach 1150)= s: Antimaco, corega.</div>
+						<div class="term" data-category="Tesmoforie verbi sap sche"><b>ἀντονομάζω</b> (Th 55)= v: chiamare con nome diverso, denominare invece, usare l'antonomasia, fare figure retoriche, indicare col pronome.</div>
+						<div class="term" data-category="Acarnesi agg poli"><b>ἄξιος</b> (Ach 4, 8, 205)= agg: degno, giusto.</div>
+						<div class="term" data-category="Acarnesi verbi sac cibo"><b>ἀπάρχω</b> (Ach 244)= v: regnare lontano, iniziare un sacrificio con un'offerta, offrire primizie.</div>
+						<div class="term" data-category="Acarnesi verbi sche poli guerra cibo"><b>ἀπεμπολάω</b> (Ach 374)= v: vendere, tradire.</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>ἀποθριάζω</b> (Ach 62)= v: lett. strappare le foglie di fico, met. scappellare, circoncidere.</div>
+						<div class="term" data-category="Acarnesi verbi emo guerra sche"><b>ἀποθνῄσκω</b> (Ach 15, 348)= v: morire.</div>
+						<div class="term" data-category="Acarnesi Tesmoforie verbi emo guerra sche"><b>ἀπόλλυμι</b> (Ach 151, 174, 295, 333, 336, 473, 476; Th 2, 77, 81)= v: mandare in rovina, distruggere, far perire, uccidere, perdere.</div>
+						<div class="term" data-category="Acarnesi sost sac"><b>Ἀπόλλων</b> (Ach 59, 101)= s: Apollo, dio dell'arte, della poesia, del sole, della medicina.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>ἀπόπατος</b> (Ach 81)= s: escremento, est. cesso, latrina.</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>ἀποψωλέω</b> (Ach 161, 592)= v: scappellare.</div>
+						<div class="term" data-category="Acarnesi agg sche cibo"><b>ἄπρατος</b> (Ach 743)= agg: invenduto, non prostituito.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra pers"><b>Ἁρμόδιος</b> (Ach 980, 1093)= s: Armodio, uno dei tirannicidi.</div>
+						<div class="term" data-category="Acarnesi sost tea pers"><b>Ἀρτέμων</b> (Ach 850)= s: Artemone, musico.</div>
+						<div class="term" data-category="Acarnesi sost poli"><b>ἄρχων</b> (Ach 67)= s: arconte, magistrato.</div>
+						<div class="term" data-category="Acarnesi sost sche cibo"><b>ἄσκωμα</b> (Ach 97)= s: guaina di cuoio, fodero di cuoio, est. rigonfiamento.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἀσκός</b> (Ach 549, 1002, 1225, 1230)= s: cuoio, pelle, otre.</div>
+						<div class="term" data-category="Acarnesi sost poli pers"><b>Ἀσπασία</b> (Ach 527)= s: Aspasia, compagna di Pericle per lungo tempo, etera.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>ἀσπίς</b> (Ach 58, 279, 539, 966, 1122, 1124, 1136, 1140, 1181)= s: scudo.</div>
+						<div class="term" data-category="Acarnesi agg poli sche"><b>ἀστεῖος</b> (Ach 811)= agg: cittadino, urbano, educato, raffinato.</div>
+						<div class="term" data-category="Acarnesi agg sost poli"><b>ἀστός</b> (Ach 508)= s/agg: cittadino.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra"><b>ἄστυ</b> (Ach 33)= s: fortezza, cittadella fortificata, est. città.</div>
+						<div class="term" data-category="Acarnesi agg sche"><b>ἄτιμος</b> (Ach 517)= agg: disonorevole, disonorato, ignobile.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἀτταγᾶς</b> (Ach 875)= s: francolino.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>αὐλητής</b> (Ach 862)= s: flautista.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>αὐλητρίς</b> (Ach 551)= s: flautista.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>αὐλός</b> (Ach 554, 752)= s: flauto.</div>
+						<div class="term" data-category="Acarnesi sost sac"><b>Ἀφροδίτη</b> (Ach 792-4)= s: Afrodite, dea dell'amore e della bellezza, nata dalla spuma del mare e moglie di Efesto.</div>
+						<div class="term" data-category="Acarnesi sost sche cibo"><b>ἀφύη</b> (Ach 640, 901-2)= s: avannotto, acciuga, sardina.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἀχάνη</b> (Ach 108-9)= s: acana(misura beotica e persiana), cesto, paniere.</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>ἄχθομαι</b> (Ach 62, 1100)= v: essere carico, met. essere oppresso, irritato, soffrire.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>ἄχυρα</b> (Ach 508)= s: scarto, crusca, pula.</div>
+
+						<h3>Β</h3>
+
+						<div class="term" data-category="Acarnesi sost sac"><b>Βάκχος</b> (Ach 263)= s: Bacco, altro nome di Dioniso.</div>
+						<div class="term" data-category="Acarnesi sost agg poli guerra sche"><b>βάρβαρος</b> (Ach 168)= s/agg: lett. chi balbetta quando parla greco, barbaro, straniero.</div>
+						<div class="term" data-category="Acarnesi sost poli"><b>βασίλεια</b> (Ach 80)= s: concr. reggia, palazzo reale; met. regalità, monarchia.</div>
+						<div class="term" data-category="Acarnesi sost poli"><b>βασιλεύς</b> (Ach 61-2, 65, 102, 113, 647, 1224)= s: re, monarca, arconte re.</div>
+						<div class="term" data-category="Acarnesi agg sche"><b>βδελυρός</b> (Ach 289)= agg: disgustoso, ripugnante.</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>βδελύσσω</b> (Ach 586, 599)= v: rendere disgustoso, provare disgusto.</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>βδέω</b> (Ach 256)= v: emettere un peto, scoreggiare.</div>
+						<div class="term" data-category="Acarnesi sost sac tea"><b>Βελλεροφόντης</b> (Ach 427-8)= s: Bellerofonte, eroe di Corinto famoso per l'uccisione della Chimera, personaggio della tragedia <i>Stenebea</i> di Euripide.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>βέλος</b> (Ach 345)= s: concr. giavellotto, dardo, est. arma.</div>
+						<div class="term" data-category="Tesmoforie verbi sche"><b>βινέω</b> (Th 35, 50)= v: scopare, fottere, sodomizzare.</div>
+						<div class="term" data-category="Acarnesi verbi parola"><b>βοάω </b> (Ach 38, 185-6, 347, 353)= v: gridare.</div>
+						<div class="term" data-category="Acarnesi sost agg tea"><b>Βοιώτιος</b> (Ach 14)= s/agg: della Beozia, ant. melodia beotica.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>βόλιτον</b> (Ach 1026)= s: sterco di vacca.</div>
+						<div class="term" data-category="Tesmoforie int neo sche"><b>βομβαλοβομβάξ</b> (Th 45)= i: bumbum! Rafforzativo di <b>βομβάξ</b>, interiezione di meraviglia.</div>
+						<div class="term" data-category="Tesmoforie int neo sche"><b>βομβάξ</b> (Th 45)= i: bum!, interiezione di meraviglia.</div>
+						<div class="term" data-category="Acarnesi sost sche tea neo"><b>βομβαύλιος</b> (Ach 866)= s: flautisti-calabroni. Neologismo coniato in assonanza con βομβυλιός(calabrone) e αὐλός(flauto)</div>
+						<div class="term" data-category="Acarnesi sost poli trib"><b>βουλευτήριον</b> (Ach 379)= s: sala del consiglio, tribunale.</div>
+						<div class="term" data-category="Acarnesi Tesmoforie sost poli"><b>βουλὴ</b> (Ach 124; Th 79)= s: consiglio, progetto, indole, volontà, est. assemblea, consiglio.</div>
+						<div class="term" data-category="Acarnesi sost sac"><b>βωμός</b> (Ach 308)= s: altare, tomba.</div>
+
+						<h3>Γ</h3>
+
+						<div class="term" data-category="Acarnesi sost sche"><b>γαλῆ</b> (Ach 255)= s: donnola.</div>
+						<div class="term" data-category="Acarnesi verbi emo"><b>γανόω</b> (Ach 7)= v: far brillare, rendere lucente, met. rallegrare.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>γεύμα</b> (Ach 187)= s: assaggio, cibo.</div>
+						<div class="term" data-category="Acarnesi verbi emo cibo"><b>γεύομαι</b> (Ach 188, 191)= v: gustare, assaporare, est. godere di.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>γλήχων</b> (Ach 861, 869, 874)= s: puleggio, mentuccia.</div>
+						<div class="term" data-category="Tesmoforie verbi parola sap comp neo"><b>γνωμοτυπέω</b> (Th 55)= v: coniare massime. Composto formato da <b>γνώμη</b> (sentenza, massima) e <b>τύπτω</b> (colpire, battere).</div>
+						<div class="term" data-category="Acarnesi sost sche comp"><b>γοργολόφα</b> (Ach 567)= s: colui che porta il cimiero simile alla Gorgone. Composto formato da <b>Γοργώ</b> (Gorgone) e <b>λόφος</b> (cimiero).</div>
+						<div class="term" data-category="Acarnesi sost poli trib"><b>γραφή</b> (Ach 679, 714)= s: scrittura, segno, processo.</div>
+						<div class="term" data-category="Acarnesi verbi tea"><b>γράφω</b> (Ach 31, 144, 532, 992)= v: scrivere, disegnare, dipingere, ritrarre.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>γυλιός</b> (Ach 1097, 1138)= s: zaino.</div>
+
+						<h3>Δ</h3>
+
+						<div class="term" data-category="Acarnesi Tesmoforie sost sac"><b>δαίμων</b> (Ach 794, Th 64)= s: divinità, potere divino, essere soprannaturale, nume.</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>δάκνω</b> (Ach 1, 325, 1209)= v: mordere.</div>
+						<div class="term" data-category="Acarnesi agg sche"><b>δειλός</b> (Ach 664)= agg: codardo, vile.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>δεῖνα</b> (Ach 1149)= s: il coso, il tale.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>δειπνάω</b> (Ach 1088)= v: mangiare, banchettare.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>δεῖπνον</b> (Ach 988, 1085, 1096, 1112, 1137, 1142)= s: pasto, cibo, banchetto.</div>
+						<div class="term" data-category="Acarnesi sost tea pers"><b>Δεξίθεος</b> (Ach 14)= s: Dessiteo, citaredo dotato.</div>
+						<div class="term" data-category="Acarnesi sost agg poli guerra"><b>δεσπότης</b> (Ach 257)= s/agg: despota, tiranno, signore assoluto, re.</div>
+						<div class="term" data-category="Acarnesi sost sac"><b>Δημήτηρ</b> (Ach 47, 708)= s: Demetra, dea delle messi, della fertilità, dell'agricoltura.</div>
+						<div class="term" data-category="Acarnesi verbi poli"><b>δημοκρατέομαι</b> (Ach 642)= v: avere un governo democratico, essere governato democraticamente.</div>
+						<div class="term" data-category="Acarnesi sost poli"><b>δημοκρατία</b> (Ach 618)= s: democrazia, governo del popolo.</div>
+						<div class="term" data-category="Acarnesi sost poli"><b>δῆμος</b> (Ach 33, 626, 631, 642)= demo, quartiere, est. popolo.</div>
+						<div class="term" data-category="Acarnesi verbi sche poli"><b>δημοσιεύω</b> (Ach 1030)= v: esercitare servizi pubblici, confiscare, essere un pubblico ufficiale.</div>
+						<div class="term" data-category="Acarnesi sost poli"><b>δημότης</b> (Ach 319, 328, 333, 349, 675)= s: uomo comune, cittadino, abitante del demo.</div>
+						<div class="term" data-category="Acarnesi verbi sche trib guerra"><b>διαβάλλω</b> (Ach 502, 630)= v: attaccare, calunniare.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra"><b>διαλλαγή</b> (Ach 989)= v: cambiamento, riconciliazione</div>
+						<div class="term" data-category="Tesmoforie verbi tea sche neo"><b>διαμινυρίζομαι</b> (Th 100)= v: cantare con tono flebile.</div>
+						<div class="term" data-category="Tesmoforie verbi cibo sap"><b>διανοέω</b> (Th 71)= v: avere in mente, pensare, progettare.</div>
+						<div class="term" data-category="Acarnesi verbi cibo sche comp neo"><b>διαπεινάω</b> (Ach 751)= v: lett. fare a gara a chi ha più fame, morire di fame. Composto formato da <b>διά</b> (relazione tra persone) e <b>πεινάω</b> (avere fame) sul modello di <b>διαπίνω</b> (fare a gara a chi beve di più).</div>
+						<div class="term" data-category="Acarnesi verbi emo sche guerra"><b>διαστρέφω</b> (Ach 15)= v: stravolgere, corrompere, distorcere.</div>
+						<div class="term" data-category="Acarnesi sost tea sap"><b>διδάσκαλος</b> (Ach 628)= s: maestro, insegnante, istituore di cori</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>διεμπολάω</b> (Ach 972)= v: vendere a diversi compratori, vendere in lotti.</div>
+						<div class="term" data-category="Tesmoforie verbi trib"><b>δικάζω</b> (Th 79)= v: giudicare, essere giudici, decidere, condannare.</div>
+						<div class="term" data-category="Acarnesi sost comp"><b>Δικαιόπολις</b> (Ach 406, 748-9, 823, 959, 1048, 1084, 1196)= s: Diceopoli, nome del protagonista degli <i>Acarnesi</i> è un nome parlante, composto da <b>δίκη</b> (giustizia) e <b>πόλις</b> (città).</div>
+						<div class="term" data-category="Tesmoforie sost trib"><b>δικαστήριον</b> (Th 78)= s: dicasterio, corte di giustizia, tribunale, corte(giudici).</div>
+						<div class="term" data-category="Acarnesi sost poli trib"><b>δίκη</b> (Ach 364, 684, 847, 937)= s: giustizia, pena, processo</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>δίκτυον</b> (Ach 550)= s: rete, grata.</div>
+						<div class="term" data-category="Acarnesi sost sac"><b>Διοκλῆς</b> (Ach 774)= s: Diocle, eroe venerato annualmente a Megara per il suo sacrificio.</div>
+						<div class="term" data-category="Acarnesi sost sac poli tea"><b>Διονύσια</b> (Ach 194, 202, 250)= s: Dionisie, festival sacro a Dioniso. Esistevano tre Dionisie: le Grandi Dionisie a marzo-aprile in cui si svolgevano gli agoni tragici e comici, le Dionisie Rurali a dicembre e le Antesterie a fine febbraio.</div>
+						<div class="term" data-category="Acarnesi sost sac"><b>Διόνυσος</b> (Ach 247, 1086)= s: Dioniso, dio del vino, delle feste, dell'ebrezza, del teatro.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>δόρυ</b> (Ach 1118, 1120, 1188, 1192)= s: lancia, giavellotto.</div>
+						<div class="term" data-category="Acarnesi Tesmoforie sost tea"><b>δράμα</b> (Ach 415, 470; Th 52)= s: dramma teatrale, tragedia.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>δραχμή</b> (Ach 66-7, 90, 130, 159, 161, 602, 960, 962, 1055)= dracma(misura), dracma(moneta).</div>
+
+						<h3>Ε</h3>
+
+						<div class="term" data-category="Acarnesi verbi sche"><b>ἐγχάσκω</b> (Ach 1197)= v: lett. aprire la bocca, met. prendere in giro.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἔγχελυς</b> (Ach 880, 882, 889, 962-3, 1043)= s: anguilla.</div>
+						<div class="term" data-category="Tesmoforie sost poli"><b>ἕδρα</b> (Th 79)= v: lett. sedia, seduta, trasl. seduta del consiglio, faccia(geometria).</div>
+						<div class="term" data-category="Acarnesi sost poli"><b>ἔθνος</b> (Ach 153)= v: popolo, popolazione, etnia.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra"><b>εἰρήνη</b> (Ach 26, 32, 39, 60, 278, 652, 1021, 1029, 1033, 1053)= s: pace.</div>
+						<div class="term" data-category="Acarnesi verbi parola"><b>εἴρω</b> (Ach 540, 580)= v: dire, parlare, chiedere.</div>
+						<div class="term" data-category="Acarnesi verbi tea guerra"><b>εἰσάγω</b> (Ach 11)= v: condurre fuori, far uscire, introdurre.</div>
+						<div class="term" data-category="Acarnesi verbi parola poli"><b>εἰσκηρύσσω</b> (Ach 135)= v: annunciato(tramite araldi).</div>
+						<div class="term" data-category="Acarnesi sost poli"><b>ἐκκλησία</b> (Ach 19, 28, 56, 169, 173)= s: assemblea.</div>
+						<div class="term" data-category="Tesmoforie verbi trib poli"><b>ἐκκλησιάζω</b> (Th 84, 90)= v: fare l'assemblea, discutere in assemblea, deliberare, essere membro dell'assemblea.</div>
+						<div class="term" data-category="Acarnesi Tesmoforie verbi tea"><b>ἐκκυκλέω</b> (Ach 408-9, Th 96)= v: girare la macchina teatrale.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>ἐκπίνω</b> (Ach 1001, 1202)= v: bere fino all'esaurimento, svuotare bevendo.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἔκπωμα</b> (Ach 74)= s: coppa per bere, calice.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἔλαιον</b> (Ach 35, 550, 1128)= s: olio d'oliva, olio, sostanza oleosa.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἐλαΐς</b> (Ach 998)= s: ulivo.</div>
+						<div class="term" data-category="Acarnesi sost cibo guerra"><b>ἐλατήρ</b> (Ach 247)= s: conduttore di carri, guidatore, rematore, focaccia oblunga.</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>ἐμέω</b> (Ach 587)= v: vomitare, emettere, rigurgitare.</div>
+						<div class="term" data-category="Acarnesi sost agg cibo sac"><b>ἐμπολαῖος</b> (Ach 816)= s/agg: mercante, legato al commercio. Epiteto di Ermes.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἐμπολή</b> (Ach 930)= s: merce, transazione, acquisto, guadagno.</div>
+						<div class="term" data-category="Acarnesi sost agg cibo"><b>ἐμπορικός</b> (Ach 972)= s/agg: mercantile, legato al commercio.</div>
+						<div class="term" data-category="Acarnesi verbi guerra neo"><b>ενασπιδούμαι</b> (Ach 368)= v: indossare lo scudo.</div>
+						<div class="term" data-category="Acarnesi verbi cibo neo"><b>ἐντευτλανόομαι</b> (Ach 894)= v: essere cotto con le bietole.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἔνυδρις</b> (Ach 880)= s: lontra.</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>ἐξαπατάω</b> (Ach 114, 634, 636, 657)= v: ingannare, sedurre.</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>ἐξεμέω</b> (Ach 6, 586)= v: vomitare, emettere, rigurgitare.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>ἐξοπτάω</b> (Ach 1005)= v: arrostire.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἐπανθρακίς</b> (Ach 670)= s: pesciolino da friggere.</div>
+						<div class="term" data-category="Tesmoforie verbi sche"><b>ἐπιβουλεύω</b> (Th 82)= v: complottare, tramare, progettare, avere intenzione.</div>
+						<div class="term" data-category="Acarnesi agg sche"><b>ἐπίτριπτος</b> (Ach 557)= agg: dannato, maledetto.</div>
+						<div class="term" data-category="Acarnesi Tesmoforie sost parola tea"><b>ἔπος</b> (Ach 687; Th 53)= s: parola, verso, componimento.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>ἐπύλλιον</b> (Ach 398)= s: epillio, est. piccolo componimento.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἔρανος</b> (Ach 615)= s: pasto collettivo, banchetto, prestito su colletta, contributo, offerta.</div>
+						<div class="term" data-category="Acarnesi sost agg emo"><b>ἐραστής</b> (Ach 143)= s/agg: amante, innamorato, ammiratore.</div>
+						<div class="term" data-category="Acarnesi verbi emo"><b>ἐράω</b> (Ach 32)= v: amare, desiderare.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra"><b>ἔργον</b> (Ach 8, 128)= s: azione, impresa, fatto.</div>
+						<div class="term" data-category="Acarnesi sost sche cibo"><b>ἐρέβινθος</b> (Ach 801)= s: cece, trasl. pene.</div>
+						<div class="term" data-category="Acarnesi sost sac"><b>Ἑρμῆς</b> (Ach 742, 779, 816)= s: Ermes, messaggero degli dei, dio dei mercanti, dei ladri, dei crocevia e psicopompo.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>ἐσθίω</b> (Ach 78, 146, 797, 799)= v: mangiare, consumare, divorare.</div>
+						<div class="term" data-category="Acarnesi sost sac cibo"><b>ἐσχάρα</b> (Ach 888)= s: focolare, altare, braciere, fornello.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἐτνήρυσις</b> (Ach 245)= s: mestolo.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἔτνος</b> (Ach 246)= s: passato di legumi, purè.</div>
+						<div class="term" data-category="Acarnesi agg sche"><b>εὔοπλος</b> (Ach 592)= agg: ben armato, ben attrezzato.</div>
+						<div class="term" data-category="Acarnesi Tesmoforie sost tea pers"><b>Εὐριπίδης</b> (Ach 394-5, 400, 404, 410, 414, 437, 452, 462, 467, 475, 484; Th 4, 77)= s: Euripide, tragediografo di fama</div>
+						<div class="term" data-category="Acarnesi sost sche comp"><b>εὐρυπρωκτία</b> (Ach 843)= s: lascivia, lussuria. Composto formato da <b>εὐρύς</b> (aperto) e <b>πρωκτός</b> (culo).</div>
+						<div class="term" data-category="Acarnesi sost sche comp"><b>εὐρύπρωκτος</b> (Ach 716)= s: rottinculo, sodomita dal culo aperto. Composto formato da <b>εὐρύς</b> (aperto) e <b>πρωκτός</b> (culo).</div>
+						<div class="term" data-category="Acarnesi verbi parola sac"><b>εὐφημέω</b> (Ach 237, 241)= v: parlare bene, celebrare, non dire parole sacrileghe, est. tacere (in religioso silenzio).</div>
+						<div class="term" data-category="Acarnesi sost parola sac"><b>εὐφημία</b> (Ach 238)= s: religioso silenzio, lode.</div>
+						<div class="term" data-category="Tesmoforie sost agg parola sac"><b>εὔφημος</b> (Th 39)= s/agg: elogiativo, encomiastico, di buon augurio, silenzioso.</div>
+						<div class="term" data-category="Acarnesi verbi emo"><b>εὐφραίνω</b> (Ach 5)= v: gioire, rallegrarsi.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>εὐωχία</b> (Ach 1009)= s: banchetto, festa.</div>
+						<div class="term" data-category="Acarnesi sost guerra cibo"><b>ἐφόδιον</b> (Ach 53)= s: provviste, mezzi di sostentamento, risorsa.</div>
+						<div class="term" data-category="Acarnesi sost agg guerra poli emo"><b>ἐχθρός</b> (Ach 225)= s/agg: odiato, nemico.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἐχῖνος</b> (Ach 879)= s: porcospino, riccio di mare.</div>
+
+						<h3>Ζ</h3>
+
+						<div class="term" data-category="Acarnesi Tesmoforie sost sac"><b>Ζεύς</b> (Ach 88, 137, 224, 368, 435, 752, 767, 811, 911, 966, 1025, 1151; Th 1, 20, 34, 71)= s: Zeus, padre degli dei, sovrano dell'Olimpo, dio dei giuramenti, degli ospiti, del cielo.</div>
+
+						<h3>Η</h3>
+
+						<div class="term" data-category="Acarnesi verbi emo"><b>ἥδομαι</b> (Ach 2, 4, 13, 635)= v: rallegrarsi, compiacersi.</div>
+						<div class="term" data-category="Acarnesi Tesmoforie sost sac"><b>Ἡρακλῆς</b> (Ach 94, 234, 807, 860, 1018; Th 26)= s: Eracle, eroe mitico dalla forza sovrumana famoso per le dodici fatiche, figlio di Zeus ed Alcmena.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>ἥρως</b> (Ach 575, 578)= s: eroe.</div>
+						
+						<h3>Θ</h3>
+
+						<div class="term" data-category="Acarnesi sost agg poli cibo"><b>Θάσιος</b> (Ach 671)= s/agg: di Taso, ant. salsa di Taso simile alla salamoia.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>θεατής</b> (Ach 442)= s: spettatore.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>θέατρον</b> (Ach 629)= s: teatro, pubblico.</div>
+						<div class="term" data-category="Acarnesi sost tea pers"><b>Θέογνις</b> (Ach 11, 140)= s: Teognide, tragediografo ateniese contemporaneo di Aristofane.</div>
+						<div class="term" data-category="Acarnesi Tesmoforie sost sac"><b>θεός</b> (Ach 95, 224, 759, 776, 934; Th 72)= s: dio, dea, divinità.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>θερίζω</b> (Ach 947, 949)= v: fare il raccolto, mietere, annientare.</div>
+						<div class="term" data-category="Acarnesi agg sche comp"><b>θερμόβουλον</b> (Ach 119)= agg: dall'indole ardente, focosa. Composto da <b>θερμός</b> (caldo) e <b>βουλή</b> (volontà).</div>
+						<div class="term" data-category="Tesmoforie sost sac poli"><b>Θεσμοφόρια</b> (Th 80)= s: Tesmoforie, feste sacre dedicate a Demetra e Persefone, legate alla fertilità agreste ed umana; solitamente celebrati in autunno, i riti sacri erano segreti ed interdetti agli uomini e alle bambine, ad Atene duravano tre giorni.</div>
+						<div class="term" data-category="Tesmoforie agg sost sac trib"><b>θεσμοφόρος</b> (Th 83, 89)= s/agg: Tesmofora, legislatrice, epiteto di Demetra e Persefone; sost. Termoforio, tempio di Demetra sull'Acropoli di Atene.</div>
+						<div class="term" data-category="Acarnesi verbo tea"><b>θεώμενος</b> (Ach 496)= v part: spettatore.</div>
+						<div class="term" data-category="Tesmoforie sost sac cibo"><b>θίασος</b> (Th 41)= s: tiaso, schiera sacra, compagnia, gruppo, festa.</div>
+						<div class="term" data-category="Acarnesi verbi guerra"><b>θνῄσκω</b> (Ach 325, 893)= v: morire.</div>
+						<div class="term" data-category="Acarnesi sost poli pers"><b>Θουκυδίδης</b> (Ach 702, 708)= s: Tucidide, leader oligarchico della generazione precedente ad Aristofane.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>θρανίτης</b> (Ach 162)= s: rematore.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>θρῖον</b> (Ach 1101-2)= s: foglia di fico, foglia, involtino.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>θρυαλλίς</b> (Ach 874, 916-7, 919, 925)= s: piantaggine, lucignolo.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>Θυέστης</b> (Ach 433)= s: Tieste, re di Olimpia, protagonista della tragedia omonima di Euripide.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>θυμάλωψ</b> (Ach 321)= s: brace, carbone.</div>
+						<div class="term" data-category="Acarnesi agg cibo sche comp neo"><b>θυμβροφάγος</b> (Ach 254)= agg: che mangia santoreggia. Composto formato da <b>θύμβρα</b> (santoreggia) e <b>ἐσθίω</b> (mangiare).</div>
+						<div class="term" data-category="Acarnesi agg cibo"><b>θυμίτης</b> (Ach 772)= agg: aromatizzato col timo.</div>
+						<div class="term" data-category="Acarnesi agg sche sac"><b>θύσιμος</b> (Ach 784-5)= agg: adatto al sacrificio.</div>
+						<div class="term" data-category="Acarnesi verbi sac"><b>θύω</b> (Ach 240, 249, 792-3)= v: sacrificare, fare un sacrificio rituale, est. celebrare.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>θώραξ</b> (Ach 1132-3)= s: armatura, pettorale, petto.</div>
+						<div class="term" data-category="Acarnesi verbi guerra"><b>θωρήσσω</b> (Ach 1134-5)= v: indossare l'armatura, fortificare, difendersi.</div>
+
+						<h3>Ι</h3>
+
+						<div class="term" data-category="Acarnesi comp neo"><b>Ιαρταμανεξαρξαςαπιαονασατρα</b> (Ach 100)= parole costruite ad hoc da Aristofane perché non avessero senso, ma paressero simili alle storpiature di un persiano che parla greco.</div>
+						<div class="term" data-category="Tesmoforie verbi parola sac"><b>ἱκετεύω</b> (Th 65)= v: essere supplice, supplicare, pregare, chiedere supplicando.</div>
+						<div class="term" data-category="Acarnesi sost sac"><b>ἱερεύς</b> (Ach 1086)= s: sacerdote.</div>
+						<div class="term" data-category="Acarnesi sost tea pers"><b>Ἱερώνυμος</b> (Ach 389)= s: Geronimo, tragediografo e giambografo dalla capigliatura molto folta.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἴκτις</b> (Ach 880)= s: martora, faina.</div>
+						<div class="term" data-category="Acarnesi sost guerra cibo"><b>ἱμάς</b> (Ach 724)= s: cinghia, redini, cesto, frusta.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>Ἰνώ</b> (Ach 434)= s: Ino, figlia di Cadmo ed Armonia, protagonista della tragedia omonima di Euripide.</div>
+						<div class="term" data-category="Acarnesi sost sac"><b>Ἰόλαος</b> (Ach 867)= s: Iolao, figlio di Ificle, compagno di Eracle, eroe venerato a Tebe insieme ad Eracle con dei giochi.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἰσχάς</b> (Ach 802, 804-5, 809)= s: fico secco.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ἴτριον</b> (Ach 1092)= s: dolce di miele e sesamo.</div>
+
+
+						<h3>Κ</h3>
+
+						<div class="term" data-category="Acarnesi sost cibo"><b>κάδος</b> (Ach 549)= s: giara, vaso, urna.</div>
+						<div class="term" data-category="Acarnesi sost poli sac"><b>κάθαρμα</b> (Ach 44)= s: residuo di un sacrificio, recinto sacro.</div>
+						<div class="term" data-category="Acarnesi verbi sche parola"><b>κακορροθέω</b> (Ach 577)= v: offendere, parlar male, calunniare.</div>
+						<div class="term" data-category="Tesmoforie agg tea comp"><b>καλλιεπής</b> (Th 49, 60)= agg: dal bel verso, versato nel canto, elegante nel parlare. Composto formato da <b>κάλλος</b> (bellezza) e <b>ἔπος</b> (verso, parola).</div>
+						<div class="term" data-category="Acarnesi sost cibo sac"><b>κάνεον</b> (Ach 244, 253)= s: cesto, canestro.</div>
+						<div class="term" data-category="Acarnesi sost agg sac"><b>κανηφόρος</b> (Ach 242, 260)= s/agg: caneforo, che porta il cesto durante le processioni rituali.</div>
+						<div class="term" data-category="Acarnesi sost emo"><b>καρδία</b> (Ach 1, 12, 489)= s: cuore, animo, stomaco.</div>
+						<div class="term" data-category="Acarnesi verbi parola"><b>καταβοάω</b> (Ach 711)= v: urlare contro, sovrastare con le urla.</div>
+						<div class="term" data-category="Acarnesi sost sche neo"><b>Καταγέλα</b> (Ach 606)= s: Catagela. Città inventata sul calco di <b>Γέλα</b> (Gela), col gioco paretimologico tra Gela e Catagela, <b>γελάω</b> (sorridere, ridere) e <b>καταγελάω</b> (sganasciarsi, deridere).</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>καταγελάω</b> (Ach 76, 680, 1081, 1107)= v: prendere in giro, ridere di, deridere.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>κατάγελως</b> (Ach 1126)= s: derisione, sciocchezza.</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>καταγιγαρτίζω</b> (Ach 275)= v: deflorare.</div>
+						<div class="term" data-category="Acarnesi verbi sche parola"><b>καταγλωττίζω</b> (Ach 380)= v: calunniare.</div>
+						<div class="term" data-category="Acarnesi verbi guerra parola"><b>καταλέγω</b> (Ach 1065)= v: parlare profusamente, ripetere, richimare.</div>
+						<div class="term" data-category="Acarnesi verbi guerra"><b>καταπελτάζω</b> (Ach 160)= v: assaltare con milizie leggere.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>καταπίνω</b> (Ach 484)= v: trangugiare, bere tutto d'un fiato.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>καταπύγων</b> (Ach 79)= s: perverso, rottinculo.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>κατατρώγω</b> (Ach 809)= v: mangiare del tutto, divorare completamente.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>κατεσθίω</b> (Ach 973, 1111-2)= v: divorare, mangiare, corrodere.</div>
+						<div class="term" data-category="Acarnesi sost emo"><b>κέαρ</b> (Ach 5)= s: cuore, animo.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>κέρδος</b> (Ach 905, 957)= s: guadagno, profitto.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>κέρκος</b> (Ach 785)= s: lett. coda, trasl. pene, cazzo.</div>
+						<div class="term" data-category="Acarnesi sost parola"><b>κήρυξ</b> (Ach 1004, 1083)= s: messaggero, araldo.</div>
+						<div class="term" data-category="Acarnesi verbi parola"><b>κηρύσσω</b> (Ach 623)= v: proclamare, annunciare.</div>
+						<div class="term" data-category="Acarnesi sost cibo sac"><b>κίστη</b> (Ach 1086, 1098, 1137)= s: cesta, cestino, urna votiva.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>κίχλη</b> (Ach 961, 970, 1007, 1011, 1104, 1108, 1116)= s: tordo.</div>
+						<div class="term" data-category="Acarnesi sost poli pers"><b>Κλεισθένης</b> (Ach 6)= s: Clistene, delegato ateniese preso di mira per l'effeminatezza.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra"><b>κλέος</b> (Ach 646)= s: gloria, fama.</div>
+						<div class="term" data-category="Acarnesi sost trib"><b>κλεψύδρα</b> (Ach 693)= s: pipetta, clessidra(usata in tribunale per misurare il tempo degli interventi).</div>
+						<div class="term" data-category="Acarnesi sost poli guerra pers"><b>Κλέων</b> (Ach 6, 300, 377, 502, 659)= s: Cleone, politico e generale ateniese di spicco.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra pers"><b>Κλεώνυμος</b> (Ach 88, 844)= s: Cleonimo, generale ateniese preso di mira per la sua ghiottoneria e codardia.</div>
+						<div class="term" data-category="Acarnesi sost cibo sac"><b>κνίση</b> (Ach 1045)= s: fumo (in particolare delle offerte bruciate sull'altare).</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>κόκκυξ</b> (Ach 598)= s: cuculo.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>κολυμβίς</b> (Ach 876)= s: colimbo.</div>
+						<div class="term" data-category="Acarnesi agg sche comp neo cibo"><b>κολλικοφάγος</b> (Ach 871)= agg: mangiatore di pane d'orzo. Composto formato da <b>κόλλιξ</b> (pane d'orzo) e <b>ἐσθίω</b> (mangiare).</div>
+						<div class="term" data-category="Tesmoforie verbi parola comp neo"><b>κολλομελέω</b> (Th 54)= v: incollare insieme versi. Composto formato da <b>κόλλα</b> (colla) e <b>μέλος</b> (canto, poema).</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>κολοιός</b> (Ach 875)= s: cornacchia.</div>
+						<div class="term" data-category="Acarnesi sost sche neo"><b>κομπολάκυθος</b> (Ach 589, 1182)= s: "uccello-spaccone", neologismo coniato dal verbo <b>κομπολακέω</b> (fare lo spaccone) e il suffisso <b>-υθος</b> per ricordare specie di uccelli.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>κοτυλίσκος</b> (Ach 459)= s: piccola coppa, calice, ciotola.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>κόψιχος</b> (Ach 970)= s: merlo.</div>
+						<div class="term" data-category="Acarnesi sost cibo sche"><b>κραιπάλη</b> (Ach 277)= s: sbornia, intossicazione.</div>
+						<div class="term" data-category="Acarnesi verbi parola"><b>κράζω</b> (Ach 335)= v: lett. gracchiare, trasl. urlare.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>κράνος</b> (Ach 584, 1103)= s: elmo.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>κρατήρ</b> (Ach 937)= s: cratere, coppa.</div>
+						<div class="term" data-category="Acarnesi sost tea pers"><b>Κρατῖνος</b> (Ach 848, 1172)= s: Cratino, poeta comico rivale di Aristofane.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>κρέας</b> (Ach 795, 1049-50, 1054, 1106, 1110)= s: carne, carcassa, persona.</div>
+						<div class="term" data-category="Acarnesi agg cibo"><b>κριβανίτης</b> (Ach 87, 1123)= s/agg: cotto in uno stampo, in una teglia, al forno, sost. panino.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>κρίβανος</b> (Ach 86)= s: teglia, tegame, vaso, forno.</div>
+						<div class="term" data-category="Tesmoforie verbi trib"><b>κρίνω</b> (Th 76)= v: dividere, scegliere, decidere, giudicare, discernere.</div>
+						<div class="term" data-category="Acarnesi sost poli trib"><b>κριτής</b> (Ach 1224)= s: giudice.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>κρόμμυον</b> (Ach 550, 1099-100)= s: cipolla.</div>
+						<div class="term" data-category="Acarnesi sost sche pers"><b>Κτησιφῶν</b> (Ach 1002)= s: Ctesifonte, dileggiato per l'ampio ventre.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>κυδοιμός</b> (Ach 573)= s: tumulto della battaglia, strepito.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>κυδωνία</b> (Ach 1199)= s: mela cotogna.</div>
+						<div class="term" data-category="Acarnesi verbi sche parola neo"><b>κυκλοβορέω</b> (Ach 381)= v: strepitare come il Cicloboro(torrente in Attica).</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>κύλιξ</b> (Ach 939)= s: kylix, coppa, calice.</div>
+						<div class="term" data-category="Acarnesi verbi emo"><b>κυνέω</b> (Ach 1207)= v: baciare.</div>
+						<div class="term" data-category="Tesmoforie sost sche pers"><b>Κυρήνη</b> (Th 98)= s: Cirene, famosa cortigiana.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>κύσθος</b> (Ach 782, 789)= s: vagina, vulva, figa.</div>
+						<div class="term" data-category="Acarnesi verbi sche tea"><b>κωμῳδέω</b> (Ach 631, 655)= v: ridicolizzare, fare satira su, deridere, prendere in giro.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>κωμῳδία</b>(Ach 378)= s: commedia.</div>
+						<div class="term" data-category="Acarnesi agg parola"><b>κωφός</b> (Ach 681)= agg: muto, silenzioso.</div>
+						
+						<h3>Λ</h3>
+
+						<div class="term" data-category="Acarnesi sost cibo"><b>λαγώς</b> (Ach 520, 878, 1006, 1110)= s: leprotto, lepre.</div>
+						<div class="term" data-category="Tesmoforie verbi sche"><b>λαικάζω</b> (Th 57)= v: succhiare il cazzo, praticare la fellatio, prostituirsi, est. piantarla, smetterla.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>λαικαστής</b> (Ach 79)= s: prostituto, succhiacazzi.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>λαικάστρια</b> (Ach 529, 537)= s: prostituta, sgualdrina.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>λακαταπύγων</b> (Ach 664)= s: rottinculo.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra pers"><b>Λακρατείδης</b> (Ach 220)= s: Lacretide, arconte ateniese.</div>
+						<div class="term" data-category="Acarnesi verbi parola sche"><b>λαλέω</b> (Ach 21, 410)= v: cianciare, ciarlare, chiacchierare.</div>
+						<div class="term" data-category="Acarnesi agg parola"><b>λάλος</b> (Ach 705, 716, 933)= agg: chiacchierone, stridulo.</div>
+						<div class="term" data-category="Acarnesi sost sche comp neo"><b>Λαμαχίππιον</b> (Ach 1206)= s: Lamacavaliere. Neologismo creato aggiungendo a <b>Λάμαχος</b> (Lamaco) il suffisso <b>-ίππος</b> (cavallo) per indicare il marchio aristocratico di Lamaco e il diminutivo <b>-ιον</b> per sottolineare il tono derisorio del composto.</div>
+						<div class="term" data-category="Acarnesi sost poli pers"><b>Λάμαχος</b> (Ach 270, 566, 568, 575-6, 578, 590, 614, 619, 625, 722, 960, 963, 1071, 1115, 1131, 1174)= s: Lamaco, generale ateniese, grande sostenitore della guerra.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra tea"><b>λαός</b> (Ach 162)= s: popolo, esercito, folla, pubblico.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>λάρκος</b> (Ach 333, 340, 351)= s: cesta di carboni.</div>
+						<div class="term" data-category="Acarnesi Tesmoforie verbi parola"><b>λέγω</b> (Ach 34, 39, 41, 45, 99, 101, 103, 106, 107-8, 170, 198, 299, 303, 307, 311-2, 317-9, 328, 337-8, 355-6, 359, 365, 367, 369, 383, 416, 429, 482, 486, 493, 495, 498, 501, 503, 508, 515-6, 540, 558, 561-3, 578-80, 588, 593, 644, 649, 690, 765, 812, 897-8, 1013, 1057-8, 1186; Th 6, 9, 45, 85, 91)= v: parlare, dire, raccontare.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>λεκάνη</b> (Ach 1110)= s: piatto, padella, pentola.</div>
+						<div class="term" data-category="Acarnesi sost tea sac"><b>Λήναια</b> (Ach 1152)= v: Lenee, festival sacro tra gennaio e febbraio in cui si svolgeva anche un concorso comico.</div>
+						<div class="term" data-category="Acarnesi sost tea sac"><b>Λήναιον</b> (Ach 504)= v: Leneo, santuario di Dioniso.</div>
+						<div class="term" data-category="Acarnesi sost poli sac trib cibo"><b>λίθος</b> (Ach 184, 236, 295, 319, 341, 343, 683, 1167, 1185)= s: lett. pietra, est. tribunale, agorà, altare.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>λιμός</b> (Ach 743, 1044)= s: fame.</div>
+						<div class="term" data-category="Acarnesi agg comp"><b>λιπαράμπυξ</b> (Ach 671)= agg: dalla benda splendente. Composto da <b>λιπαρός</b> (lucente) e <b>ἄμπυξ</b> (benda).</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>λογίζομαι</b> (Ach 31)= v: contare, calcolare, est. considerare.</div>
+						<div class="term" data-category="Acarnesi sost parola"><b>λόγος</b> (Ach 299, 303, 513, 626, 634)= s: parola, studio, ragionamento, discorso.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>λόγχη</b> (Ach 1226)= s: lancia, punta di lancia, giavellotto.</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>λοιδορέω</b> (Ach 38)= v: insultare, ingiuriare, biasimare.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>λόφος</b> (Ach 575, 586, 965, 967, 1074, 1109, 1111)= s: cresta, cimiero, ciuffo.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>λόχος</b> (Ach 575, 1074)= s: imboscata, schiera, esercito.</div>
+						<div class="term" data-category="Acarnesi sost sche pers"><b>Λυσίστρατος</b> (Ach 854)= s: Lisistrato, parassita dipinto come sempre famelico e povero.</div>
+
+						<h3>Μ</h3>
+
+						<div class="term" data-category="Acarnesi sost cibo"><b>μᾶζα</b> (Ach 732, 835)= s: impasto, focaccia d'orzo, pane.</div>
+						<div class="term" data-category="Tesmoforie verbi sap"><b>μανθάνω</b> (Th 22)= v: imparare, apprendere, abituarsi, rendersi conto, capire.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>μαρίλη</b> (Ach 350)= s: polvere di carbone, fuliggine.</div>
+						<div class="term" data-category="Acarnesi verbi trib"><b>μαρτύρομαι</b> (Ach 926)= v: chiamare a testimone, invocare come testimone.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>μάσσω</b> (Ach 673)= v: impastare, aderire.</div>
+						<div class="term" data-category="Acarnesi verbi parola"><b>μασταρύζω</b> (Ach 689)= v: mugugnare, farfugliare.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>μάχη</b> (Ach 913, 1071)= s: battaglia, scontro.</div>
+						<div class="term" data-category="Acarnesi verbi guerra"><b>μάχομαι</b> (Ach 1082)= v: combattere, scontrarsi.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>μέλι</b> (Ach 1040, 1130)= s: miele, dolce.</div>
+						<div class="term" data-category="Tesmoforie verbi tea"><b>μελοποιέω</b> (Th 42, 67)= v: comporre poemi lirici, comporre musica, esprimere nel canto.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>μέλος</b> (Ach 1183)= s: canto, componimento melico.</div>
+						<div class="term" data-category="Acarnesi agg sche comp neo"><b>μεθυσοκότταβος</b> (Ach 525)= agg: ubriacatosi giocando al cottabo; composto formato da <b>μέθυσος</b> (ubriaco) e <b>κότταβος</b> (cottabo).</div>
+						<div class="term" data-category="Acarnesi verbi poli"><b>μεμιλτωμένον</b> (Ach 22)= v part: tinto di rosso, concr. corda tinta di rosso per evitare che la gente non partecipasse alle assemblee nella Pnice.</div>
+						<div class="term" data-category="Acarnesi agg sche comp neo"><b>μετάβουλος</b> (Ach 632)= agg: volubile, mutevole. Composto ricavato da <b>μετά</b> (cambiamento) e <b>βουλή</b> (volontà).</div>
+						<div class="term" data-category="Acarnesi sost poli trib"><b>μέτοικος</b> (Ach 508)= s: meteco.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>μετρέω</b> (Ach 1021)= v: misurare, assegnare, distribuire.</div>
+						<div class="term" data-category="Acarnesi verbi tea sche"><b>μηχανάομαι</b> (Ach 445)= v: ingannare, tramare, preparare un trucco.</div>
+						<div class="term" data-category="Acarnesi Tesmoforie sost tea sche"><b>μηχανή</b> (Ach 391, 738; Th 87)= v: inganno, espediente (anche teatrale), macchina teatrale.</div>
+						<div class="term" data-category="Acarnesi sost agg sche"><b>μιαρός</b> (Ach 282, 285, 557)= s/agg: lett. macchiato, deturpato, est. turpe, scellerato.</div>
+						<div class="term" data-category="Acarnesi sost cibo sac"><b>μίμαρκυς</b> (Ach 1112)= s: intingolo di lepre.</div>
+						<div class="term" data-category="Acarnesi verbi emo"><b>μισέω</b> (Ach 300, 509)= v: odiare, disprezzare.</div>
+						<div class="term" data-category="Acarnesi sost poli sche comp neo"><b>μισθαρχίδης</b> (Ach 597)= s: signore dall'alta paga. Neologismo coniato da <b>μισθός</b> (paga), <b>ἀρχή</b> (carica) e il suffisso <b>-ίδης</b> del patronimico.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>μισθός</b> (Ach 137, 159, 170, 547, 657)= s: paga, salario, onorario.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>μισθοφορέω</b> (Ach 608, 619)= v: ricevere la paga, servire a pagamento.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>μοιχός</b> (Ach 849)= s: adultero.</div>
+						<div class="term" data-category="Acarnesi verbi sche comp neo"><b>μολυνοπραγμονέομαι</b> (Ach 382)= v: essere coinvolto in torbidi inganni; composto creato a calco su <b>πολυπραγμονέω</b> (intromettersi in molti affari) con <b>μολύνω</b> (contaminare, macchiare)</div>
+						<div class="term" data-category="Acarnesi sost tea pers"><b>Μόρυχος</b> (Ach 887)= s: Morico, tragediografo goloso.</div>
+						<div class="term" data-category="Acarnesi sost tea pers"><b>Μόσχος</b> (Ach 13)= s: Mosco, citaredo (da distinguere dal poeta Mosco siracusano del secondo secolo).</div>
+						<div class="term" data-category="Tesmoforie sost sac"><b>Μοῦσα</b> (Th 41)= s: Musa, dea delle arti e delle scienze, figlia di Zeus. Le Muse tradizionalmente sono nove e ciascuna ha il proprio specifico ambito di dominio.</div>
+						<div class="term" data-category="Acarnesi agg sche"><b>μοχθηρός</b> (Ach 517)= agg: malvagio, vizioso.</div>
+						<div class="term" data-category="Tesmoforie sost sche"><b>μύρμηκος ἀτραποί</b> (Th 100)= s: formicaio. Usato per schernire la tortuosità della nuova musica.</div>
+						<div class="term" data-category="Acarnesi agg sac sche"><b>μυστηρικός</b> (Ach 747)= agg: misterico, legato ai misteri.</div>
+						<div class="term" data-category="Acarnesi agg sac sche"><b>μυστικός</b> (Ach 764)= agg: connesso ai misteri, segreto.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>μυττωτός</b> (Ach 174)= s: pasticcio d'aglio, miele e formaggio.</div>
+
+						<h3>Ν</h3>
+
+						<div class="term" data-category="Acarnesi verbi guerra"><b>ναυμαχέω</b> (Ach 677)= v: combattere per nave.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>ναῦς</b> (Ach 190, 545, 623, 648, 923)= s: nave.</div>
+						<div class="term" data-category="Acarnesi agg guerra"><b>ναύφρακτος</b> (Ach 95)= agg: difeso da navi, munito di navi.</div>
+						<div class="term" data-category="Acarnesi sost cibo sac"><b>νέκταρ</b> (Ach 196)= s: nettare, cibo degli dei.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>νεώριον</b> (Ach 552, 918-9, 921)= s: porto, arsenale.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>νεώσοικος</b> (Ach 96)= s: darsena, molo, porto.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>νῆσσα</b> (Ach 875)= s: anatra.</div>
+						<div class="term" data-category="Acarnesi sost poli"><b>νόμος</b> (Ach 532, 773)= s: legge, costume, diritto.</div>
+						<div class="term" data-category="Tesmoforie sost sap"><b>νοῦς</b> (Th 25)= s: mente, intelletto, significato, ragione.</div>
+						<div class="term" data-category="Acarnesi agg comp neo"><b>νυκτοπεριπλάνητος</b> (Ach 266)= agg: che vaga di notte; composto derivato da <b>νύξ</b> (notte) e <b>περιπλανῶμαι</b> (vagare, camminare).</div>
+						<div class="term" data-category="Acarnesi agg sche"><b>νωδός</b> (Ach 715)= agg: sdentato.</div>
+						
+						<h3>Ξ</h3>
+
+						<div class="term" data-category="Acarnesi verbi cibo"><b>ξανθίζω</b> (Ach 1047)= v: lett. rendere giallo, arrostire.</div>
+						<div class="term" data-category="Acarnesi verbi poli"><b>ξενίζω</b> (Ach 127)= v: ospitare, stranire, essere stranieri.</div>
+						<div class="term" data-category="Acarnesi agg poli"><b>ξενικός</b> (Ach 634)= agg: straniero.</div>
+						<div class="term" data-category="Acarnesi sost poli"><b>ξένος</b> (Ach 503, 505, 884, 892, 930, 948)= s: straniero.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>ξίφος</b> (Ach 342)= s: spada, coltello.</div>
+						<div class="term" data-category="Acarnesi sost poli tea"><b>ξύλον</b> (Ach 25)= s: legno, trasl. seggio, posto a sedere, fila (a teatro).</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>ξυράω</b> (Ach 119)= v: rasare.</div>
+						
+						<h3>Ο</h3>
+
+						<div class="term" data-category="Acarnesi sost cibo guerra"><b>ὀβελίσκος</b> (Ach 1007)= s: piccolo spiedo, moneta, punta, lama, obelisco.</div>	
+						<div class="term" data-category="Acarnesi verbi emo"><b>ὀδυνάω</b> (Ach 3, 9)= v: affliggere, tormentare.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>ὄζω</b> (Ach 196)= v: profumare, emanare odore, puzzare.</div>
+						<div class="term" data-category="Tesmoforie verbi sap"><b>οἶδα</b> (Th 34-6)= v: lett. avere visto, sapere, conoscere.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>Οἰνεύς</b> (Ach 418, 420)= s: Eneo, re di Calidonia, protagonista della tragedia omonima di Euripide.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>οινήρυσις</b> (Ach 1067)= s: brocca per versare vino.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>οἶνος</b> (Ach 75, 987, 1068)= s: vino, est. succo fermentato.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ὄξος</b> (Ach 35)= s: vino scadente, aceto.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>ὅπλον</b> (Ach 581, 1107)= s: attrezzo, arma.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>οπτάω</b> (Ach 1012, 1043, 1046, 1102, 1157)= v: arrostire.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ὀρτάλιχος</b> (Ach 871)= s: gallina, pollo.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>ὄρθιος</b> (Ach 16)= s: "ortio", varietà di giambo, musica tradizionale dal tono molto alto.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ὀρίγανον</b> (Ach 874)= s: origano.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>ὀρχηστρίς</b> (Ach 1093)= s: danzatrice.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>ὄστινος</b> (Ach 863)= s: ossa cave, flauto d'ossa.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>ὄσχος</b> (Ach 997)= s: tralcio di vite.</div>
+						<div class="term" data-category="Acarnesi verbi cibo trib"><b>ὀφλισκάνω</b> (Ach 691)= v: essere condannato a pagare, dover pagare, est. essere condannato.</div>
+						
+						<h3>Π</h3>
+
+						<div class="term" data-category="Acarnesi verbi cibo guerra"><b>παίω</b> (Ach 835)= v: battere, colpire, scagliare, scacciare, urtare, divorare.</div>
+						<div class="term" data-category="Acarnesi verbi sche poli"><b>παλαμάομαι</b> (Ach 659)= v:eseguire un piano, tramare, mettere in esecuzione.</div>
+						<div class="term" data-category="Acarnesi sost agg sche neo"><b>παμπόνηρος</b> (Ach 850)= s/agg:scelleratissimo, assolutamente malvagio, grandissimo furfante.</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>πανουργέω</b> (Ach 658)= v: comportarsi da furfante, da imbroglione.</div>
+						<div class="term" data-category="Acarnesi agg sche"><b>πανοῦργος</b> (Ach 311)= agg: malvagio, perfido, scellerato.</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>παρακόπτω</b> (Ach 517)= v: tagliare via, rendere pazzo, imbrogliare, essere spregevole.</div>
+						<div class="term" data-category="Tesmoforie verbi sap"><b>παραινέω</b> (Th 9)= v: cosigliare, esortare a, raccomandare.</div>
+						<div class="term" data-category="Acarnesi agg sche poli trib"><b>παράξενος</b> (Ach 518)= agg: semistraniero, strano, contraffatto.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>παράσημον</b> (Ach 518)= s: segno distintivo, spia.</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>παρατίλλω</b> (Ach 31)= v: strappare peli, depilare.</div>
+						<div class="term" data-category="Acarnesi verbi parola"><b>παρεξαυλέω</b> (Ach 681)= v: lett. non avere più voce dallo sfinimento, est. non avere voce, essere sfinito, non avere forze.</div>
+						<div class="term" data-category="Acarnesi sost poli"><b>πάτρα</b> (Ach 147)= s: patria.</div>
+						<div class="term" data-category="Acarnesi sost poli"><b>πατρίς</b> (Ach 168, 290)= s: patria.</div>
+						<div class="term" data-category="Acarnesi sost tea pers"><b>Παύσων</b> (Ach 853)= s: Pausone, pittore molto povero.</div>
+						<div class="term" data-category="Acarnesi sost agg guerra"><b>πεζός</b> (Ach 622)= s/agg: a piedi, pedestre; sost: fante, esercito di terra.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>πεινάω</b> (Ach 734, 857)= v: avere fame, trasl. avere desiderio, bramare, essere privo di.</div>
+						<div class="term" data-category="Acarnesi Tesmoforie sost sche"><b>πέος</b> (Ach 158, 1060, 1066, 1216; Th 62)= s: pene, membro, cazzo.</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>πέρδομαι</b> (Ach 30)= v: emettere peti, spetezzare.</div>
+						<div class="term" data-category="Acarnesi verbi poli sacr"><b>περιεπτισμένος</b> (Ach 507)= v part: lett. sbucciato, scorzato, met. purificato, puro, senza difetti</div>
+						<div class="term" data-category="Acarnesi sost poli guerra pers"><b>Περικλέης</b> (Ach 530)= s: Pericle, cittadino influente, leader ateniese.</div>
+						<div class="term" data-category="Acarnesi agg sche neo"><b>περιπόνηρος</b> (Ach 850)= agg: scelleratissimo, assai malvagio. Coniato in contrapposizione a <b>περιφόρητος</b> (rinomato).</div>
+						<div class="term" data-category="Acarnesi sost poli tea"><b>πίθηκος</b> (Ach 120, 907)= s: lett. scimmia, met. ingannatore.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>πίνω</b> (Ach 73, 78, 199, 985, 1001, 1145)= v: bere.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>πιπράσκω</b> (Ach 734-5)= v: vendere.</div>
+						<div class="term" data-category="Acarnesi sost sche pers"><b>Πίτταλος</b> (Ach 1032, 1222)= s: Pittalo, medico ateniese.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>πλακοῦς</b> (Ach 1092, 1125, 1127)= s: focaccia di forma piatta, schiacciata.</div>
+						<div class="term" data-category="Acarnesi sost poli trib"><b>πνὺξ</b> (Ach 20)= s: Pnice.</div>
+						<div class="term" data-category="Tesmoforie sost tea"><b>ποίησις</b> (Th 38)= s: arte poetica, poesia, preparazione, produzione.</div>
+						<div class="term" data-category="Acarnesi Tesmoforie sost tea"><b>ποητής</b> (Ach 633, 644, 649, 654, 1150; Th 59)= s: poeta.</div>
+						<div class="term" data-category="Acarnesi verbi emo"><b>ποθέω</b> (Ach 33)= v: desiderare, rimpiangere, provare nostalgia.</div>
+						<div class="term" data-category="Acarnesi verbi guerra"><b>πολεμέω</b> (Ach 621)= v: combattere.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra"><b>πολέμιος</b> (Ach 820, 827, 912, 916, 1192)= s: nemico.</div>
+						<div class="term" data-category="Acarnesi agg guerra"><b>πολεμιστήριος</b> (Ach 572, 1132)= agg: guerresco, da guerra.</div>
+						<div class="term" data-category="Acarnesi agg guerra sche comp neo"><b>πολεμολαμαχαϊκός</b> (Ach 1080)= agg: guerralamaico, legato alla guerra di Lamaco. Composto formato da <b>πόλεμος</b> (guerra) e <b>Λάμαχος</b> (Lamaco).</div>
+						<div class="term" data-category="Acarnesi sost poli guerra"><b>πόλεμος</b> (Ach 201, 226, 528, 596, 597, 651, 913, 977, 1062)= s: guerra.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra"><b>πόλις</b> (Ach 27, 192, 205, 373, 492, 499, 503, 505, 515-6, 545, 577, 631, 636, 642-3, 663, 676, 696, 755, 971)= s: città.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra"><b>πολίτης</b> (Ach 595)= s: cittadino.</div>
+						<div class="term" data-category="Acarnesi sost sac guerra"><b>πομπή</b> (Ach 248)= s: processione, parata sacra, scorta.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>πόρνη</b> (Ach 524, 527, 1091)= s: prostituta.</div>
+						<div class="term" data-category="Acarnesi Tesmoforie sost sac"><b>Ποσειδῶν</b> (Ach 510, 560, 682, 798; Th 86)= s: Poseidone, dio del mare, dei terremoti, dei cavalli.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>πρεσβεία</b> (Ach 647)= s: vecchiaia, dignità, carica, ambascieria.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra"><b>πρεσβευτής</b> (Ach 61, 62, 76, 93, 114, 179, 192, 636, 707)= s: vecchio, ambasciatore, diplomatico.</div>
+						<div class="term" data-category="Acarnesi verbi poli guerra"><b>πρεσβεύω</b> (Ach 133, 610)= v: essere vecchio, essere primo, fare ambasciate, negoziare.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>πρίαμαι</b> (Ach 34-6, 691, 737, 749, 812, 870)= v: comprare, corrompere, affittare.</div>
+						<div class="term" data-category="Acarnesi sost poli trib"><b>πρόβουλος</b> (Ach 755)= s: probulo, giudice.</div>
+						<div class="term" data-category="Acarnesi sost poli sche"><b>προδότας</b> (Ach 290)= s: traditore.</div>
+						<div class="term" data-category="Acarnesi sost poli tea trib"><b>προεδρία</b> (Ach 42)= s: proedria, prima fila, est. diritto alla proedria.</div>
+						<div class="term" data-category="Tesmoforie verbi sac"><b>προθύω</b> (Th 38)= v: sacrificare per primi, sacrificare prima, fare un sacrificio propiziatorio.</div>
+						<div class="term" data-category="Acarnesi verbi parola"><b>προσαγορεύω</b> (Ach 1113)= v: rispondere, chiamare, salutare.</div>
+						<div class="term" data-category="Tesmoforie verbi sap"><b>προσμανθάνω</b> (Th 20, 24)= v: imparare inoltre, apprendere in aggiunta.</div>
+						<div class="term" data-category="Acarnesi verbi poli guerra"><b>προφυλάσσω</b> (Ach 1146)= v: difendere, fare la guardia.</div>
+						<div class="term" data-category="Acarnesi sost poli trib"><b>πρυτανεῖον</b> (Ach 125)= s: pritaneo.</div>
+						<div class="term" data-category="Acarnesi verbi parola poli trib"><b>πρυτανεύω</b> (Ach 60)= v: essere pritano, essere presidente di un'assemblea, porre in discussione, amministrare, governare.</div>
+						<div class="term" data-category="Acarnesi sost poli trib"><b>πρύτανις</b> (Ach 23, 40, 54, 56, 167, 173)= s: pritano.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>πρωκτός</b> (Ach 83, 119, 863)= s: ano, est. sedere, culo.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>πτωχός</b> (Ach 578-9, 593-4)= s: pezzente, barbone, mendicante.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>πυγή</b> (Ach 638)= s: chiappa, culo.</div>
+						<div class="term" data-category="Acarnesi sost cibo tea"><b>πυκτίς</b> (Ach 879)= s: quadro, codice pergamenaceo, animale sconosciuto(forse tasso).</div>
+						<div class="term" data-category="Tesmoforie sost cibo "><b>πυραμοῦς</b> (Th 94)= s: lett. focaccia con miele(data per premio), est. premio, vittoria.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>πωλέω</b> (Ach 625, 722, 897)= v: vendere, commerciare, mettere in vendita.</div>
+
+						<h3>Ρ</h3>
+
+						<div class="term" data-category="Acarnesi sost poli parola"><b>ῥῆμα</b> (Ach 444, 686)= s: parola, frase, verso (poetico).</div>
+						<div class="term" data-category="Acarnesi sost poli parola"><b>ῥῆσις</b> (Ach 416)= s: discorso, dichiarazione.</div>
+						<div class="term" data-category="Acarnesi sost poli parola"><b>ῥήτωρ</b> (Ach 38, 680)= s: retore, oratore.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ῥιπίς</b> (Ach 888)= s: ventola(per alzare il fuoco).</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>ῥοθιάζω</b> (Ach 807)= v: remare facendo rumore, mangiare rumorosamente.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>ῥοφέω</b> (Ach 278)= v: sorbire, tracannare, inghiottire, vuotare, prosciugare.</div>
+
+						<h3>Σ</h3>
+
+						<div class="term" data-category="Acarnesi sost guerra"><b>σάγμα</b> (Ach 574)= s: cappa, mantello, bardatura, fodero.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>σάκκος</b> (Ach 745, 822)= s: sacco, borsa, tela, tessuto ruvido, barba incolta.</div>
+						<div class="term" data-category="Acarnesi agg poli"><b>Σαρδιανικός</b> (Ach 112)= agg: di Sardi, ant. porpora di Sardi.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>σηπία</b> (Ach 1040)= s: seppia.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>σησαμοῦς</b> (Ach 1092)= s: dolce di sesamo.</div>
+						<div class="term" data-category="Acarnesi Tesmoforie verbi parola"><b>σιγάω</b> (Ach 59, 64, 123, 238; Th 27, 45, 95)= v: tacere, stare zitto, far silenzio.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>σίζω</b> (Ach 1158)= v: sibilare, sfrigolare.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>σίκυος</b> (Ach 520)= s: cetriolo.</div>
+						<div class="term" data-category="Tesmoforie verbi parola"><b>σιωπάω</b> (Th 27-8)= v: tacere, stare zitto, stare fermo, mantenere segreto.</div>
+						<div class="term" data-category="Acarnesi sost cibo guerra"><b>σιτίον</b> (Ach 197, 548, 758)= s: lett. grano, pane, est. provvigione, viveri, provviste.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>σκάλοψ</b> (Ach 879)= s: talpa.</div>
+						<div class="term" data-category="Acarnesi verbi tea sche"><b>σκευάζω</b> (Ach 121)= v: preparare, approntare, travestirsi.</div>
+						<div class="term" data-category="Acarnesi sost tea sche"><b>σκόλιον</b> (Ach 532)= s: scolio, canzone conviviale.</div>
+						<div class="term" data-category="Acarnesi verbi emo sche"><b>σκορδιναόμαι</b> (Ach 30)= v: stirarsi, essere irrequieto.</div>
+						<div class="term" data-category="Acarnesi verbi cibo sche neo"><b>σκοροδίζω</b> (Ach 166)= v: nutrire d'aglio, aizzare.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>σκόροδον</b> (Ach 164-5, 521, 550, 761, 813, 831)= s: aglio.</div>
+						<div class="term" data-category="Acarnesi verbi emo sche neo comp"><b>σκοτοβινιάω</b> (Ach 1221)= v: non vederci più dalla voglia di scopare. Composto creato sul modello di <b>σκοτοδινιάω</b> (avere un capogiro, non vederci più bene) e <b>βινέω</b> (scopare).</div>
+						<div class="term" data-category="Acarnesi agg comp neo"><b>σκοτοδασυπυκνόθριξ</b> (Ach 390)= agg: dal pelo scuro, denso e fitto. Composto da <b>σκότος</b> (scuro), <b>δασύς</b> (denso, duro, ruvido), <b>πυκνός</b> (stretto, fitto) e <b>θρίξ</b> (capello, pelo)</div>
+						<div class="term" data-category="Acarnesi verbi sche guerra"><b>σκώπτω</b> (Ach 853)= v: prendere in giro, scherzare.</div>
+						<div class="term" data-category="Tesmoforie sost agg sap"><b>σοφός</b> (Th 21)= s: valente, esperto, saggio, assennato, sapiente.</div>
+						<div class="term" data-category="Acarnesi verbi poli guerra sac"><b>σπένδω</b> (Ach 148, 225, 291, 294, 304, 306-7, 599, 727, 972)= v: lett. versare, met. patteggiare, stringere patti, fare pace.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra sac"><b>σπονδή</b> (Ach 52, 58, 131, 178, 183, 186, 208, 251, 268, 306, 627, 1020, 1037, 1061, 1067)= s: concr. libagione, vino per riti sacri; met. tregua, pace, patto.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra comp sac"><b>σπονδοφόρος</b> (Ach 216)= s: concr. portatore di libagione, vino per riti sacri; est. portatore di pace, tregua. Composto derivato da <b>σπονδή</b> (libagione/tregua) e <b>φέρω</b> (portare). </div>
+						<div class="term" data-category="Acarnesi sost poli sche neo"><b>σπουδαρχίδης</b> (Ach 595)= s: figlio di arrivista. Neologismo coniato da <b>σπουδάρχης</b> (arrivista) e il suffisso <b>-ίδης</b> del patronimico.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>σπυρίς</b> (Ach 453)= s: cesta, paniere.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>σταθεύω</b> (Ach 1041)= v: arrostire, friggere.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>σταλαγμός </b> (Ach 1033)= s: goccia.</div>
+						<div class="term" data-category="Acarnesi Tesmoforie verbi emo sche"><b>στένω</b> (Ach 30; Th 72)= v: lamentarsi, gemere, piangere.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>στόμα</b> (Ach 198, 926)= s: bocca.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>στράτευμα</b> (Ach 1080)= s: campagna militare, spedizione, schiera, esercito.</div>
+						<div class="term" data-category="Acarnesi verbi poli guerra"><b>στρατεύω</b> (Ach 1052)= v: combattere, fare guerra, fare una spedizione militare.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>στρατηγὸς</b> (Ach 569, 593, 1073, 1078)= s: stratego, generale.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>στρατιά</b> (Ach 81, 1143)= s: esercito, battaglia.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>στρατιώτης</b> (Ach 546, 1065)= s: soldato.</div>
+						<div class="term" data-category="Acarnesi sost poli pers"><b>Στράτων</b> (Ach 122)= s: Stratone, diplomatico nominato per gli stessi motivi di Clistene.</div>
+						<div class="term" data-category="Acarnesi agg sche guerra neo"><b>στρατωνίδης</b> (Ach 596)= agg: gran soldato; coniato per assonanza con <b>στρατός</b> (esercito).</div>
+						<div class="term" data-category="Acarnesi avv sche neo comp"><b>στριβιλικίγξ</b> (Ach 1035)= avv: nemmeno un pochino. Neologismo coniato con riferimento forse a <b>στρίβος</b> (suono basso, ma acuto) e <b>λίκιγξ</b> (un verso breve degli uccelli).</div>
+						<div class="term" data-category="Tesmoforie sost tea"><b>στροφή</b> (Th 68)= s: lett. avvolgimento, evoluzione, svolta, trasl. strofe(evoluzione del coro), est. strofa, canto del coro.</div>
+						<div class="term" data-category="Acarnesi verbi emo"><b>στυγέω</b> (Ach 33, 472)= v: odiare, disprezzare.</div>
+						<div class="term" data-category="Acarnesi agg parola"><b>στωμύλος</b> (Ach 429)= agg: eloquente, ciarliero.</div>
+						<div class="term" data-category="Tesmoforie verbi sche neo"><b>συγγογγύλλω</b> (Th 61)= v: arrotondare, curvare, piegare.</div>
+						<div class="term" data-category="Acarnesi sost poli tea trib"><b>συγγραφή</b> (Ach 1150)= s: scrittura, scrittore, contratto, coscrizione.</div>
+						<div class="term" data-category="Acarnesi sost cibo sche"><b>σῦκον</b> (Ach 803, 996)= s: fico, met. figa, vagina.</div>
+						<div class="term" data-category="Acarnesi verbi sche poli trib"><b>συκοφαντέω</b> (Ach 519, 828)= v: fare il sicofante, fare il delatore, calunniare, ricattare.</div>
+						<div class="term" data-category="Acarnesi sost sche poli trib"><b>συκοφάντης</b> (Ach 559, 725, 825, 840, 904, 951)= s: sicofante, delatore.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra trib cibo sac"><b>συμβολή</b> (Ach 1210-1)= s: scontro, battaglia, incontro, contratto, tassa per il pasto, contributo per l'offerta.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra"><b>σύμμαχος</b> (Ach 506, 662)= s: alleato.</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>συμπίνω</b> (Ach 276)= v: bere insieme.</div>
+						<div class="term" data-category="Acarnesi agg sost cibo"><b>συμπότης</b> (Ach 1135)= s/agg: compagno di bevute, convitato.</div>
+						<div class="term" data-category="Acarnesi agg cibo"><b>συμποτικός</b> (Ach 1142)= agg: conviviale, legato al simposio.</div>
+						<div class="term" data-category="Acarnesi verbi poli trib"><b>συνηγορέω</b> (Ach 685)= v: essere procuratore, essere avvocato, perorare la propria causa.</div>
+						<div class="term" data-category="Acarnesi sost poli trib"><b>συνήγορος</b> (Ach 705, 714)= s: avvocato, procuratore.</div>
+						<div class="term" data-category="Acarnesi agg sche neo"><b>σφενδάμνινος</b> (Ach 181)= agg: dal cuore d'acero, neologismo ricavato da <b>σφένδαμνος</b> (acero) che sottolinea la durezza e resistenza del referente.</div>
+						<div class="term" data-category="Acarnesi sost agg sche"><b>σχέτλιος</b> (Ach 360)= s/agg: perfido, capace di tutto, sfrenato.</div>
+						<div class="term" data-category="Acarnesi sost tea sche"><b>σχῆμα</b> (Ach 64)= s: concr. forma, immagine, carattere, ruolo (teatrale), maschera, vestito, costume; met. apparenza, trucco, inganno, mascherata.</div>
+						<div class="term" data-category="Acarnesi sost guerra tea"><b>σχοῖνος</b> (Ach 230)= s: lett. giunco, vimine, est. corda, fune, freccia, dardo, penna.</div>
+						<div class="term" data-category="Acarnesi sost agg poli comp"><b>σωσίπολις</b> (Ach 163)= s/agg: salvatore della città, composto da <b>σῴζω</b> (salvare) e <b>πόλις</b> (città).</div>
+
+						<h3>Τ</h3>
+
+						<div class="term" data-category="Acarnesi sost cibo trib poli"><b>τάλαντον</b> (Ach 11, 628, 886)= s: bilancio, tassa, talento(misura di peso), talento(moneta).</div>
+						<div class="term" data-category="Acarnesi agg sche"><b>τάλας</b> (Ach 454)= agg: disgraziato.</div>
+						<div class="term" data-category="Acarnesi sost poli gue"><b>ταξίαρχος </b> (Ach 569)= s: tassiarca, comandante di uno squadrone.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>τάξις</b> (Ach 600)= s: schiera, fila.</div>
+						<div class="term" data-category="Acarnesi verbi poli guerra"><b>ταράσσω</b> (Ach 621, 688)= v: gettare scompiglio, creare disordini.</div>
+						<div class="term" data-category="Acarnesi agg sche comp neo"><b>ταχύβουλος</b> (Ach 630)= agg: dalla volontà volubile. Composto formato da <b>ταχύς</b> (veloce) e <b>βουλή</b> (volontà).</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>ταώς</b> (Ach 63)= s: pavone.</div>
+						<div class="term" data-category="Acarnesi agg sost guerra comp"><b>τειχομάχος</b> (Ach 570)= s/agg: difensore delle mura. Composto da <b>τείχος</b> (mura) e <b>μάχομαι</b> (combattere).</div>
+						<div class="term" data-category="Acarnesi verbi sche poli"><b>τεκταίνομαι</b> (Ach 660)= v: costruire, fabbricare, ordire, tramare.</div>
+						<div class="term" data-category="Acarnesi sost cibo trib sac guerra"><b>τέλος</b> (Ach 896)= s: fine, realizzazione, esito, perfezione, fine, ufficio, incarico, tassa, offerte, sacrifici, squadrone.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>τέμαχος</b> (Ach 881, 1100)= s: fetta di pesce.</div>
+						<div class="term" data-category="Acarnesi agg emo cibo"><b>τερπνός</b> (Ach 881)= agg: delizioso, piacevole.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>τετραπτερυλλίς</b> (Ach 871)= s: cavalletta, locusta.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>τευθίς</b> (Ach 1156)= s: calamaro, seppia.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>Τήλεφος</b> (Ach 430-1, 433, 445, 555)= s: Telefo, re di Misia, protagonista della tragedia omonima di Euripide.</div>
+						<div class="term" data-category="Acarnesi sost cibo poli trib"><b>τιμή</b> (Ach 895)= s: onore, carica, prezzo, valore.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>τιτθός</b> (Ach 1199)= s: seno, tetta.</div>
+						<div class="term" data-category="Acarnesi verbi parola"><b>τονθορύζω</b> (Ach 681)= v: balbettare, parlare a stento.</div>
+						<div class="term" data-category="Acarnesi sost poli guerra"><b>τοξότης</b> (Ach 54, 707, 711)= s: arciere, arciere a cavallo.</div>
+						<div class="term" data-category="Acarnesi sost agg sche cibo"><b>Τραγασαῖος</b> (Ach 808)= s/agg: di "Abbuffonia/Rodi/Papponia". Sebbene indichi l'appartenenza alla città di Tragase, Aristofane lo utilizza per la somiglianza fonetica di <b>τρώγω</b> (mangiare).</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>τράγημα</b> (Ach 1091)= s: frutta essiccata, stuzzichini.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>τραγῳδία</b> (Ach 400, 412, 464)= s: tragedia, dramma teatrale.</div>
+						<div class="term" data-category="Tesmoforie sost tea"><b>τραγῳδοδιδάσκαλος</b> (Th 88)= s: tragediografo e istruttore di coro.</div>
+						<div class="term" data-category="Acarnesi agg sche tea"><b>τραγῳδικόν</b> (Ach 9)= agg: smosso, colpito, commosso, legato alla tragedia.</div>
+						<div class="term" data-category="Tesmoforie sost tea"><b>τραγῳδός</b> (Th 85)= s: membro del coro tragico, attore tragico, tragedia.</div>
+						<div class="term" data-category="Tesmoforie sost tea"><b>τραγῳδοποιός</b> (Th 30)= s: tragediografo, poeta tragico.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>τράπεζα</b> (Ach 1090, 1158)= s: tavola da pranzo, tavolo, bancone.</div>
+						<div class="term" data-category="Acarnesi sost guerra"><b>τραῦμα</b> (Ach 1205)= s: ferita, colpo, danno.</div>
+						<div class="term" data-category="Acarnesi sost guerra poli"><b>τριήραρχος</b> (Ach 546)= s: trierarca, capitano di una trireme.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>τριπτήρ</b> (Ach 937)= s: pestello.</div>
+						<div class="term" data-category="Acarnesi agg sche comp"><b>τρισμακάριος</b> (Ach 400)= agg: tre volte beato. Composto da <b>τρίς</b> (tre) e <b>μακάριος</b> (beato).</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>τριχίς</b> (Ach 551)= s: acciuga.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>τρόπαλις</b> (Ach 813)= s: mazzo, treccia.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>τροχίλος</b> (Ach 876)= s: trochilo, scricciolo.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>τρύβλιον</b> (Ach 278)= s: coppa, boccale.</div>
+						<div class="term" data-category="Acarnesi agg tea"><b>τρυγικός</b> (Ach 628)= agg: comico, in contrapposizione a <b>τραγικός</b> (tragico).</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>τρυγῳδία</b> (Ach 499-500)= s: commedia, in contrapposizione a <b>τραγῳδία</b> (tragedia).</div>
+						<div class="term" data-category="Acarnesi agg tea"><b>τρυγῳδικός</b> (Ach 886)= agg: comico, in contrapposizione a <b>τραγῳδικός</b> (tragico).</div>
+						<div class="term" data-category="Acarnesi verbi cibo"><b>τρώγω</b> (Ach 803, 806)= v: masticare, mangiare (specialmente verdura e frutta).</div>
+						<div class="term" data-category="Acarnesi agg cibo neo comp"><b>τυρόνωτος</b> (Ach 1125)= agg: cotto col formaggio. Neologismo coniato per parodia di <b>Γοργόνωτος</b> (con la Gorgone) su <b>τυρός</b> (formaggio)</div>
+
+						
+						<h3>Υ</h3>
+
+						<div class="term" data-category="Acarnesi verbi sche"><b>ὑβρίζω</b> (Ach 479, 1117)= v: essere tracotante, essere insolente, essere tracotante.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ὕδωρ</b> (Ach 1175)= s: acqua.</div>
+						<div class="term" data-category="Acarnesi agg poli trib sche"><b>ὑπεύθυνος</b> (Ach 938)= agg: responsabile del proprio operato, chiamato a rispondere delle proprie azioni.</div>
+						<div class="term" data-category="Acarnesi verbi parola poli"><b>ὑποκρούω</b> (Ach 38)= v: toccare leggermente, battere i piedi a tempo, interrompere.</div>
+						<div class="term" data-category="Acarnesi verbi emo"><b>ὑποστένω</b> (Ach 162)= v: lamentarsi.</div>
+						<div class="term" data-category="Acarnesi verbi cibo neo"><b>ὑποψωνέω</b> (Ach 842)= v: truffare sul prezzo dei viveri.</div>
+						<div class="term" data-category="Acarnesi sost sche comp"><b>ὑπώπιον</b> (Ach 551)= s: lett. parte sotto gli occhi, faccia, viso, occhi pesti, est. livido, ferita. Composto formato da <b>ὑπό</b> (sotto) e <b>ὤψ</b> (occhio).</div>
+
+						<h3>Φ</h3>
+
+						<div class="term" data-category="Acarnesi verbi sche trib"><b>φαίνω</b> (Ach 441, 542, 769, 781, 808, 819, 824, 826-7, 845, 908, 912, 914, 938)= v: illuminare, mostrare, rivelare, denunciare, informare, apparire.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>φαλαρίς</b> (Ach 875)= s: folaga.</div>
+						<div class="term" data-category="Acarnesi sost sac"><b>Φαλῆς</b> (Ach 263, 271, 276)= s: Fales, personificazione del fallo portata in processione nelle Dionisie Rurali.</div>
+						<div class="term" data-category="Acarnesi agg sche sac"><b>φαλλικός</b> (Ach 233)= agg: fallico, legato al fallo, ant. inno fallico.</div>
+						<div class="term" data-category="Acarnesi sost sche sac"><b>φαλλός</b> (Ach 233)= s: fallo, statua a forma di fallo.</div>
+						<div class="term" data-category="Acarnesi verbi sche trib"><b>φαντάζομαι</b> (Ach 823)= v: essere visibile, mostrarsi, esaltarsi, essere denunciati.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>φάσσα</b> (Ach 1104)= s: colombo selvatico.</div>
+						<div class="term" data-category="Acarnesi sost pers"><b>Φάϋλλος</b> (Ach 215)= s: Faillo, corridore famoso.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>φέναξ</b> (Ach 89)= s: imbroglione, bugiardo.</div>
+						<div class="term" data-category="Acarnesi verbi parola sche"><b>φενακίζω</b> (Ach 90)= v: imbrogliare, ingannare.</div>
+						<div class="term" data-category="Acarnesi verbi parola"><b>φημί</b> (Ach 103, 490, 614, 633, 650, 656, 736, 739)= v: dire, confessare.</div>
+						<div class="term" data-category="Acarnesi verbi emo"><b>φθονέω</b> (Ach 496)= v: averne a male, biasimare, disprezzare.</div>
+						<div class="term" data-category="Acarnesi agg sche comp neo"><b>φιλανθρακεύς</b> (Ach 336)= agg: amico dei carbonai; composto derivato da <b>φιλέω</b> (amare, volere bene) e <b>ἀνθρακεύς</b> (carbonaio).</div>
+						<div class="term" data-category="Acarnesi verbi emo"><b>φιλέω</b> (Ach 7, 357, 1200)= v: amare, volere bene, baciare.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>Φιλοκτήτης</b> (Ach 424)= s: Filottete, re di Melibea, guerriero a Troia, protagnoista della tragedia omonima di Euripide.</div>
+						<div class="term" data-category="Acarnesi sost emo"><b>φίλος</b> (Ach 339, 513, 568, 617, 690, 729, 884, 887, 989, 1020, 1093, 1215, 1217)= v: amico, caro, alleato.</div>
+						<div class="term" data-category="Acarnesi sost emo"><b>φιλοτησία</b> (Ach 985)= s: amicizia.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>φοινικίς</b> (Ach 320)= s: vestito rosso, abito porpora.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>Φοίνικος</b> (Ach 421-2)= s: Fenice, re eponimo dei Fenici, personaggio citato nelle <i>Fenicie</i> di Euripide.</div>
+						<div class="term" data-category="Acarnesi sost poli cibo trib"><b>φόρος</b> (Ach 505, 643)= s: tributo, pagamento.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>φορτίον</b> (Ach 214, 899, 910, 957, 969)= s: carico, peso, merci.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>φορυτός</b> (Ach 927)= s: pagliuzze, trucioli, rifiuti.</div>
+						<div class="term" data-category="Acarnesi Tesmoforie verbi parola"><b>φράζω</b> (Ach 98, 111, 915, 1064; Th 6)= v: mostrare, dire, dichiarare.</div>
+						<div class="term" data-category="Acarnesi sost poli trib"><b>φυλέτης</b> (Ach 568)= s: compagno di tribù.</div>
+						<div class="term" data-category="Acarnesi Tesmoforie verbi parola"><b>φωνέω</b> (Ach 1046; Th 51)= v: emettere un suono, gridare, parlare.</div>
+						<div class="term" data-category="Acarnesi sost parola"><b>φωνή</b> (Ach 747)= s: voce, suono.</div>
+
+						<h3>Χ</h3>
+						
+						<div class="term" data-category="Acarnesi sost neo emo"><b>χαιρηδών</b> (Ach 4)= s: gioia; neologismo coniato sul modello di <b>ἀλγηδών</b>(dolore).</div>
+						<div class="term" data-category="Acarnesi sost tea pers"><b>Χαῖρις</b> (Ach 16, 866)= s: Cheride, flautista.</div>
+						<div class="term" data-category="Acarnesi verbi emo"><b>χαίρω</b> (Ach 371)= v: spalancare, spalancare la bocca, sbadigliare.</div>
+						<div class="term" data-category="Acarnesi agg comp"><b>χαλκοφάλαρος</b> (Ach 1072)= agg: adorno di bronzo. Composto ricavato da <b>χαλκός</b> (bronzo) e <b>φάλαρα</b> (ornamento).</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>χάραξ</b> (Ach 986)= s: palo di vite.</div>
+						<div class="term" data-category="Acarnesi verbi emo sche"><b>χάσκω</b> (Ach 10, 30, 133)= v: lett. spalancare, met. gioire, compiacersi.</div>
+						<div class="term" data-category="Acarnesi sost sche comp"><b>χαυνοπολίτης</b> (Ach 635)= s: cittadino credulone, che si beve tutto. Composto da <b>χάσκω</b> (spalancare) e <b>πολίτης</b> (cittadino)</div>
+						<div class="term" data-category="Acarnesi sost sche comp"><b>χαυνόπρωκτος</b> (Ach 104, 107)= s: rottinculo, sodomita. Composto da <b>χάσκω</b> (spalancare) e <b>πρωκτος</b> (culo)</div>
+						<div class="term" data-category="Acarnesi verbi sche"><b>χέζω</b> (Ach 82, 1170)= v: evacuare, andare di corpo, cagare.</div>
+						<div class="term" data-category="Acarnesi verbi poli"><b>χειροτονέω</b> (Ach 598, 607)= v: votare (per alzata di mano).</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>χήν</b> (Ach 878)= s: oca.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>χλανίς</b> (Ach 519)= s: clanide, sopravveste, mantello.</div>
+						<div class="term" data-category="Acarnesi sost poli sac"><b>Χοαί</b> (Ach 961, 1000, 1068, 1076, 1211)= s: Festa dei Boccali, è il secondo giorno delle Antesterie, in cui si svolgeva una gara tra bevitori di vino in boccali speciali.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>χοῖνιξ</b> (Ach 814)= s: chenice(misura), cibo, pane.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>χοιροπώλης</b> (Ach 818)= s: venditore di porcelli.</div>
+						<div class="term" data-category="Acarnesi sost cibo sche"><b>χοῖρος</b> (Ach 521, 739-40, 747, 749, 764, 767, 768-9, 771, 773, 777, 781, 788, 792-5, 806, 808, 812, 819, 830, 834)= s: lett. porcella, trasl. vagina.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>χορδή</b> (Ach 1040, 1119)= s: corda, budello, intestino, salsiccia.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>χορευτής</b> (Ach 443)= s: coreuta.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>χορηγός</b> (Ach 1152)= s: corega.</div>
+						<div class="term" data-category="Acarnesi sost tea"><b>χορός</b> (Ach 11, 628, 886)= s: coro.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>χοῦς</b> (Ach 1086, 1133, 1202)= s: congio(misura), boccale.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>χρέος</b> (Ach 615)= s: debito, risarcimento, credito, pegno, affare, interesse.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>χρῆμα</b> (Ach 972)= s: necessità, beni, proprietà, monete, merci.</div>
+						<div class="term" data-category="Acarnesi sost sche"><b>χρυσός</b> (Ach 102-4, 107-8, 113, 258)= s: oro, monete d'oro, est. oggetto dorato.</div>
+						<div class="term" data-category="Acarnesi sost cibo sac"><b>χύτρα</b> (Ach 284)= s: pentola(per scopi culinari, medici o sacri).</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>χυτρίς</b> (Ach 463, 1175)= s: pentolino.</div>
+						<div class="term" data-category="Acarnesi sost poli sac"><b>Χύτροι</b> (Ach 1076)= s: Festa delle Pentole, è il terzo giorno delle Antesterie, in cui si offriva una pentola di verdure e grano ad Ermes ctonio.</div>
+
+						<h3>Ψ</h3>
+
+						<div class="term" data-category="Acarnesi agg comp neo"><b>ψαμμακοσιογάργαρον</b> (Ach 3)= agg: più numeroso dei granelli di sabbia. Composto derivato da <b>ψάμμος</b> (sabbia), <b>κόσιοι</b> (suffisso per i numerali, migliaia) e <b>γάργαρα</b> (molti).</div>
+						<div class="term" data-category="Acarnesi sost comp neo"><b>Ψευδαρταβάνης</b> (Ach 91, 99)= s: Pseudartabano. Nome parlante composto da <b>ψευδος</b> (falso) e <b>Αρτάβανης</b> Artabano, nome tipico persiano.</div>
+						<div class="term" data-category="Acarnesi verbi sche poli comp neo"><b>ψηφηδακέω</b> (Ach 376)= v: mordere votando, composto da <b>ψηφίζω</b> (votare) e <b>δάκνω</b> (mordere).</div>
+						<div class="term" data-category="Acarnesi verbi sche poli trib"><b>ψηφίζω</b> (Ach 714)= v: votare, deliberare(tramite pietruzze/cocci).</div>
+						<div class="term" data-category="Acarnesi sost poli trib"><b>ψήφισμα</b> (Ach 536)= s: lett. proposta votata, est. legge, decreto.</div>
+						<div class="term" data-category="Acarnesi sost cibo"><b>ψίαθος</b> (Ach 874)= s: stuoia, persiana, sacco.</div>
+						<div class="term" data-category="Acarnesi verbi sche parola"><b>ψοφέω</b> (Ach 933, 942)= v: emettere un suono, gemere.</div>
+
+						<h3>Ω</h3>
+
+						<div class="term" data-category="Acarnesi verbi cibo"><b>ὠνέομαι</b> (Ach 549, 815)= v: comprare, acquistare, riscattare.</div>
+						<div class="term" data-category="Acarnesi agg cibo"><b>ὤνιος</b> (Ach 758)= agg: in vendita, da comprare, venale.</div>
+
+
+						<a href="#" aria-hidden="true" data-attribute="back-to-top" class= "btn btn-info back-to-top shadow w-100">Torna su</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="pre-footer"> &#128210; <a class="link" href="#">Credits</a> | <a class="link" href="http://creativecommons.org/licenses/by/4.0/">Licenze</a> &#128210;</div>
+		<footer>
+			<div class="footer">&copy; Christian Iori&#128511; 2024- corso di Digital Humanities e Patrimonio Culturale </div>
+		</footer>
+
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+	</body>
+</html>
