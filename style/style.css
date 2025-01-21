@@ -708,7 +708,6 @@ ult li .descr::before {
 
 /* Stile per termgl */
 .termgl {
-    font-family: 'Times New Roman', Times, serif;
     font-size: 1.5rem;
     color: #00a3cc;
     cursor: pointer;
@@ -758,3 +757,4 @@ ult li .descr::before {
   text-decoration: none; 
   color: black;
 }
+>>>>>>> 2b34dfe (Modifiche al file autore.html e allo stile)
