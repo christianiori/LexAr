@@ -383,6 +383,7 @@ body {
   transition: 0.3s;
   border-radius: 5px;
   text-align: center;
+  overflow: hidden;
 }
 
 /*cards*/
@@ -403,6 +404,12 @@ body {
 .cardhome h5, .cardhome h4 {
     font-size: 18px; /* Riduci la dimensione del testo */
     margin-bottom: 10px;
+}
+@media (max-width: 576px) {
+
+    .btn {
+        font-size: 1rem; /* Riduce leggermente la dimensione dei pulsanti */
+    }
 }
 
 
@@ -522,10 +529,11 @@ ul.breadcrumb li a:hover {
 
 /* Imposta un'altezza uniforme per tutte le card */
 .cardcat {
-    height: 400px; /* Altezza totale delle card */
+    height: auto; /* Rimuove l'altezza fissa */
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Distribuzione uniforme tra immagine, testo e pulsante */
+    justify-content: space-between; /* Allinea immagine, testo e pulsante */
+    overflow: hidden; /* Impedisce il contenuto in eccesso */
 }
 
 /* Stile del corpo delle card */
@@ -541,19 +549,41 @@ ul.breadcrumb li a:hover {
 .cardcat .btn {
     margin-top: auto;
 }
+@media (max-width: 576px) {
+  .row > .col {
+        display: block; /* Rimuove Flexbox per layout mobile */
+    }
+    .cardcat {
+        height: auto; /* Permette alle card di adattarsi al contenuto */
+    }
 
+    .card-body {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        align-items: stretch; /* Allinea gli elementi alla larghezza della card */
+    }
 
+    .cardcat .btn {
+        width: 100%; /* Riempie la larghezza della card */
+        margin-top: 10px; /* Aggiunge uno spazio sopra i pulsanti */
+    }
+    .card-img-top {
+        display: none; /* Nasconde le immagini */
+    }
+}
 .pill {
   background-color: #00a3cc;
   border: none;
   color: black;
-  padding: 10px 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  margin: 4px 2px;
   cursor: pointer;
   border-radius: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 10px 0;
 }
 .pill span {
   cursor: pointer;
