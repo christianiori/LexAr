@@ -1,6 +1,9 @@
 html, body {
     height: 100%;
     margin: 0;
+    word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 a{
   color: #0d6ca6;
@@ -8,20 +11,29 @@ a{
 }
 
 body {
+    padding: 0;
     display: flex;
     flex-direction: column;
     background-color: #ccf5ff;
-    height: 100%; /* Conferma che il body occupa l'intera altezza */
-    overflow-x: hidden; /* Evita scroll orizzontale se non necessario */
-     font-family: 'Poppins', sans-serif;
+    height: 100%; 
+    overflow-x: hidden; 
+    font-family: 'Poppins', sans-serif;
+}
+.container-fluid {
+    padding: 0 15px;
+    overflow: visible;
 }
 .navbar {
-  font-family: 'Marck Script', cursive; /* Stile del font */
-  font-size: 24px; /* Dimensione del testo */
-  background-color: #00a3cc; /* Colore di sfondo */
-  color: white; /* Colore del testo */
-  padding: 10px 20px; /* Spaziatura interna */
-  border-bottom: 2px solid #076578; /* Linea decorativa sotto la navbar */
+  font-family: 'Marck Script', cursive;
+  font-size: 24px;
+  background-color: #00a3cc;
+  color: white;
+  padding: 10px 20px;
+  border-bottom: 2px solid #076578; 
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1030;
 }
 .navbar-brand {
   font-size: 27px;
@@ -30,12 +42,12 @@ body {
 .navbar a {
   color:  black;
   text-decoration: none;
-  margin: 0 10px; /* Spaziatura tra i link */
+  margin: 0 10px; 
   transition: color 0.3s ease;
 }
 
 .navbar a:hover {
-  color: white;/* Cambia colore al passaggio del mouse */
+  color: white;
 }
 .navbar .dropdown-menu {
   font-size: 22px;
@@ -45,14 +57,168 @@ body {
   font-size: 22px;
 }
 .navbar .dropdown-item:hover {
-  color: #0d6ca6; /* Colore del testo durante l'hover */
+  color: #0d6ca6; 
 }
 .navbar #searchInput {
-  font-size: 24px; /* Imposta la dimensione del testo */
+  font-size: 24px; 
 }
 .navbar .btn-info {
-  font-size: 24px; /* Dimensione del font */
+  font-size: 24px; 
 }
+
+/* Sidebar navbar nascosta inizialmente */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -250px; /* Fuori dallo schermo */
+  width: 250px;
+  height: 100%;
+  background-color: #00a3cc;
+  color: white;
+  overflow-x: hidden;
+  transition: 0.5s;
+  z-index: 2000;
+}
+
+/* Link del menu */
+.sidebar .navbar-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.sidebar .nav-item {
+  margin: 10px 0;
+}
+
+.sidebar .nav-link {
+  color: white;
+  text-decoration: none;
+  font-family: 'Marck Script', cursive;
+  font-size: 24px;
+  padding: 10px;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #0d6ca6;
+  border-radius: 5px;
+}
+
+/* Quando la sidebar è visibile */
+.sidebar.paginacorrente {
+  left: 0; /* La sidebar scorre dentro lo schermo */
+}
+
+/* Pulsante toggler */
+#toggleMenu {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.toggle-button{
+  position: fixed;
+  top: 50%; 
+  left: 0; 
+  transform: translateY(-50%);
+  background-color: #00a3cc; 
+  border: none;
+  color: #0d6ca6;
+  padding: 10px 15px;
+  border-radius: 0 5px 5px 0; 
+  cursor: pointer;
+  z-index: 3000; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-button:hover{
+  background-color: #0d6ca6; 
+}
+
+.toggle-button span{
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  .colonnasx {
+    display: none; /* Nascondi la colonna sinistra */
+  }
+
+  .filter-sidebar {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Inizialmente nascosta */
+    width: 300px;
+    height: 100%;
+    background-color: #0d6ca6;
+    color: white;
+    z-index: 1050;
+    overflow-y: auto;
+    transition: 0.3s;
+    padding: 20px;
+  }
+
+  .filter-sidebar.open {
+    right: 0; /* Mostra la sidebar */
+  }
+
+  .filter-sidebar .close-btn {
+  position: absolute;
+  top: 10px; /* Distanza dall'alto */
+  left: 10px; /* Distanza dalla sinistra */
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  z-index: 1050; /* Assicurati che sia visibile sopra gli altri elementi */
+  }
+
+  .filter-sidebar h3 {
+  margin-top: 40px; /* Sposta gli altri elementi in basso per evitare sovrapposizioni */
+  }
+
+  #toggleFilters {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    z-index: 1100;
+    background: none;
+    border: none;
+    font-size: 24px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+    .filter-sidebar .dropdown {
+    margin-bottom: 15px;
+  }
+
+  .filter-sidebar .dropdown-toggle {
+    width: 100%;
+    background-color: #0dcaf0;
+    color: white;
+    border: none;
+    padding: 10px;
+    text-align: left;
+  }
+
+  .filter-sidebar .dropdown-menu {
+    width: 100%;
+    background-color: white;
+  }
+
+  .filter-sidebar .dropdown-item {
+    color: black;
+  }
+
+  .filter-sidebar .dropdown-item:hover {
+    background-color: #0dcaf0;
+  }
+}
+
 .imgaut {
   max-width: 100%; /* L'immagine non supera la larghezza del contenitore */
   max-height: 500px; /* Imposta un'altezza massima */
@@ -757,4 +923,3 @@ ult li .descr::before {
   text-decoration: none; 
   color: black;
 }
->>>>>>> 2b34dfe (Modifiche al file autore.html e allo stile)

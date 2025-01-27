@@ -27,7 +27,7 @@ let activeFilters = {
 
 // Mappa per traslitterazione greco-latino
 const transliterationMap = {
-    "α": "a", "ἀ": "a", "ἄ": "a", "ἆ": "a", "ἁ": "a", "ἅ": "a", "ἇ": "a", "β": "b", "γ": "g", "δ": "d", "ε": "e", "ζ": "z", "η": "e", "θ": "th", "ι": "i", "κ": "k", "λ": "l", "μ": "m", "ν": "n", "ξ": "x", "ο": "o", "π": "p", "ρ": "r", "σ": "s", "ς": "s", "τ": "t", "υ": "y", "φ": "ph", "χ": "ch", "ψ": "ps", "ω": "o", "Α": "a", "Ἀ": "a", "Ἄ": "a", "Ἆ": "a", "Ἁ": "a", "Ἅ": "a", "Ἇ": "a", "Β": "b", "Γ": "g", "Δ": "d", "Ε": "e", "Ζ": "z", "Η": "e", "Θ": "th", "Ι": "i", "Κ": "k", "Λ": "l", "Μ": "m", "Ν": "n", "Ξ": "x", "Ο": "o", "Π": "p", "Ρ": "r", "Σ": "s", "Τ": "t", "Υ": "y", "Φ": "ph", "Χ": "ch", "Ψ": "ps", "Ω": "o"
+    "α": "a", "ἀ": "a", "ἄ": "a", "ἆ": "a", "ἁ": "a", "ἅ": "a", "ἇ": "a", "β": "b", "γ": "g", "δ": "d", "ε": "e", "ζ": "z", "η": "h", "θ": "th", "ι": "i", "κ": "k", "λ": "l", "μ": "m", "ν": "n", "ξ": "x", "ο": "o", "π": "p", "ρ": "r", "σ": "s", "ς": "s", "τ": "t", "υ": "y", "φ": "ph", "χ": "ch", "ψ": "ps", "ω": "w", "Α": "a", "Ἀ": "a", "Ἄ": "a", "Ἆ": "a", "Ἁ": "a", "Ἅ": "a", "Ἇ": "a", "Β": "b", "Γ": "g", "Δ": "d", "Ε": "e", "Ζ": "z", "Η": "h", "Θ": "th", "Ι": "i", "Κ": "k", "Λ": "l", "Μ": "m", "Ν": "n", "Ξ": "x", "Ο": "o", "Π": "p", "Ρ": "r", "Σ": "s", "Τ": "t", "Υ": "y", "Φ": "ph", "Χ": "ch", "Ψ": "ps", "Ω": "w"
 };
 
 // Funzione per traslitterare il testo dal greco al latino
@@ -53,6 +53,7 @@ function updateFilters() {
         const categories = term.getAttribute("data-category").split(" ");
 
         const initial = normalizeString(transliterate(term.querySelector("b").textContent.trim()[0]));
+        console.log(`Iniziale trovata: ${initial}`); // Mostra l'iniziale trovata
 
         const termTextOriginal = term.querySelector("b").textContent;
         const termText = normalizeString(transliterate(termTextOriginal));
@@ -208,6 +209,58 @@ window.addEventListener("DOMContentLoaded", () => {
     setupBubblesModal();
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const filterSidebar = document.getElementById("filterSidebar");
+  const toggleFiltersButton = document.getElementById("toggleFilters");
+  const closeFilterSidebarButton = document.getElementById("closeFilterSidebar");
+  const clearFiltersButton = document.getElementById("clearFilters");
+  const filterButtons = document.querySelectorAll(".dropdown-item[data-filter]");
+
+  // Apri la sidebar
+  toggleFiltersButton.addEventListener("click", () => {
+    filterSidebar.classList.add("open");
+  });
+
+  // Chiudi la sidebar
+  closeFilterSidebarButton.addEventListener("click", () => {
+    filterSidebar.classList.remove("open");
+  });
+
+  // Chiudi la sidebar cliccando fuori
+  document.addEventListener("click", (event) => {
+    if (!filterSidebar.contains(event.target) && event.target !== toggleFiltersButton) {
+      filterSidebar.classList.remove("open");
+    }
+  });
+
+  // Aggiungi comportamento ai filtri
+if (filterButtons.length > 0) {
+  filterButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const filterValue = button.getAttribute("data-filter");
+      if (filterValue) {
+        console.log(`Filtro applicato: ${filterValue}`);
+        toggleFilter(activeFilters.categories, filterValue);
+      } else {
+        console.warn("Il pulsante non ha un valore di filtro valido.");
+      }
+    });
+  });
+} else {
+  console.warn("Nessun pulsante di filtro trovato nel DOM.");
+}
+
+  // Rimuovi tutti i filtri
+  clearFiltersButton.addEventListener("click", () => {
+    activeFilters.initials.clear();
+    activeFilters.texts.clear();
+    activeFilters.categories.clear();
+    activeFilters.themes.clear();
+    activeFilters.searchQuery = "";
+    updateFilters(); // Funzione esistente
+    filterSidebar.classList.remove("open");
+  });
+});
 
 
 // PAGINA LESAMB
@@ -283,6 +336,27 @@ function setupBubblesModal() {
     } else {
         console.log("Nessun elemento accordion trovato nella pagina.");
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const toggleButton = document.getElementById("toggleMenu");
+    const sidebar = document.getElementById("mobileSidebar");
+
+    // Aggiungi l'evento al pulsante di apertura
+    if (toggleButton && sidebar) {
+        toggleButton.addEventListener("click", function () {
+            sidebar.classList.toggle("paginacorrente");
+        });
+
+        // Chiudi la sidebar cliccando fuori da essa
+        document.addEventListener("click", function (event) {
+            if (!sidebar.contains(event.target) && !toggleButton.contains(event.target)) {
+                sidebar.classList.remove("paginacorrente");
+            }
+        });
+    } else {
+        console.error("Elemento toggleMenu o mobileSidebar non trovato.");
+    }
+});
 
 // PAGINA TIMELINE
 

@@ -10,8 +10,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="DC.Title" content="Commedie aristofanee">
 		<meta name="DC.Creator" content="Christian Iori">
-		<meta name="DC.Subject" content="Testi drammatici">
-		<meta name="DC.Subject" content="Commedie">
+		<meta name="DC.Subject" content="Glossario">
+		<meta name="DC.Subject" content="Termini greci, definizioni">
 		<meta name="DC.Description" content="Raccolta di testi di Aristofane in formato digitale">
 		<meta name="DC.Publisher" content="Università di Bologna">
 		<meta name="DC.Date" content="2024">
@@ -27,7 +27,7 @@
 	</head>
 	<body>
 		<!--Navbar !-->
-		<nav class="navbar navbar-expand-lg sticky-top">
+		<nav class="navbar navbar-expand-lg navbar-light desktop-navbar d-none d-lg-flex">
   			<div class="container-fluid">
   				<a class="navbar-brand" href="#">LexAr</a>
   				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,8 +74,22 @@
     			</div>
   			</div>
 		</nav>
+        <button id="toggleMenu" class="toggle-button mobile-navbar d-lg-none">
+            <span>&#9664;</span>
+        </button>
+        <div class="sidebar" id="mobileSidebar">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="intro.html">Introduzione</a></li>
+                <li class="nav-item"><a class="nav-link" href="timeline.html">Linea del tempo</a></li>
+                <li class="nav-item"><a class="nav-link" href="autore.html">Autore</a></li>
+                <li class="nav-item"><a class="nav-link" href="glossario.html">Glossario</a></li>
+                <li class="nav-item"><a class="nav-link" href="../lessico/lessicogen.html">Lessico</a></li>
+                <li class="nav-item"><a class="nav-link" href="../catalogo/catalogo1.html">Catalogo</a></li>
+            </ul>
+        </div>
 		<div class="row">
-    		<div class="col-sm-2 colonnasx">
+    		<div class="col-sm-2 colonnasx d-none d-md-block">
       			<ul class="breadcrumb">
   					<li><a href="../index.html">Home</a></li>
   					<li>Glossario</li>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 	<head>
-		<title>Il lessico nelle commedie aristofanee</title>
+		<title>LexAr-Il lessico nelle commedie aristofanee</title>
 		<link rel="icon" type="image/x-icon" href="../img/aristofane.jpg">
 		<meta charset="UTF-8"  />
 		<meta name="description" content="Sito dedicato al lessico di Aristofane"  />
@@ -28,7 +28,7 @@
 	</head>
 	<body>
 		<!--Navbar !-->
-		<nav class="navbar navbar-expand-lg sticky-top">
+		<nav class="navbar navbar-expand-lg navbar-light desktop-navbar d-none d-lg-flex">
   			<div class="container-fluid">
   				<a class="navbar-brand" href="#">LexAr</a>
   				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,8 +75,22 @@
     			</div>
   			</div>
 		</nav>
+		<button id="toggleMenu" class="toggle-button mobile-navbar d-lg-none">
+            <span>&#9664;</span>
+        </button>
+		<div class="sidebar" id="mobileSidebar">
+            <ul class="navbar-nav">
+            	<li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="../infogen/intro.html">Introduzione</a></li>
+                <li class="nav-item"><a class="nav-link" href="../infogen/timeline.html">Linea del tempo</a></li>
+                <li class="nav-item"><a class="nav-link" href="../infogen/autore.html">Autore</a></li>
+                <li class="nav-item"><a class="nav-link" href="../infogen/glossario.html">Glossario</a></li>
+                <li class="nav-item"><a class="nav-link" href="lessicogen.html">Lessico</a></li>
+                <li class="nav-item"><a class="nav-link" href="../catalogo/catalogo1.html">Catalogo</a></li>
+            </ul>
+        </div>
 		<div class="row">
-    			<div class="col-sm-2 colonnasx">
+    			<div class="col-sm-2 colonnasx d-none d-md-block">
       				<ul class="breadcrumb">
   						<li><a href="../index.html">Home</a></li>
   						<li><a href="lessicogen.html">Lessico generale</a></li>
