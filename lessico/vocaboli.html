@@ -27,7 +27,7 @@
 		<link rel="stylesheet" type="text/css" href="../style/style.css" />
 		<script src="../script/script.js" defer></script>
 	</head>
-	<body>
+	<body class="vocab">
 		<!--Navbar !-->
 		<nav class="navbar navbar-expand-lg navbar-light desktop-navbar d-none d-lg-flex">
   			<div class="container-fluid">
@@ -107,10 +107,11 @@
                 <li class="nav-item"><a class="nav-link" href="../catalogo/catalogo1.html">Catalogo</a></li>
             </ul>
         </div>
-        <button id="toggleFilters">Filtri</button>
-		<div class="filter-sidebar" id="filterSidebar">
+        <button class="d-md-none"id="toggleFilters">Filtri</button>
+		<div class="filter-sidebar d-md-none" id="filterSidebar">
 			<button class="close-btn" id="closeFilterSidebar">✖</button>
-  			<h3>Filtri</h3> 
+  			<h3>Filtri</h3>
+  			<input class="form-control mb-2 search-bar" id="search-bar-sidebar" type="text" placeholder="Cerca un vocabolo..." data-bs-toggle="tooltip" title="Inserisci un vocabolo in traslitterazione o in greco">
   			<div class="dropdown">				
     			<button aria-label="Filtra per iniziale" class="btn btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
       			Filtra per iniziale
@@ -123,22 +124,22 @@
 					<li><button class="dropdown-item" data-filter="e">Ε</button></li>
         			<li><button class="dropdown-item" data-filter="z">Ζ</button></li>
         			<li><button class="dropdown-item" data-filter="h">Η</button></li>
-       				<li><button class="dropdown-item" data-filter="th">Θ</button></li>
+       				<li><button class="dropdown-item" data-filter="q">Θ</button></li>
         			<li><button class="dropdown-item" data-filter="i">Ι</button></li>
    					<li><button class="dropdown-item" data-filter="k">Κ</button></li>
        				<li><button class="dropdown-item" data-filter="l">Λ</button></li>
         			<li><button class="dropdown-item" data-filter="m">Μ</button></li>
         			<li><button class="dropdown-item" data-filter="n">Ν</button></li>
-        			<li><button class="dropdown-item" data-filter="x">Ξ</button></li>
+        			<li><button class="dropdown-item" data-filter="c">Ξ</button></li>
         			<li><button class="dropdown-item" data-filter="o">Ο</button></li>
         			<li><button class="dropdown-item" data-filter="p">Π</button></li>
         			<li><button class="dropdown-item" data-filter="r">Ρ</button></li>
         			<li><button class="dropdown-item" data-filter="s">Σ</button></li>
         			<li><button class="dropdown-item" data-filter="t">Τ</button></li>
         			<li><button class="dropdown-item" data-filter="u">Υ</button></li>
-        			<li><button class="dropdown-item" data-filter="ph">Φ</button></li>
-        			<li><button class="dropdown-item" data-filter="ch">Χ</button></li>
-        			<li><button class="dropdown-item" data-filter="ps">Ψ</button></li>
+        			<li><button class="dropdown-item" data-filter="f">Φ</button></li>
+        			<li><button class="dropdown-item" data-filter="x">Χ</button></li>
+        			<li><button class="dropdown-item" data-filter="y">Ψ</button></li>
         			<li><button class="dropdown-item" data-filter="w">Ω</button></li>
     			</ul>
   			</div>
@@ -192,7 +193,7 @@
 					<li><button class="dropdown-item" data-filter="pers">Personaggi storici</button></li>
 				</ul>
   			</div>
-			<button id="clearFilters" class="btn btn-outline-info w-100 mt-3">Rimuovi tutti i filtri</button>
+			<button class="btn btn-outline-info w-100 mt-3 clear-vocabulary-filters">Rimuovi tutti i filtri</button>
 		</div>
 		<div class="container-fluid text-center">
   			<div class="row">
@@ -202,7 +203,7 @@
   						<li><a href="lessicogen">Lessico generale</a></li>
   						<li>Tutti i vocaboli</li>
   					</ul>
-					<input class="form-control mb-2" id="search-bar" type="text" placeholder="Cerca un vocabolo..." data-bs-toggle="tooltip" title="Inserisci un vocabolo in traslitterazione o in greco">
+					<input class="form-control mb-2 search-bar" id="search-bar-colonnasx" type="text" placeholder="Cerca un vocabolo..." data-bs-toggle="tooltip" title="Inserisci un vocabolo in traslitterazione o in greco">
 					<div class="btn-group-vertical w-100" role="group" aria-label="Vertical button group">
 						<div class="btn-group dropend" role="group">
     						<button type="button" aria-label="Filtra per iniziale" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -216,22 +217,22 @@
         						<li><button class="dropdown-item" data-filter="e">Ε</button></li>
         						<li><button class="dropdown-item" data-filter="z">Ζ</button></li>
         						<li><button class="dropdown-item" data-filter="h">Η</button></li>
-        						<li><button class="dropdown-item" data-filter="th">Θ</button></li>
+        						<li><button class="dropdown-item" data-filter="q">Θ</button></li>
         						<li><button class="dropdown-item" data-filter="i">Ι</button></li>
         						<li><button class="dropdown-item" data-filter="k">Κ</button></li>
         						<li><button class="dropdown-item" data-filter="l">Λ</button></li>
         						<li><button class="dropdown-item" data-filter="m">Μ</button></li>
         						<li><button class="dropdown-item" data-filter="n">Ν</button></li>
-        						<li><button class="dropdown-item" data-filter="cs">Ξ</button></li>
+        						<li><button class="dropdown-item" data-filter="c">Ξ</button></li>
         						<li><button class="dropdown-item" data-filter="o">Ο</button></li>
         						<li><button class="dropdown-item" data-filter="p">Π</button></li>
         						<li><button class="dropdown-item" data-filter="r">Ρ</button></li>
         						<li><button class="dropdown-item" data-filter="s">Σ</button></li>
         						<li><button class="dropdown-item" data-filter="t">Τ</button></li>
         						<li><button class="dropdown-item" data-filter="u">Υ</button></li>
-        						<li><button class="dropdown-item" data-filter="ph">Φ</button></li>
-        						<li><button class="dropdown-item" data-filter="ch">Χ</button></li>
-        						<li><button class="dropdown-item" data-filter="ps">Ψ</button></li>
+        						<li><button class="dropdown-item" data-filter="f">Φ</button></li>
+        						<li><button class="dropdown-item" data-filter="x">Χ</button></li>
+        						<li><button class="dropdown-item" data-filter="y">Ψ</button></li>
         						<li><button class="dropdown-item" data-filter="w">Ω</button></li>
     						</ul>
 						</div>
@@ -285,7 +286,7 @@
 						 		<li><button class="dropdown-item" data-filter="pers">Personaggi storici</button></li>
 						 	</ul>
 						 </div>
-						<button id="clear-vocabulary-filters" class="btn btn-outline-info">Rimuovi filtri</button>
+						<button class="btn btn-outline-info clear-vocabulary-filters">Rimuovi filtri</button>
 					</div>
   						<div class="card border-info bg-info mt-3 d-none d-md-block">
   							<div class="card-header text-center">

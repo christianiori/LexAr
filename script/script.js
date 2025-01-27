@@ -1,5 +1,4 @@
 // DICHIARAZIONI GENERALI
-// Seleziona tutti i termini e i bottoni dei filtri
 const terms = document.querySelectorAll(".term");
 const filterButtons = document.querySelectorAll(".dropdown-item[data-filter]");
 const clearFiltersButton = document.getElementById("clear-vocabulary-filters");
@@ -14,302 +13,248 @@ const termLinks = document.querySelectorAll(".termgl");
 const cards = document.querySelectorAll(".col[data-category]");
 const radioButtons = document.querySelectorAll(".btn-check");
 
+
 // PAGINA VOCABOLI
-
-// Mantiene i filtri attivi
-let activeFilters = {
-    initials: new Set(),
-    texts: new Set(),
-    categories: new Set(),
-    themes: new Set(),
-    searchQuery: ""
-};
-
-// Mappa per traslitterazione greco-latino
-const transliterationMap = {
-    "α": "a", "ἀ": "a", "ἄ": "a", "ἆ": "a", "ἁ": "a", "ἅ": "a", "ἇ": "a", "β": "b", "γ": "g", "δ": "d", "ε": "e", "ζ": "z", "η": "h", "θ": "th", "ι": "i", "κ": "k", "λ": "l", "μ": "m", "ν": "n", "ξ": "x", "ο": "o", "π": "p", "ρ": "r", "σ": "s", "ς": "s", "τ": "t", "υ": "y", "φ": "ph", "χ": "ch", "ψ": "ps", "ω": "w", "Α": "a", "Ἀ": "a", "Ἄ": "a", "Ἆ": "a", "Ἁ": "a", "Ἅ": "a", "Ἇ": "a", "Β": "b", "Γ": "g", "Δ": "d", "Ε": "e", "Ζ": "z", "Η": "h", "Θ": "th", "Ι": "i", "Κ": "k", "Λ": "l", "Μ": "m", "Ν": "n", "Ξ": "x", "Ο": "o", "Π": "p", "Ρ": "r", "Σ": "s", "Τ": "t", "Υ": "y", "Φ": "ph", "Χ": "ch", "Ψ": "ps", "Ω": "w"
-};
-
-// Funzione per traslitterare il testo dal greco al latino
-function transliterate(text) {
-    return text
-        .normalize("NFD") // Normalizza i caratteri con diacritici
-        .split("")
-        .map(char => transliterationMap[char] || char) // Applica la mappa di traslitterazione
-        .join("")
-        .toLowerCase(); // Converte tutto in minuscolo
-}
-
-// Funzione per normalizzare caratteri con diacritici
-function normalizeString(str) {
-    return str.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
-}
-
-// Funzione per aggiornare la visibilità dei termini
-function updateFilters() {
-    const normalizedSearchQuery = normalizeString(transliterate(activeFilters.searchQuery));
-
-    terms.forEach(term => {
-        const categories = term.getAttribute("data-category").split(" ");
-
-        const initial = normalizeString(transliterate(term.querySelector("b").textContent.trim()[0]));
-        console.log(`Iniziale trovata: ${initial}`); // Mostra l'iniziale trovata
-
-        const termTextOriginal = term.querySelector("b").textContent;
-        const termText = normalizeString(transliterate(termTextOriginal));
-
-        const matchesInitials = activeFilters.initials.size === 0 || Array.from(activeFilters.initials).some(filter => filter === initial);
-
-        const matchesTexts = activeFilters.texts.size === 0 || Array.from(activeFilters.texts).some(filter => categories.some(cat => normalizeString(cat) === filter));
-
-        const matchesCategories = activeFilters.categories.size === 0 || Array.from(activeFilters.categories).some(filter => categories.some(cat => normalizeString(cat) === filter));
-
-        const matchesThemes = activeFilters.themes.size === 0 || Array.from(activeFilters.themes).some(filter => categories.some(cat => normalizeString(cat) === filter));
-
-        const matchesSearch = !activeFilters.searchQuery || termText.includes(normalizedSearchQuery);
-
-        if (matchesInitials && matchesTexts && matchesCategories && matchesThemes && matchesSearch) {
-            term.style.display = "block";
-        } else {
-            term.style.display = "none";
-        }
-    });
-
-    // Aggiorna la classe 'paginacorrente' per i filtri attivi
-    filterButtons.forEach(button => {
-        const filterValue = normalizeString(transliterate(button.getAttribute("data-filter")));
-        if (
-            activeFilters.initials.has(filterValue) ||
-            activeFilters.texts.has(filterValue) ||
-            activeFilters.categories.has(filterValue) ||
-            activeFilters.themes.has(filterValue)
-        ) {
-            button.classList.add("paginacorrente");
-        } else {
-            button.classList.remove("paginacorrente");
-        }
-    });
-}
-
-// Funzione per aggiungere o rimuovere filtri
-function toggleFilter(filterSet, filterValue) {
-    const normalizedFilter = normalizeString(transliterate(filterValue));
-    if (filterSet.has(normalizedFilter)) {
-        filterSet.delete(normalizedFilter);
-    } else {
-        filterSet.add(normalizedFilter);
-    }
-    updateFilters();
-}
-
-// Funzione per applicare filtri dall'URL e mostrare il modale
-function applyFiltersFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    let filtersApplied = false;
-
-    params.forEach((value, key) => {
-        const normalizedValue = normalizeString(transliterate(value)); // Normalizzazione del valore
-
-        switch (key) {
-            case "initial":
-                activeFilters.initials.add(normalizedValue);
-                filtersApplied = true;
-                break;
-            case "text":
-                activeFilters.texts.add(normalizedValue);
-                filtersApplied = true;
-                break;
-            case "category":
-                activeFilters.categories.add(normalizedValue);
-                filtersApplied = true;
-                break;
-            case "theme":
-                activeFilters.themes.add(normalizedValue);
-                filtersApplied = true;
-                break;
-            case "filter": // Gestione del filtro dall'URL
-                activeFilters.categories.add(normalizedValue);
-                filtersApplied = true;
-                break;
-            case "search":
-                activeFilters.searchQuery = normalizedValue;
-                filtersApplied = true;
-                break;
-        }
-    });
-
-    if (filtersApplied) {
-        console.log("Filtri applicati. Mostro il modale.");
-        updateFilters(); // Aggiorna i filtri attivi
-        const modal = new bootstrap.Modal(modalElement);
-        modal.show();
-    } else {
-        console.log("Nessun filtro applicato.");
-    }
-}
-
-// Event listener per i bottoni dei filtri
-filterButtons.forEach(button => {
-    button.addEventListener("click", () => {
-        const filterValue = button.getAttribute("data-filter");
-        const filterType = button.closest("[aria-label]").getAttribute("aria-label");
-
-        switch (filterType) {
-            case "Filtra per iniziale":
-                toggleFilter(activeFilters.initials, filterValue);
-                break;
-            case "Filtra per testo":
-                toggleFilter(activeFilters.texts, filterValue);
-                break;
-            case "Filtra per categoria grammaticale":
-                toggleFilter(activeFilters.categories, filterValue);
-                break;
-            case "Filtra per campo semantico":
-                toggleFilter(activeFilters.themes, filterValue);
-                break;
-        }
-    });
-
-    // Inizializza tooltip Bootstrap
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
-});
-
-// Event listener per il campo di ricerca
-if (searchBar) {
-    searchBar.addEventListener("input", () => {
-        activeFilters.searchQuery = searchBar.value;
-        updateFilters();
-    });
-} else {
-    console.log("Elemento search-bar non presente in questa pagina.");
-}
-
-// Event listener per il pulsante di rimozione filtri
-if (clearFiltersButton) {
-    clearFiltersButton.addEventListener("click", () => {
-        activeFilters.initials.clear();
-        activeFilters.texts.clear();
-        activeFilters.categories.clear();
-        activeFilters.themes.clear();
-        activeFilters.searchQuery = "";
-
-        if (searchBar) {
-            searchBar.value = "";
-        }
-        updateFilters();
-    });
-} else {
-    console.log("Elemento clear-vocabulary-filters non trovato nel DOM.");
-}
-
-// Applica i filtri dall'URL al caricamento della pagina
-window.addEventListener("DOMContentLoaded", () => {
-    applyFiltersFromURL();
-    setupBubblesModal();
-});
-
 document.addEventListener("DOMContentLoaded", () => {
-  const filterSidebar = document.getElementById("filterSidebar");
-  const toggleFiltersButton = document.getElementById("toggleFilters");
-  const closeFilterSidebarButton = document.getElementById("closeFilterSidebar");
-  const clearFiltersButton = document.getElementById("clearFilters");
-  const filterButtons = document.querySelectorAll(".dropdown-item[data-filter]");
+    const terms = document.querySelectorAll(".term");
+    const filterButtons = document.querySelectorAll(".dropdown-item[data-filter]");
+    const clearFiltersButtons = document.querySelectorAll(".clear-vocabulary-filters");
+    const searchBars = document.querySelectorAll(".search-bar");
+    const activeFilters = {};
+    const modalElement = document.getElementById("filter-modal");
+     const sidebar = document.getElementById("filterSidebar");
+    const toggleFiltersButton = document.getElementById("toggleFilters");
+    const closeSidebarButton = document.getElementById("closeFilterSidebar");
+    const transliterationMap = {
+        "A": ["Α", "α", "Ἀ", "ἄ", "ἂ", "ἆ", "ἀ", "ά", "ὰ", "ᾶ", "ᾳ", "ᾴ", "ᾲ", "ᾷ"],
+        "B": ["Β", "β"],
+        "G": ["Γ", "γ"],
+        "D": ["Δ", "δ"],
+        "E": ["Ε", "ε", "Ἐ", "ἔ", "ἒ", "ἐ", "έ", "ὲ"],
+        "Z": ["Ζ", "ζ"],
+        "H": ["Η", "η", "Ἠ", "ἤ", "ἢ", "ἦ", "ἠ", "ή", "ὴ", "ῆ", "ῃ", "ῄ", "ῂ", "ῇ"],
+        "Q": ["Θ", "θ"],
+        "I": ["Ι", "ι", "Ἰ", "ἴ", "ἲ", "ἶ", "ἰ", "ί", "ὶ", "ῖ", "ϊ", "ΐ", "ῒ", "ῗ"],
+        "K": ["Κ", "κ"],
+        "L": ["Λ", "λ"],
+        "M": ["Μ", "μ"],
+        "N": ["Ν", "ν"],
+        "C": ["Ξ", "ξ"],
+        "O": ["Ο", "ο", "Ὀ", "ὄ", "ὂ", "ὀ", "ό", "ὸ"],
+        "P": ["Π", "π"],
+        "R": ["Ρ", "ρ", "Ῥ"],
+        "S": ["Σ", "σ", "ς"],
+        "T": ["Τ", "τ"],
+        "U": ["Υ", "υ", "Ὑ", "Ὕ", "Ὓ", "Ὗ", "ύ", "ὺ", "ῦ", "ϋ", "ΰ", "ῢ", "ῧ"],
+        "F": ["Φ", "φ"],
+        "X": ["Χ", "χ"],
+        "Y": ["Ψ", "ψ"],
+        "W": ["Ω", "ω", "Ὠ", "ὤ", "ὢ", "ὦ", "ὠ", "ώ", "ὼ", "ῶ", "ῳ", "ῴ", "ῲ", "ῷ"]
+    };
 
-  // Apri la sidebar
-  toggleFiltersButton.addEventListener("click", () => {
-    filterSidebar.classList.add("open");
-  });
+    // Funzione principale per applicare filtri e ricerca
+    function applyFiltersAndSearch() {
+        const searchQuery = Array.from(searchBars)
+            .map(searchBar => searchBar.value.trim().toLowerCase())
+            .find(query => query) || "";
 
-  // Chiudi la sidebar
-  closeFilterSidebarButton.addEventListener("click", () => {
-    filterSidebar.classList.remove("open");
-  });
+        terms.forEach(term => {
+            const boldTextElement = term.querySelector("b");
+            const boldText = boldTextElement ? boldTextElement.textContent.trim() : "";
+            const normalizedBoldText = boldText.normalize("NFC").toLowerCase();
+            const categories = term.getAttribute("data-category").split(" ");
 
-  // Chiudi la sidebar cliccando fuori
-  document.addEventListener("click", (event) => {
-    if (!filterSidebar.contains(event.target) && event.target !== toggleFiltersButton) {
-      filterSidebar.classList.remove("open");
-    }
-  });
+            let matchesSearch = true;
+            let matchesFilters = true;
 
-  // Aggiungi comportamento ai filtri
-if (filterButtons.length > 0) {
-  filterButtons.forEach(button => {
-    button.addEventListener("click", () => {
-      const filterValue = button.getAttribute("data-filter");
-      if (filterValue) {
-        console.log(`Filtro applicato: ${filterValue}`);
-        toggleFilter(activeFilters.categories, filterValue);
-      } else {
-        console.warn("Il pulsante non ha un valore di filtro valido.");
-      }
-    });
-  });
-} else {
-  console.warn("Nessun pulsante di filtro trovato nel DOM.");
-}
+            // Ricerca
+            if (searchQuery) {
+                let queryRegexString = "";
+                for (const char of searchQuery) {
+                    const variants = transliterationMap[char.toUpperCase()] || [char];
+                    queryRegexString += `(${variants.join("|")})`;
+                }
+                const searchRegex = new RegExp(queryRegexString, "i");
+                const transliteratedText = Array.from(normalizedBoldText).map(char => {
+                    for (const [key, values] of Object.entries(transliterationMap)) {
+                        if (values.includes(char.toUpperCase())) return key.toLowerCase();
+                    }
+                    return char;
+                }).join("");
 
-  // Rimuovi tutti i filtri
-  clearFiltersButton.addEventListener("click", () => {
-    activeFilters.initials.clear();
-    activeFilters.texts.clear();
-    activeFilters.categories.clear();
-    activeFilters.themes.clear();
-    activeFilters.searchQuery = "";
-    updateFilters(); // Funzione esistente
-    filterSidebar.classList.remove("open");
-  });
-});
-
-
-// PAGINA LESAMB
-
-function setupBubblesModal() {
-    const bubbles = document.querySelectorAll(".bolla");
-    const modalOverlay = document.querySelector(".modal-overlay");
-
-    if (!modalOverlay) {
-        console.log("Elemento modal-overlay non trovato nel DOM. La funzione setupBubblesModal non verrà eseguita.");
-        return; // Esce dalla funzione se l'overlay non esiste
-    }
-
-    console.log("Bolle trovate:", bubbles); // Debug: verifica le bolle trovate
-
-    bubbles.forEach(bolla => {
-        bolla.addEventListener("click", () => {
-            const targetModalId = bolla.getAttribute("data-modal");
-            console.log("Modal da aprire:", targetModalId); // Debug: id del modale
-
-            const targetModal = document.getElementById(targetModalId);
-            if (!targetModal) {
-                console.error("Modale non trovato:", targetModalId);
-                return;
+                matchesSearch =
+                    searchRegex.test(normalizedBoldText) || searchRegex.test(transliteratedText);
             }
 
-            console.log("Modal trovato:", targetModal); // Debug: modale trovato
-            targetModal.classList.add("show");
-            modalOverlay.classList.add("show"); // Mostra l'overlay
+            // Filtri
+            Object.keys(activeFilters).forEach(filterType => {
+                const filterValues = activeFilters[filterType];
+                if (filterType === "Filtra per iniziale") {
+                    if (!filterValues.some(initial => {
+                        const possibleVariants = transliterationMap[initial.toUpperCase()] || [initial];
+                        return possibleVariants.some(variant => normalizedBoldText.startsWith(variant));
+                    })) {
+                        matchesFilters = false;
+                    }
+                } else {
+                    if (!filterValues.some(value => categories.includes(value))) {
+                        matchesFilters = false;
+                    }
+                }
+            });
 
-            const closeModalButton = targetModal.querySelector(".modalebolla-close");
-            if (!closeModalButton) {
-                console.error(`Elemento .modalebolla-close non trovato in ${targetModalId}`);
-                return;
+            term.style.display = matchesSearch && matchesFilters ? "block" : "none";
+        });
+    }
+     function applyFiltersFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        let hasFilters = false;
+
+        urlParams.forEach((value, key) => {
+            filterButtons.forEach(button => {
+                if (button.getAttribute("data-filter") === value) {
+                    let filterType;
+
+                    // Cerca il tipo di filtro
+                    const btnGroup = button.closest(".btn-group");
+                    if (btnGroup) {
+                        const parentButton = btnGroup.querySelector(".dropdown-toggle");
+                        if (parentButton) {
+                            filterType = parentButton.textContent.trim();
+                        }
+                    }
+
+                    // Inizializza il filtro e applica la classe
+                    if (filterType) {
+                        if (!activeFilters[filterType]) {
+                            activeFilters[filterType] = [];
+                        }
+
+                        if (!activeFilters[filterType].includes(value)) {
+                            activeFilters[filterType].push(value);
+                            button.classList.add("paginacorrente");
+                            hasFilters = true;
+                        }
+                    }
+                }
+            });
+        });
+
+        if (hasFilters && modalElement) {
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+        }
+
+        applyFiltersAndSearch(); // Applica i filtri
+    }
+
+    // Chiama la funzione per applicare i filtri dall'URL
+    applyFiltersFromURL();
+
+    // Eventi per i filtri
+    filterButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            let filterType;
+
+            const btnGroup = button.closest(".btn-group");
+            if (btnGroup) {
+                const parentButton = btnGroup.querySelector(".dropdown-toggle");
+                if (parentButton) {
+                    filterType = parentButton.textContent.trim();
+                }
             }
 
-            console.log("Elemento closeModal trovato:", closeModalButton); // Debug: bottone di chiusura
-            closeModalButton.addEventListener("click", () => {
-                targetModal.classList.remove("show");
-                modalOverlay.classList.remove("show"); // Nascondi l'overlay
-            }, { once: true });
+            if (!filterType) {
+                const sidebarFilter = button.closest(".filter-sidebar");
+                if (sidebarFilter) {
+                    const parentButton = button.closest(".dropdown");
+                    if (parentButton) {
+                        filterType = parentButton.querySelector(".dropdown-toggle").textContent.trim();
+                    }
+                }
+            }
 
-            modalOverlay.addEventListener("click", () => {
-                targetModal.classList.remove("show");
-                modalOverlay.classList.remove("show"); // Nascondi l'overlay
-            }, { once: true });
+            if (!filterType) return;
+
+            const filterValue = button.getAttribute("data-filter");
+            if (!activeFilters[filterType]) activeFilters[filterType] = [];
+
+            const currentFilterValues = activeFilters[filterType];
+            if (currentFilterValues.includes(filterValue)) {
+                activeFilters[filterType] = currentFilterValues.filter(value => value !== filterValue);
+                button.classList.remove("paginacorrente");
+            } else {
+                currentFilterValues.push(filterValue);
+                button.classList.add("paginacorrente");
+            }
+
+            if (activeFilters[filterType].length === 0) delete activeFilters[filterType];
+
+            applyFiltersAndSearch();
         });
     });
-}
+
+    // Eventi per la barra di ricerca
+    searchBars.forEach(searchBar => {
+        searchBar.addEventListener("input", () => {
+            applyFiltersAndSearch();
+        });
+    });
+
+    // Eventi per il reset dei filtri
+    clearFiltersButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        // Resetta i filtri attivi
+        Object.keys(activeFilters).forEach(key => delete activeFilters[key]);
+
+        // Rimuovi la classe "paginacorrente" da tutti i pulsanti di filtro
+        filterButtons.forEach(filterButton => filterButton.classList.remove("paginacorrente"));
+
+        // Resetta il valore delle barre di ricerca
+        searchBars.forEach(searchBar => searchBar.value = "");
+
+        // Mostra tutti i termini
+        terms.forEach(term => term.style.display = "block");
+
+        console.log("Tutti i filtri e la ricerca sono stati rimossi.");
+    });
+});
+
+
+    // Inizializza i tooltip
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.forEach(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+    if (toggleFiltersButton) {
+        toggleFiltersButton.addEventListener("click", () => {
+            sidebar.classList.add("open");
+            toggleFiltersButton.style.display = "none"; // Nasconde il pulsante
+        });
+    }
+
+    // Chiude la sidebar e mostra di nuovo il pulsante "Filtri"
+    if (closeSidebarButton) {
+        closeSidebarButton.addEventListener("click", () => {
+            closeSidebar();
+        });
+    }
+
+    // Chiude la sidebar quando si clicca fuori
+    document.addEventListener("click", (event) => {
+        const isClickInsideSidebar = sidebar.contains(event.target);
+        const isClickOnToggleButton = toggleFiltersButton.contains(event.target);
+
+        if (!isClickInsideSidebar && !isClickOnToggleButton && sidebar.classList.contains("open")) {
+            closeSidebar();
+        }
+    });
+
+    // Funzione per chiudere la sidebar
+    function closeSidebar() {
+        sidebar.classList.remove("open");
+        toggleFiltersButton.style.display = "block"; // Mostra il pulsante
+    }
+});
 
 // PAGINA INDEX
 
@@ -464,6 +409,56 @@ if (document.querySelector(".section-container")) {
         });
     });
 
+// PAGINA CAMPO SEMANTICO/BOLLE
+    const bubbles = document.querySelectorAll(".bolla"); // Seleziona tutte le bolle
+    const modals = document.querySelectorAll(".modalebolla"); // Seleziona tutti i modali
+    const modalCloseButtons = document.querySelectorAll(".modalebolla-close"); // Seleziona i pulsanti di chiusura dei modali
+  
+    // Funzione per aprire un modale
+    function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.display = "block";
+        } else {
+            console.error(`Modale con id "${modalId}" non trovato.`);
+        }
+    }
+
+    // Funzione per chiudere un modale
+    function closeModal(modal) {
+        modal.style.display = "none";
+    }
+
+    // Event listener per aprire i modali cliccando sulle bolle
+    bubbles.forEach(bubble => {
+        bubble.addEventListener("click", () => {
+            const modalId = bubble.getAttribute("data-modal"); // Ottieni l'id del modale
+            if (modalId) {
+                openModal(modalId);
+            } else {
+                console.error(`Attributo data-modal non trovato per la bolla:`, bubble);
+            }
+        });
+    });
+
+    // Event listener per chiudere i modali cliccando sulla "X"
+    modalCloseButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const modal = button.closest(".modalebolla");
+            if (modal) {
+                closeModal(modal);
+            }
+        });
+    });
+
+    // Event listener per chiudere i modali cliccando fuori dal contenuto
+    window.addEventListener("click", event => {
+        modals.forEach(modal => {
+            if (event.target === modal) {
+                closeModal(modal);
+            }
+        });
+    });
 // ACARNESI
 
     async function loadTEIContent() {

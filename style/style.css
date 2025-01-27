@@ -140,6 +140,20 @@ body {
   font-size: 18px;
 }
 
+@media (max-width: 576px) {
+    .vocab h1 {
+        font-size: 2.5rem !important;
+    }
+
+    .vocab h2 {
+        font-size: 1.25rem !important;
+    }
+
+    .vocab h3 {
+        font-size: 1.1rem !important;
+    }
+}
+
 @media (max-width: 768px) {
   .colonnasx {
     display: none; /* Nascondi la colonna sinistra */
@@ -857,6 +871,17 @@ ult li .descr::before {
     top: 50%; /* Centra verticalmente il pallino */
     transform: translateY(-50%);
     transition: color 0.3s ease; /* Transizione del colore */
+}
+
+@media (max-width: 768px) {
+    .section-title::before {
+        font-size: 1.2rem; /* Riduci la dimensione del pallino */
+        left: 5px; /* Adatta la posizione orizzontale */
+    }
+
+    .section-title {
+        padding-left: 1.5rem; /* Sposta il testo per mantenere spazio tra il pallino e il titolo */
+    }
 }
 
 .section-title:hover::before {
