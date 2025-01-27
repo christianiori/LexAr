@@ -6,6 +6,7 @@ const searchBar = document.getElementById("search-bar");
 const modalElement = document.getElementById("filter-modal"); // Modale per i filtri
 const modalOverlay = document.querySelector(".modal-overlay");
 const accordions = document.querySelectorAll(".accordion");
+const searchInput = document.querySelector(".searchInput");
 const searchInputs = document.querySelectorAll(".searchInput");
 const searchableItems = document.querySelectorAll(".searchable-item");
 const sectionTitles = document.querySelectorAll(".section-title");
@@ -435,6 +436,26 @@ radioButtons.forEach(radio => {
     });
 });
 
+if (searchInputs.length > 0) {
+    searchInputs.forEach(searchInput => {
+        searchInput.addEventListener("input", () => {
+            const query = searchInput.value.toLowerCase().trim();
+
+            cards.forEach(card => {
+                const titleElement = card.querySelector(".card-title");
+                const descriptionElement = card.querySelector(".card-text");
+
+                const title = titleElement ? titleElement.textContent.toLowerCase() : "";
+                const description = descriptionElement ? descriptionElement.textContent.toLowerCase() : "";
+
+                const matchesQuery = title.includes(query) || description.includes(query);
+                card.style.display = matchesQuery ? "block" : "none";
+            });
+        });
+    });
+} else {
+    console.warn("Nessuna barra di ricerca trovata con la classe .searchInput.");
+}
 
 
 searchInputs.forEach(searchInput => {
