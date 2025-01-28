@@ -25,7 +25,7 @@
 		<link rel="stylesheet" type="text/css" href="../style/style.css" />
 		<script src="../script/script.js" defer></script>
 	</head>
-	<body>
+	<body class="vocab">
 		<!--Navbar !-->
 		<nav class="navbar navbar-expand-lg navbar-light desktop-navbar d-none d-lg-flex">
   			<div class="container-fluid">
@@ -84,13 +84,23 @@
                 <li class="nav-item"><a class="nav-link" href="timeline.html">Linea del tempo</a></li>
                 <li class="nav-item"><a class="nav-link" href="autore.html">Autore</a></li>
                 <li class="nav-item"><a class="nav-link" href="glossario.html">Glossario</a></li>
-                <li class="nav-item"><a class="nav-link" href="../lessico/lessicogen.html">Lessico</a></li>
-                <li class="nav-item"><a class="nav-link" href="../catalogo/catalogo1.html">Catalogo</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link paginacorrente dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Lessico
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="../lessico/lessicogen.html">Lessico generale</a></li>
+                        <li><a class="dropdown-item" href="../lessico/vocaboli.html">Tutti i vocaboli</a></li>
+                        <li><a class="dropdown-item" href="../lessico/lesamb.html">Campo semantico</a></li>
+                        <li><a class="dropdown-item" href="../lessico/radici.html">Radice</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="../catalogo/catalogo1.html">Catalogo testi</a></li>
             </ul>
         </div>
 		<div class="container-fluid text-center">
   			<div class="row">
-    			<div class="col-sm-2 colonnasx d-none d-md-block">
+    			<div class="col-lg-2 colonnasx d-none d-md-block">
       				<ul class="breadcrumb">
   						<li><a href="../index.html">Home</a></li>
   						<li>Autore</li>
@@ -117,7 +127,7 @@
     					</div>
     				</div>
   				</div>
-  				<div class="col-sm-10 colonnadx">
+  				<div class="col-lg-10 col-sm-12 colonnadx">
   					<div>
   						<h1 style="font-family: 'Marck Script', cursive; font-size:5rem">L'autore</h1>
   					</div>
@@ -140,6 +150,8 @@
   								
   					</div>
   				</div>
+  			</div>
+  		</div>
 
 
 
