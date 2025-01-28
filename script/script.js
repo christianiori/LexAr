@@ -293,18 +293,27 @@ document.addEventListener("DOMContentLoaded", () => {
     if (toggleButton && sidebar) {
         toggleButton.addEventListener("click", function () {
             sidebar.classList.toggle("paginacorrente");
+
+            // Nasconde il pulsante se la sidebar è aperta
+            if (sidebar.classList.contains("paginacorrente")) {
+                toggleButton.style.display = "none";
+            } else {
+                toggleButton.style.display = "block";
+            }
         });
 
         // Chiudi la sidebar cliccando fuori da essa
         document.addEventListener("click", function (event) {
             if (!sidebar.contains(event.target) && !toggleButton.contains(event.target)) {
                 sidebar.classList.remove("paginacorrente");
+                toggleButton.style.display = "block"; // Mostra il pulsante
             }
         });
     } else {
         console.error("Elemento toggleMenu o mobileSidebar non trovato.");
     }
 });
+
 
 // PAGINA TIMELINE
 
