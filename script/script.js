@@ -479,15 +479,17 @@ searchInputs.forEach(searchInput => {
 });
 
 // PAGINA CAMPO SEMANTICO/BOLLE
-    const bubbles = document.querySelectorAll(".bolla"); // Seleziona tutte le bolle
-    const modals = document.querySelectorAll(".modalebolla"); // Seleziona tutti i modali
-    const modalCloseButtons = document.querySelectorAll(".modalebolla-close"); // Seleziona i pulsanti di chiusura dei modali
-  
+    const bubbles = document.querySelectorAll(".bolla");
+    const modals = document.querySelectorAll(".modalebolla");
+    const modalCloseButtons = document.querySelectorAll(".modalebolla-close"); 
+    const overlay = document.querySelector(".modal-overlay"); 
+
     // Funzione per aprire un modale
     function openModal(modalId) {
         const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.style.display = "block";
+        if (modal && overlay) {
+            modal.classList.add("show"); // Mostra il modale
+            overlay.classList.add("show"); // Mostra l'overlay
         } else {
             console.error(`Modale con id "${modalId}" non trovato.`);
         }
@@ -495,7 +497,10 @@ searchInputs.forEach(searchInput => {
 
     // Funzione per chiudere un modale
     function closeModal(modal) {
-        modal.style.display = "none";
+        if (modal && overlay) {
+            modal.classList.remove("show"); // Nasconde il modale
+            overlay.classList.remove("show"); // Nasconde l'overlay
+        }
     }
 
     // Event listener per aprire i modali cliccando sulle bolle
@@ -511,23 +516,23 @@ searchInputs.forEach(searchInput => {
     });
 
     // Event listener per chiudere i modali cliccando sulla "X"
-    modalCloseButtons.forEach(button => {
-        button.addEventListener("click", () => {
-            const modal = button.closest(".modalebolla");
+    modalCloseButtons.forEach(closeButton => {
+        closeButton.addEventListener("click", () => {
+            const modal = closeButton.closest(".modalebolla");
             if (modal) {
                 closeModal(modal);
             }
         });
     });
 
-    // Event listener per chiudere i modali cliccando fuori dal contenuto
-    window.addEventListener("click", event => {
-        modals.forEach(modal => {
-            if (event.target === modal) {
-                closeModal(modal);
-            }
+    // Event listener per chiudere i modali cliccando sull'overlay
+    if (overlay) {
+        overlay.addEventListener("click", () => {
+            modals.forEach(modal => closeModal(modal)); // Chiude tutti i modali aperti
         });
-    });
+    }
+
+
 // ACARNESI
 
     async function loadTEIContent() {
