@@ -146,11 +146,14 @@ body {
     }
 
     .vocab h2 {
-        font-size: 1.25rem !important;
+        font-size: 1.9rem !important;
     }
 
     .vocab h3 {
-        font-size: 1.1rem !important;
+        font-size: 1.7rem !important;
+    }
+    .vocab h4 {
+        font-size: 1.5rem !important;
     }
 }
 
@@ -633,7 +636,6 @@ ul.breadcrumb li a:hover {
   background-color: #0d6ca6;
   border-radius: 5px;
 }
-.paginazione{text-align: center;}
 
 .metadati{text-align: left;}
 
@@ -832,6 +834,14 @@ ult li .descr::before {
   background-color: #0dcaf0;
   transform: scale(1.1);
 }
+@media (max-width: 576px) {
+    .bolla {
+        width: 100px; 
+        height: 100px; 
+        font-size: 17px; 
+    }
+}
+
 
 /* Stile per il modale circolare */
 .modalebolla {
@@ -880,6 +890,28 @@ ult li .descr::before {
   font-size: 24px;
   cursor: pointer;
 }
+@media (max-width: 576px) {
+    .modalebolla {
+        max-height: 90%;
+        width: 90%;
+        height: 100%; 
+        top: 50%; 
+        left: 50%;
+        transform: translate(-50%, -50%); 
+        font-size: 15px;
+        padding: 20px;
+        border-radius: 16px;
+        overflow-y: auto;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+    .modalebolla-close {
+        font-size: 2rem; 
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+}
+
 /* Stile per section-title */
 .section-title {
     font-family: 'Marck Script', cursive;
@@ -893,38 +925,48 @@ ult li .descr::before {
 }
 
 .section-title::before {
-    content: '●'; /* Pallino */
-    font-size: 2rem; /* Dimensione del pallino */
-    color: #00a3cc; /* Colore predefinito del pallino */
+    content: '●';
+    font-size: 2rem; 
+    color: #00a3cc; 
     position: absolute;
-    left: 0; /* Posizione a sinistra */
-    top: 50%; /* Centra verticalmente il pallino */
+    left: 0; 
+    top: 50%; 
     transform: translateY(-50%);
-    transition: color 0.3s ease; /* Transizione del colore */
+    transition: color 0.3s ease; 
 }
 
 @media (max-width: 768px) {
     .section-title::before {
-        font-size: 1.2rem; /* Riduci la dimensione del pallino */
-        left: 5px; /* Adatta la posizione orizzontale */
+        font-size: 1.2rem; 
+        left: 5px; 
     }
 
     .section-title {
-        padding-left: 1.5rem; /* Sposta il testo per mantenere spazio tra il pallino e il titolo */
+        padding-left: 1.5rem; 
+    }
+}
+@media (max-width: 576px) {
+    .term-description {
+        width: 100% !important; 
+        margin: 0 !important; 
+        padding: 5px !important;
+        font-size: 0.9rem !important; 
+        line-height: 1.2 !important; 
+        text-align: justify !important; 
     }
 }
 
 .section-title:hover::before {
-    color: #0d6ca6; /* Cambia colore del pallino al passaggio del mouse */
+    color: #0d6ca6; 
 }
 
 .section-title-selected {
-    color: #0d6ca6; /* Cambia colore del titolo quando selezionato */
+    color: #0d6ca6; 
     font-weight: bold;
 }
 
 .section-title-selected::before {
-    color: #0d6ca6; /* Cambia colore del pallino quando selezionato */
+    color: #0d6ca6; 
 }
 
 /* Stile per termgl */
