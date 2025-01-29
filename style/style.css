@@ -253,7 +253,7 @@ body {
     font-weight: bold;
     color: #007bff;
     text-transform: uppercase;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     display: block;
 }
 
@@ -261,11 +261,16 @@ body {
     margin-left: 20px;
     text-indent: -20px; /* Allinea bene i versi */
     margin-bottom: 5px;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
 }
 
 .tei-speech {
     margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
 }
+
 
 .imgaut {
   max-width: 100%; /* L'immagine non supera la larghezza del contenitore */

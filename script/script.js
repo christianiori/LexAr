@@ -572,10 +572,10 @@ searchInputs.forEach(searchInput => {
             const speakerElement = speech.querySelector("speaker");
             const speaker = speakerElement ? `<strong class="tei-speaker">${speakerElement.textContent.trim()}</strong>` : "";
 
-            // Estrai tutte le righe (<l>) e mantieni ogni verso su una riga separata
-            const speechLines = Array.from(speech.querySelectorAll("l")).map(l => `<div class="tei-line">${l.textContent.trim()}</div>`).join("");
+            // Estrai tutte le righe (<l>) del discorso e preserva i versi
+            const speechLines = Array.from(speech.querySelectorAll("l")).map(line => `<div class="tei-line">${line.textContent.trim()}</div>`).join("");
 
-            // Aggiungi il discorso con lo speaker, rispettando i versi
+            // Combina speaker e linee del discorso
             paragraphs.push(`<div class="tei-speech">${speaker}${speechLines}</div>`);
         });
 
@@ -592,9 +592,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const acarnesiButton = document.querySelector('[data-bs-target="#testo-Acarnesi"]');
     if (acarnesiButton) {
         acarnesiButton.addEventListener("click", () => {
-            loadTEIContent("../xml/ach.xml");  // Qui puoi cambiare il file da caricare dinamicamente
+            loadTEIContent("../xml/ach.xml");  // Puoi cambiare il file XML qui
         });
     } else {
         console.log('Elemento con data-bs-target="#testo-Acarnesi" non trovato.');
     }
 });
+
