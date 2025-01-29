@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ca:metadata
+xmlns:ca="#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:dcterms="http://purl.org/dc/terms">
+<dc:title xsi:type="ca:viaf" ca:ref="https://viaf.org/en/viaf/183081115#Aristophan%C4%93s_Thesmophoriazusae">Le Donne alle Tesmoforie</dc:title>
+<dc:creator xsi:type="ca:viaf" ca:ref="http://viaf.org/viaf/20962036">Aristofane</dc:creator>
+<dc:subject xsi:type="dcterms:LCSH" ca:ref="http://id.loc.gov/authorities/subjects/sh85134522">Testo drammatico</dc:subject>
+<dc:subject xsi:type="dcterms:LCSH" ca:ref="http://id.loc.gov/authorities/subjects/sh85028845">Commedia</dc:subject>
+<dc:description>Testo delle Donne alle Tesmoforie di Aristofane in formato digitale</dc:description>
+<dc:contributor xsi:type="ca:viaf" ca:ref="http://viaf.org/viaf/14813758">Coulon</dc:contributor>
+<dc:type>Text</dc:type>
+<dc:coverage xsi:type="ca:GN" ca:ref="https://www.geonames.org/264371/athens.html"> </dc:coverage>
+<dc:format>HTML</dc:format>
+<dc:identifier>https://christianiori.github.io/LexAr/</dc:identifier>
+<dc:source>Thesmophoriazusae.Coulon, V., Paris, Les Belles Lettres, 1928 Rist. 1967 (1st edn. corr.).</dc:source>
+</ca:metadata>
