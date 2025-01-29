@@ -249,6 +249,23 @@ body {
         height: 300px !important; 
     }
 }
+.tei-speaker {
+    font-weight: bold;
+    color: #007bff;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.tei-line {
+    margin-left: 20px;
+    text-indent: -20px; /* Allinea bene i versi */
+    margin-bottom: 5px;
+}
+
+.tei-speech {
+    margin-bottom: 20px;
+}
 
 .imgaut {
   max-width: 100%; /* L'immagine non supera la larghezza del contenitore */
