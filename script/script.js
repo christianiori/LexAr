@@ -570,13 +570,13 @@ searchInputs.forEach(searchInput => {
         body.querySelectorAll("sp").forEach((speech) => {
             // Trova lo speaker, se presente
             const speakerElement = speech.querySelector("speaker");
-            const speaker = speakerElement ? `<strong class="tei-speaker">${speakerElement.textContent.trim()}</strong>: ` : "";
+            const speaker = speakerElement ? `<strong class="tei-speaker">${speakerElement.textContent.trim()}</strong>` : "";
 
-            // Combina tutte le linee (<l>) del discorso
-            const speechLines = Array.from(speech.querySelectorAll("l")).map(l => l.textContent.trim()).join(" ");
+            // Estrai tutte le righe (<l>) e mantieni ogni verso su una riga separata
+            const speechLines = Array.from(speech.querySelectorAll("l")).map(l => `<div class="tei-line">${l.textContent.trim()}</div>`).join("");
 
-            // Aggiunge il discorso con lo speaker
-            paragraphs.push(`<p>${speaker}${speechLines}</p>`);
+            // Aggiungi il discorso con lo speaker, rispettando i versi
+            paragraphs.push(`<div class="tei-speech">${speaker}${speechLines}</div>`);
         });
 
         // Inserisce il contenuto elaborato nel container
