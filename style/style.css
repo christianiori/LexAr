@@ -250,10 +250,8 @@ body {
     }
 }
 .tei-speaker {
-  font-family: 'Marck Script', cursive;
     font-weight: bold;
     color: #0d6ca6;
-    text-transform: uppercase;
     margin-bottom: 10px;
     display: block;
 }
