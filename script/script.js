@@ -542,45 +542,67 @@ searchInputs.forEach(searchInput => {
     }
 
 
-// ACARNESI
+// TESTI IN TEI
 
-    async function loadTEIContent() {
+    async function loadTEIContent(teiFilePath) {
     const teiContainer = document.getElementById("tei-content");
 
     try {
-        // Carica il file TEI
-        const response = await fetch("../xml/ach.xml");
+        // Carica il file TEI dal percorso specificato
+        const response = await fetch(teiFilePath);
+        if (!response.ok) throw new Error("Errore nel caricamento del file TEI.");
+        
         const teiText = await response.text();
 
         // Parsing del file TEI come XML
         const parser = new DOMParser();
         const teiXML = parser.parseFromString(teiText, "application/xml");
 
-        // Trasformazione di base per estrarre il contenuto del corpo del testo
+        // Controlla se il file TEI contiene un <body>
         const body = teiXML.querySelector("body");
-        if (body) {
-            const paragraphs = Array.from(body.querySelectorAll("p, l")).map(
-                (node) => `<p>${node.textContent}</p>`
-            );
-            teiContainer.innerHTML = paragraphs.join("");
-        } else {
+        if (!body) {
             teiContainer.innerHTML = "<p>Impossibile trovare il contenuto del file TEI.</p>";
+            return;
         }
+
+        // Estrazione del testo e degli speaker
+        const paragraphs = [];
+        let currentSpeaker = "";
+
+        body.querySelectorAll("sp, p, l, div").forEach((node) => {
+            if (node.tagName.toLowerCase() === "sp") {
+                // Gli <sp> contengono sia speaker che battute
+                const speakerElement = node.querySelector("speaker");
+                if (speakerElement) {
+                    currentSpeaker = `<strong class="tei-speaker">${speakerElement.textContent.trim()}</strong>: `;
+                }
+            } 
+            
+            if (node.tagName.toLowerCase() === "p" || node.tagName.toLowerCase() === "l" || node.tagName.toLowerCase() === "div") {
+                // Se il paragrafo ha uno speaker associato, lo include
+                paragraphs.push(`<p>${currentSpeaker}${node.textContent.trim()}</p>`);
+                currentSpeaker = ""; // Reset dello speaker dopo la riga
+            }
+        });
+
+        // Inserisce il contenuto elaborato nel container
+        teiContainer.innerHTML = paragraphs.join("");
     } catch (error) {
         console.error("Errore durante il caricamento del file TEI:", error);
         teiContainer.innerHTML = "<p>Errore nel caricamento del file TEI.</p>";
     }
 }
 
-// Aggiungi l'evento al pulsante
+// Aggiungi l'evento al pulsante per caricare un file TEI specifico
 document.addEventListener("DOMContentLoaded", () => {
     const acarnesiButton = document.querySelector('[data-bs-target="#testo-Acarnesi"]');
     if (acarnesiButton) {
         acarnesiButton.addEventListener("click", () => {
-            loadTEIContent();
+            loadTEIContent("../xml/ach.xml");  // Qui puoi cambiare il file da caricare dinamicamente
         });
     } else {
         console.log('Elemento con data-bs-target="#testo-Acarnesi" non trovato.');
     }
 });
+
 
