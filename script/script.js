@@ -17,6 +17,7 @@ const showAllButton = document.querySelector('[data-filter="all"]');
 const toggleFiltersButton = document.getElementById("toggleFilters");
 const container = document.querySelector(".row.row-cols-1.row-cols-md-3.g-4");
 const sortButtons = document.querySelectorAll(".btn-check[data-sort]");
+const searchButton = document.getElementById("searchButton");
 
 // PAGINA VOCABOLI
 document.addEventListener("DOMContentLoaded", () => {
@@ -407,6 +408,8 @@ if (document.querySelector(".section-container")) {
 }
 
 // PAGINE CATALOGO
+
+
 function convertDate(dateStr) {
     if (!dateStr) return 0;
     if (dateStr.includes("a.C.")) {
@@ -493,6 +496,8 @@ document.querySelectorAll(".btn-check[data-filter]").forEach(button => {
     // ✅ Eventi per la RICERCA
     if (searchButton) {
         searchButton.addEventListener("click", applySearch);
+    } else {
+        console.warn("⚠️ searchButton non esiste in questa pagina.");
     }
 
     searchInputs.forEach(input => {
@@ -567,55 +572,62 @@ document.querySelectorAll(".btn-check[data-filter]").forEach(button => {
     async function loadTEIContent(teiFilePath) {
     const teiContainer = document.getElementById("tei-content");
 
+    if (!teiContainer) {
+        console.error("❌ Errore: Elemento #tei-content non trovato nel DOM.");
+        return;
+    }
+
     try {
-        // Carica il file TEI dal percorso specificato
+        console.log(`🔄 Caricamento file TEI da: ${teiFilePath}`);
+
         const response = await fetch(teiFilePath);
-        if (!response.ok) throw new Error("Errore nel caricamento del file TEI.");
-        
+        if (!response.ok) throw new Error(`Errore nel caricamento del file TEI: ${response.status}`);
+
         const teiText = await response.text();
 
-        // Parsing del file TEI come XML
+        // Parsing XML
         const parser = new DOMParser();
         const teiXML = parser.parseFromString(teiText, "application/xml");
 
         // Controlla se il file TEI contiene un <body>
         const body = teiXML.querySelector("body");
         if (!body) {
-            teiContainer.innerHTML = "<p>Impossibile trovare il contenuto del file TEI.</p>";
+            teiContainer.innerHTML = "<p>❌ Contenuto TEI non trovato.</p>";
             return;
         }
 
-        // Estrazione del testo e degli speaker
+        // Estrazione delle parti con gli speaker
         const paragraphs = [];
         body.querySelectorAll("sp").forEach((speech) => {
-            // Trova lo speaker, se presente
             const speakerElement = speech.querySelector("speaker");
             const speaker = speakerElement ? `<strong class="tei-speaker">${speakerElement.textContent.trim()}</strong>` : "";
+            const speechLines = Array.from(speech.querySelectorAll("l"))
+                                     .map(line => `<div class="tei-line">${line.textContent.trim()}</div>`)
+                                     .join("");
 
-            // Estrai tutte le righe (<l>) del discorso e preserva i versi
-            const speechLines = Array.from(speech.querySelectorAll("l")).map(line => `<div class="tei-line">${line.textContent.trim()}</div>`).join("");
-
-            // Combina speaker e linee del discorso
             paragraphs.push(`<div class="tei-speech">${speaker}${speechLines}</div>`);
         });
 
-        // Inserisce il contenuto elaborato nel container
+        // Inserisce il contenuto elaborato
         teiContainer.innerHTML = paragraphs.join("");
+        console.log("✅ Contenuto TEI caricato con successo.");
+
     } catch (error) {
-        console.error("Errore durante il caricamento del file TEI:", error);
-        teiContainer.innerHTML = "<p>Errore nel caricamento del file TEI.</p>";
+        console.error("❌ Errore durante il caricamento del file TEI:", error);
+        teiContainer.innerHTML = `<p>⚠️ Errore nel caricamento del file TEI. Controlla la console per maggiori dettagli.</p>`;
     }
 }
 
-// Aggiungi l'evento al pulsante per caricare un file TEI specifico
+// Evento al pulsante per caricare il file TEI
 document.addEventListener("DOMContentLoaded", () => {
     const acarnesiButton = document.querySelector('[data-bs-target="#testo-Acarnesi"]');
+
     if (acarnesiButton) {
         acarnesiButton.addEventListener("click", () => {
-            loadTEIContent("../xml/ach.xml");  // Puoi cambiare il file XML qui
+            console.log("📥 Bottone Acarnesi cliccato. Avvio caricamento TEI...");
+            loadTEIContent("../xml/ach.xml");
         });
     } else {
-        console.log('Elemento con data-bs-target="#testo-Acarnesi" non trovato.');
+        console.warn('⚠️ Elemento con data-bs-target="#testo-Acarnesi" non trovato.');
     }
 });
-
