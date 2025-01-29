@@ -61,58 +61,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Funzione principale per applicare filtri e ricerca
     function applyFiltersAndSearch() {
-        const searchQuery = Array.from(searchBars)
-            .map(searchBar => searchBar.value.trim().toLowerCase())
-            .find(query => query) || "";
+    const searchQuery = Array.from(searchBars)
+        .map(searchBar => searchBar.value.trim().toLowerCase())
+        .find(query => query) || "";
 
-        terms.forEach(term => {
-            const boldTextElement = term.querySelector("b");
-            const boldText = boldTextElement ? boldTextElement.textContent.trim() : "";
-            const normalizedBoldText = boldText.normalize("NFC").toLowerCase();
-            const categories = term.getAttribute("data-category").split(" ");
+    terms.forEach(term => {
+        const boldTextElement = term.querySelector("b");
+        const boldText = boldTextElement ? boldTextElement.textContent.trim() : "";
+        const normalizedBoldText = boldText.normalize("NFC").toLowerCase();
 
-            let matchesSearch = true;
-            let matchesFilters = true;
+        // Estrai il significato italiano rimuovendo il vocabolo in greco
+        const meaningText = term.innerHTML.replace(/<b>.*?<\/b>/, "").replace(/[^=]*=\s*/, "").trim().toLowerCase();
 
-            // Ricerca
-            if (searchQuery) {
-                let queryRegexString = "";
-                for (const char of searchQuery) {
-                    const variants = transliterationMap[char.toUpperCase()] || [char];
-                    queryRegexString += `(${variants.join("|")})`;
-                }
-                const searchRegex = new RegExp(queryRegexString, "i");
-                const transliteratedText = Array.from(normalizedBoldText).map(char => {
-                    for (const [key, values] of Object.entries(transliterationMap)) {
-                        if (values.includes(char.toUpperCase())) return key.toLowerCase();
-                    }
-                    return char;
-                }).join("");
+        const categories = term.getAttribute("data-category").split(" ");
 
-                matchesSearch =
-                    searchRegex.test(normalizedBoldText) || searchRegex.test(transliteratedText);
+        let matchesSearch = true;
+        let matchesFilters = true;
+
+        // Ricerca nei vocaboli greci o nei significati italiani
+        if (searchQuery) {
+            let queryRegexString = "";
+            for (const char of searchQuery) {
+                const variants = transliterationMap[char.toUpperCase()] || [char];
+                queryRegexString += `(${variants.join("|")})`;
             }
+            const searchRegex = new RegExp(queryRegexString, "i");
 
-            // Filtri
-            Object.keys(activeFilters).forEach(filterType => {
-                const filterValues = activeFilters[filterType];
-                if (filterType === "Filtra per iniziale") {
-                    if (!filterValues.some(initial => {
-                        const possibleVariants = transliterationMap[initial.toUpperCase()] || [initial];
-                        return possibleVariants.some(variant => normalizedBoldText.startsWith(variant));
-                    })) {
-                        matchesFilters = false;
-                    }
-                } else {
-                    if (!filterValues.some(value => categories.includes(value))) {
-                        matchesFilters = false;
-                    }
+            // Normalizza la traslitterazione per il greco
+            const transliteratedText = Array.from(normalizedBoldText).map(char => {
+                for (const [key, values] of Object.entries(transliterationMap)) {
+                    if (values.includes(char.toUpperCase())) return key.toLowerCase();
                 }
-            });
+                return char;
+            }).join("");
 
-            term.style.display = matchesSearch && matchesFilters ? "block" : "none";
+            const exactSearchRegex = new RegExp(`\\b${searchQuery}\\b`, "i"); // Cerca solo parole intere
+            matchesSearch = searchRegex.test(normalizedBoldText) ||
+            searchRegex.test(transliteratedText) ||
+            exactSearchRegex.test(meaningText);
+
+        }
+
+        // Filtri
+        Object.keys(activeFilters).forEach(filterType => {
+            const filterValues = activeFilters[filterType];
+            if (filterType === "Filtra per iniziale") {
+                if (!filterValues.some(initial => {
+                    const possibleVariants = transliterationMap[initial.toUpperCase()] || [initial];
+                    return possibleVariants.some(variant => normalizedBoldText.startsWith(variant));
+                })) {
+                    matchesFilters = false;
+                }
+            } else {
+                if (!filterValues.some(value => categories.includes(value))) {
+                    matchesFilters = false;
+                }
+            }
         });
-    }
+
+        term.style.display = matchesSearch && matchesFilters ? "block" : "none";
+    });
+}
+
      function applyFiltersFromURL() {
         const urlParams = new URLSearchParams(window.location.search);
         let hasFilters = false;
