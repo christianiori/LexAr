@@ -567,22 +567,16 @@ searchInputs.forEach(searchInput => {
 
         // Estrazione del testo e degli speaker
         const paragraphs = [];
-        let currentSpeaker = "";
+        body.querySelectorAll("sp").forEach((speech) => {
+            // Trova lo speaker, se presente
+            const speakerElement = speech.querySelector("speaker");
+            const speaker = speakerElement ? `<strong class="tei-speaker">${speakerElement.textContent.trim()}</strong>: ` : "";
 
-        body.querySelectorAll("sp, p, l, div").forEach((node) => {
-            if (node.tagName.toLowerCase() === "sp") {
-                // Gli <sp> contengono sia speaker che battute
-                const speakerElement = node.querySelector("speaker");
-                if (speakerElement) {
-                    currentSpeaker = `<strong class="tei-speaker">${speakerElement.textContent.trim()}</strong>: `;
-                }
-            } 
-            
-            if (node.tagName.toLowerCase() === "p" || node.tagName.toLowerCase() === "l" || node.tagName.toLowerCase() === "div") {
-                // Se il paragrafo ha uno speaker associato, lo include
-                paragraphs.push(`<p>${currentSpeaker}${node.textContent.trim()}</p>`);
-                currentSpeaker = ""; // Reset dello speaker dopo la riga
-            }
+            // Combina tutte le linee (<l>) del discorso
+            const speechLines = Array.from(speech.querySelectorAll("l")).map(l => l.textContent.trim()).join(" ");
+
+            // Aggiunge il discorso con lo speaker
+            paragraphs.push(`<p>${speaker}${speechLines}</p>`);
         });
 
         // Inserisce il contenuto elaborato nel container
@@ -604,5 +598,3 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log('Elemento con data-bs-target="#testo-Acarnesi" non trovato.');
     }
 });
-
-
