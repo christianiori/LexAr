@@ -7,13 +7,16 @@ const modalElement = document.getElementById("filter-modal"); // Modale per i fi
 const modalOverlay = document.querySelector(".modal-overlay");
 const accordions = document.querySelectorAll(".accordion");
 const searchInput = document.querySelector(".searchInput");
-const searchInputs = document.querySelectorAll(".searchInput");
+const searchInputs = document.querySelectorAll(".search-bar, .searchInput");
 const searchableItems = document.querySelectorAll(".searchable-item");
 const sectionTitles = document.querySelectorAll(".section-title");
 const termLinks = document.querySelectorAll(".termgl");
 const cards = document.querySelectorAll(".col[data-category]");
 const radioButtons = document.querySelectorAll(".btn-check");
-
+const showAllButton = document.querySelector('[data-filter="all"]');
+const toggleFiltersButton = document.getElementById("toggleFilters");
+const container = document.querySelector(".row.row-cols-1.row-cols-md-3.g-4");
+const sortButtons = document.querySelectorAll(".btn-check[data-sort]");
 
 // PAGINA VOCABOLI
 document.addEventListener("DOMContentLoaded", () => {
@@ -25,7 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalElement = document.getElementById("filter-modal");
      const sidebar = document.getElementById("filterSidebar");
     const toggleFiltersButton = document.getElementById("toggleFilters");
+    const filterSidebar = document.getElementById("filterSidebar");
     const closeSidebarButton = document.getElementById("closeFilterSidebar");
+    const searchButton = document.getElementById("searchButton");
     const transliterationMap = {
         "A": ["Α", "α", "Ἀ", "ἄ", "ἂ", "ἆ", "ἀ", "ά", "ὰ", "ᾶ", "ᾳ", "ᾴ", "ᾲ", "ᾷ"],
         "B": ["Β", "β"],
@@ -252,13 +257,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-    // Funzione per chiudere la sidebar
+    // Funzione per chiudere la sidebar e per il bottone cerca
     function closeSidebar() {
         sidebar.classList.remove("open");
         toggleFiltersButton.style.display = "block"; // Mostra il pulsante
     }
+
+    function closeFilterSidebar() {
+    if (filterSidebar) {
+        filterSidebar.classList.remove("open"); // Chiude la sidebar
+    }
+    if (toggleFiltersButton) {
+        toggleFiltersButton.style.display = "block"; // Riappare il pulsante "Filtri"
+    }
+}
+
+    if (searchButton) {
+        searchButton.addEventListener("click", () => {
+            applyFiltersAndSearch(); // Avvia la ricerca
+            closeFilterSidebar(); // Chiude la sidebar dei filtri
+        });
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener("keypress", (event) => {
+            if (event.key === "Enter") {
+                applyFiltersAndSearch(); // Avvia la ricerca
+                closeFilterSidebar(); // Chiude la sidebar dei filtri
+            }
+        });
+    }
 });
 
+ 
 // PAGINA INDEX
 
     if (accordions.length > 0) {
@@ -377,115 +408,104 @@ if (document.querySelector(".section-container")) {
 
 // PAGINE CATALOGO
 function convertDate(dateStr) {
+    if (!dateStr) return 0;
     if (dateStr.includes("a.C.")) {
         return -parseInt(dateStr.replace(/\D/g, ""));
     }
     return parseInt(dateStr.replace(/\D/g, ""));
 }
 
+function SortCards() {
+    let items = Array.from(container.children);
 
-function filterCards(filterType) {
-    cards.forEach(card => {
-        const categories = card.getAttribute("data-category").split(" ");
-        if (filterType === "all" || categories.includes(filterType)) {
-            card.style.display = "block";
-        } else {
-            card.style.display = "none";
-        }
-    });
-}
-function sortCards(sortType, order) {
-    const cardContainer = document.querySelector(".row");
+    const selectedFilters = Array.from(document.querySelectorAll(".btn-check[data-filter]:checked"))
+                                .map(btn => btn.getAttribute("data-filter"));
 
-    if (!cardContainer) {
-        console.error("Contenitore delle card non trovato!");
-        return;
+    if (selectedFilters.length > 0) {
+        items.forEach(item => {
+            const categoryAttr = item.getAttribute("data-category");
+            const categories = categoryAttr ? categoryAttr.split(" ") : [];
+            const matchesFilter = selectedFilters.some(filter => categories.includes(filter));
+            item.style.display = matchesFilter ? "block" : "none";
+        });
+    } else {
+        items.forEach(item => item.style.display = "block");
     }
 
-    const sortedCards = Array.from(cards).sort((a, b) => {
-        if (sortType === "date") {
-            const dateA = convertDate(a.getAttribute("data-date"));
-            const dateB = convertDate(b.getAttribute("data-date"));
-            return order === "asc" ? dateA - dateB : dateB - dateA;
-        } else if (sortType === "alpha") {
-            const titleA = a.querySelector(".card-title").textContent.toLowerCase();
-            const titleB = b.querySelector(".card-title").textContent.toLowerCase();
-            return order === "asc" ? titleA.localeCompare(titleB) : titleB.localeCompare(titleA);
+    const sortButton = document.querySelector(".btn-check[data-sort]:checked");
+    if (!sortButton) return;
+
+    const criteria = sortButton.getAttribute("data-sort");
+    const order = sortButton.getAttribute("data-order");
+
+    let visibleItems = items.filter(item => item.style.display !== "none");
+
+    visibleItems.sort((a, b) => {
+        let valueA, valueB;
+
+        if (criteria === "date") {
+            valueA = convertDate(a.getAttribute("data-date"));
+            valueB = convertDate(b.getAttribute("data-date"));
+            return order === "asc" ? valueA - valueB : valueB - valueA;
+        }
+
+        if (criteria === "alpha") {
+            valueA = a.querySelector(".card-title").textContent.trim().toLowerCase();
+            valueB = b.querySelector(".card-title").textContent.trim().toLowerCase();
+            return order === "asc" ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
         }
     });
 
-    cardContainer.innerHTML = ""; // Ripulisce il contenitore
-    sortedCards.forEach(card => cardContainer.appendChild(card)); // Aggiunge le card ordinate
+    visibleItems.forEach(item => container.appendChild(item));
 }
 
+document.querySelectorAll(".btn-check[data-filter]").forEach(button => {
+    button.addEventListener("change", () => {
+        SortCards();
+    });
+});
 
-radioButtons.forEach(radio => {
-    radio.addEventListener("change", () => {
-        const filterType = radio.getAttribute("data-filter");
-        const sortType = radio.getAttribute("data-sort");
-        const order = radio.getAttribute("data-order");
+    function applySearch() {
+        let query = searchInputs[0].value.trim().toLowerCase();
+        const terms = document.querySelectorAll(".col[data-category]");
 
-        if (filterType) {
-            filterCards(filterType);
+        terms.forEach(term => {
+            const title = term.querySelector(".card-title")?.textContent.trim().toLowerCase() || "";
+            term.style.display = title.includes(query) ? "block" : "none";
+        });
 
-            // Se "Mostra tutti" è selezionato, svuota tutte le barre di ricerca
-            if (filterType === "all") {
-                searchInputs.forEach(searchInput => {
-                    searchInput.value = ""; // Svuota il campo di ricerca
-                });
+        if (filterSidebar) filterSidebar.classList.remove("open");
+        if (toggleFiltersButton) toggleFiltersButton.style.display = "block";
+    }
 
-                // Mostra tutte le card
-                cards.forEach(card => {
-                    card.style.display = "block";
-                });
+    function showAllItems() {
+        document.querySelectorAll(".col[data-category]").forEach(term => {
+            term.style.display = "block";
+        });
+        searchInputs.forEach(input => input.value = "");
+    }
+
+    filterButtons.forEach(button => button.addEventListener("change", SortCards));
+
+    // ✅ Eventi per ORDINAMENTO
+    sortButtons.forEach(button => button.addEventListener("change", SortCards));
+
+    // ✅ Eventi per la RICERCA
+    if (searchButton) {
+        searchButton.addEventListener("click", applySearch);
+    }
+
+    searchInputs.forEach(input => {
+        input.addEventListener("keypress", event => {
+            if (event.key === "Enter") {
+                applySearch();
             }
-        } else if (sortType) {
-            sortCards(sortType, order);
-        }
-    });
-});
-
-if (searchInputs.length > 0) {
-    searchInputs.forEach(searchInput => {
-        searchInput.addEventListener("input", () => {
-            const query = searchInput.value.toLowerCase().trim();
-
-            cards.forEach(card => {
-                const titleElement = card.querySelector(".card-title");
-                const descriptionElement = card.querySelector(".card-text");
-
-                const title = titleElement ? titleElement.textContent.toLowerCase() : "";
-                const description = descriptionElement ? descriptionElement.textContent.toLowerCase() : "";
-
-                const matchesQuery = title.includes(query) || description.includes(query);
-                card.style.display = matchesQuery ? "block" : "none";
-            });
         });
     });
-} else {
-    console.warn("Nessuna barra di ricerca trovata con la classe .searchInput.");
-}
 
-
-searchInputs.forEach(searchInput => {
-    searchInput.addEventListener("input", () => {
-        const query = searchInput.value.toLowerCase().trim();
-
-        cards.forEach(card => {
-            const titleElement = card.querySelector(".card-title");
-            const descriptionElement = card.querySelector(".card-text");
-
-            // Usa un valore vuoto se l'elemento non esiste
-            const title = titleElement ? titleElement.textContent.toLowerCase() : "";
-            const description = descriptionElement ? descriptionElement.textContent.toLowerCase() : "";
-
-            const matchesQuery = title.includes(query) || description.includes(query);
-
-            // Mostra o nasconde le card in base alla query
-            card.style.display = matchesQuery ? "block" : "none";
-        });
-    });
-});
+    if (showAllButton) {
+        showAllButton.addEventListener("change", showAllItems);
+    }
 
 // PAGINA CAMPO SEMANTICO/BOLLE
     const bubbles = document.querySelectorAll(".bolla");

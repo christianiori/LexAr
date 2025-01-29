@@ -121,7 +121,12 @@
 		<div class="filter-sidebar d-md-none" id="filterSidebar">
 			<button class="close-btn" id="closeFilterSidebar">✖</button>
   			<h3>Filtri</h3>
-  			<input class="form-control mb-2 search-bar" id="search-bar-sidebar" type="text" placeholder="Cerca un vocabolo..." data-bs-toggle="tooltip" title="Inserisci un vocabolo in traslitterazione o in greco">
+  			<div class="d-flex align-items-center">
+    			<input class="form-control search-bar mb-3 me-1" id="search-bar-sidebar" type="text" placeholder="Cerca un vocabolo..." data-bs-toggle="tooltip" title="Inserisci un vocabolo in traslitterazione o in greco">
+    			<button class="btn btn-primary mb-3" id="searchButton">
+       				<i class="fas fa-search"></i>
+    			</button>
+			</div>
   			<div class="dropdown">				
     			<button aria-label="Filtra per iniziale" class="btn btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
       			Filtra per iniziale

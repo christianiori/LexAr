@@ -21,6 +21,7 @@
 		<meta name="DC.Coverage" content="Bologna"  />
 		<link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"   />
 		<link rel="stylesheet" type="text/css" href="../style/style.css" />
         <script src="../script/script.js" defer></script>
@@ -102,25 +103,30 @@
         <div class="filter-sidebar d-md-none" id="filterSidebar">
             <button class="close-btn" id="closeFilterSidebar">✖</button>
             <h3>Filtri ed ordinamento</h3>
-            <input class="form-control mb-2 searchInput" type="search" placeholder="Cerca un'opera..." aria-label="Search">
+            <div class="d-flex align-items-center">
+                <input class="form-control search-bar mb-3 me-1" id="search-bar-sidebar" type="text" placeholder="Cerca un'opera...">
+                <button class="btn btn-primary mb-3" id="searchButton">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
             <div class="btn-group-vertical" role="group" aria-label="Vertical radio toggle button group">
-                        <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio8" autocomplete="off" data-filter="all">
-                            <label class="btn btn-outline-info" for="vbtn-radio8">Mostra tutti</label>
-                        <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off"data-sort="date" data-order="asc">
-                            <label class="btn btn-outline-info" for="vbtn-radio1">Ordine cronologico crescente</label>
-                        <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off"data-sort="date"data-order="desc">
-                            <label class="btn btn-outline-info" for="vbtn-radio2">Ordine cronologico decrescente</label>
-                        <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off"data-sort="alpha"data-order="asc">
-                            <label class="btn btn-outline-info" for="vbtn-radio3">Ordine alfabetico crescente</label>
-                        <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio4" autocomplete="off"data-sort="alpha"data-order="desc">
-                            <label class="btn btn-outline-info" for="vbtn-radio4">Ordine alfabetico decrescente</label>
-                        <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio5" autocomplete="off"data-filter="vincitrici">
-                            <label class="btn btn-outline-info" for="vbtn-radio5">Opere vincitrici</label>
-                        <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio6" autocomplete="off"data-filter="dionisiache">
-                            <label class="btn btn-outline-info" for="vbtn-radio6">Opere dionisiache</label>
-                        <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio7" autocomplete="off"data-filter="lenaiche">
-                            <label class="btn btn-outline-info" for="vbtn-radio7">Opere lenaiche</label>
-                    </div>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio9" autocomplete="off" data-filter="all">
+                    <label class="btn btn-outline-info" for="vbtn-radio9">Mostra tutti</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio10" autocomplete="off"data-sort="date" data-order="asc">
+                    <label class="btn btn-outline-info" for="vbtn-radio10">Ordine cronologico crescente</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio11" autocomplete="off"data-sort="date"data-order="desc">
+                    <label class="btn btn-outline-info" for="vbtn-radio11">Ordine cronologico decrescente</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio12" autocomplete="off"data-sort="alpha"data-order="asc">
+                    <label class="btn btn-outline-info" for="vbtn-radio12">Ordine alfabetico crescente</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio13" autocomplete="off"data-sort="alpha"data-order="desc">
+                    <label class="btn btn-outline-info" for="vbtn-radio13">Ordine alfabetico decrescente</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio14" autocomplete="off"data-filter="vincitrici">
+                    <label class="btn btn-outline-info" for="vbtn-radio14">Opere vincitrici</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio15" autocomplete="off"data-filter="dionisiache">
+                    <label class="btn btn-outline-info" for="vbtn-radio15">Opere dionisiache</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio16" autocomplete="off"data-filter="lenaiche">
+                    <label class="btn btn-outline-info" for="vbtn-radio16">Opere lenaiche</label>
+            </div>
         </div>
 		<div class="container-fluid text-center">
   			<div class="row">
@@ -249,5 +255,7 @@
                     </footer>
 		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
 	</body>
 </html>

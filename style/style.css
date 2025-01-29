@@ -270,6 +270,11 @@ body {
     border-bottom: 1px solid #ddd;
 }
 
+#searchButton {
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+}
+
 
 .imgaut {
   max-width: 100%; /* L'immagine non supera la larghezza del contenitore */
