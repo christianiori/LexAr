@@ -523,7 +523,7 @@ document.querySelectorAll(".btn-check[data-filter]").forEach(button => {
     }
 
 // PAGINA CAMPO SEMANTICO/BOLLE
-    const bubbles = document.querySelectorAll(".bolla");
+    const bubbles= document.querySelectorAll(".bolla");
     const modals = document.querySelectorAll(".modalebolla");
     const modalCloseButtons = document.querySelectorAll(".modalebolla-close"); 
     const overlay = document.querySelector(".modal-overlay"); 
@@ -775,7 +775,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     .on("tick", ticked);
 
     if (termData.length > 0) { // Controlla che ci siano dati
-    var bubbles = svg.selectAll(".bubble")
+    var bubblesChart = svg.selectAll(".bubble")
         .data(termData)
         .enter()
         .append("circle")
@@ -819,7 +819,7 @@ const labels = svg.selectAll(".label")
 
     // **Funzione ticked aggiornata**
    function ticked() {
-    bubbles
+    bubblesChart
         .attr("cx", d => d.x = Math.max(radiusScale(d.frequency), Math.min(width - radiusScale(d.frequency), d.x)))
         .attr("cy", d => d.y = Math.max(radiusScale(d.frequency), Math.min(height - radiusScale(d.frequency), d.y)));
 
