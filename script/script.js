@@ -862,7 +862,7 @@ const labels = svg.selectAll(".label")
     .attr("dy", ".3em")
     .attr("font-size", d => 
     window.innerWidth < 600 ? Math.max(radiusScale(d.frequency) / 2.5, 10) + "px"
-                            : Math.max(radiusScale(d.frequency) / 2.2, 14) + "px")
+                            : Math.min(Math.max(radiusScale(d.frequency) / 2.5, 12), radiusScale(d.frequency) / 1.5) + "px")
     .attr("fill", "white")
     .text(d => d.term);
 
