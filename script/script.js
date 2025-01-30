@@ -655,7 +655,8 @@ async function getTermsFromTEI(teiFilePath) {
         const fullText = lines.join(" ");
 
         // **Estrarre le parole greche**
-        const words = fullText.match(/\b[α-ωΑ-Ω]+\b/g); // Prende solo parole in greco
+       const words = fullText.match(/[α-ωάέήίόύώΑ-ΩΆΈΉΊΌΎΏ]+/g);
+
 
         if (!words) {
             console.warn("⚠️ Nessuna parola greca trovata nel testo.");
