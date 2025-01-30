@@ -741,6 +741,7 @@ document.addEventListener("DOMContentLoaded", () => {
 let simulation; 
 
 document.addEventListener("DOMContentLoaded", async function () {
+    const width = 800, height = 500;
     const bubbleContainer = document.getElementById("d3-bubble-chart");
     if (!bubbleContainer) return;
 
@@ -758,7 +759,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 });
 
 
-    const width = 800, height = 500;
+ 
     const radiusScale = d3.scaleSqrt()
     .domain([1, d3.max(termData, d => d.frequency)])
     .range([20, 60]);
