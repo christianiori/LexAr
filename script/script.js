@@ -677,7 +677,7 @@ async function getTermsFromTEI(xmlPath, maxWords = 30) {
         "οὗ’", "οὐδ’", "μήτ’", "ἅπ’", "ἅματ’", "ἆρ’", "εἴτ’", "εἶπ’", "ἴδ’",
         "ἀλλ’", "ἄρ’", "ταυτὶ", "ταυτ’", "δῆτ’", "ἀλλ'", "νῦν", "τοῦτ'", "ὑπ'",
         "ἄρ'", "δί'", "οἷς", "ἵν'", "εἶτα", "ὅπως", "ἐμοί", "ἤδη", "δὸς", "ὁδὶ", "εἶναι",
-        "ἔτι", "εἶτ'", "οὐδ'", "δεῦρο", "ναὶ", "σφόδρα", "μόνον"
+        "ἔτι", "εἶτ'", "οὐδ'", "δεῦρο", "ναὶ", "σφόδρα", "μόνον", "μηδαμῶς", "ποτ'", "πολὺ"
     ]);
 
     // Estrai tutti gli elementi <l> che contengono il testo
@@ -707,7 +707,24 @@ async function getTermsFromTEI(xmlPath, maxWords = 30) {
     return sortedWords;
 }
 
-
+bubbles
+    .attr("data-bs-toggle", "tooltip")
+    .attr("data-bs-placement", "top") // Tooltip sopra la bolla
+    .attr("title", d => `${d.term}: ${d.frequency}`) // Testo del tooltip
+    .on("mouseover", function(event, d) {
+        d3.select(this)
+            .transition()
+            .duration(200)
+            .attr("stroke", "black") // Evidenzia la bolla
+            .attr("stroke-width", 3);
+    })
+    .on("mouseout", function() {
+        d3.select(this)
+            .transition()
+            .duration(200)
+            .attr("stroke", "#076578") // Ripristina il bordo originale
+            .attr("stroke-width", 2);
+    });
 document.addEventListener("DOMContentLoaded", () => {
     const acarnesiButton = document.querySelector('[data-bs-target="#testo-Acarnesi"]');
 
@@ -736,46 +753,39 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     const width = 800, height = 500;
-
-    // Scala per il raggio delle bolle basata sulla frequenza
     const radiusScale = d3.scaleSqrt()
     .domain([1, d3.max(termData, d => d.frequency)])
-    .range([20, 60]); // Minimo 20, massimo 60
+    .range([20, 60]);
 
-
-    // **Interrompe e pulisce la simulazione esistente**
     if (simulation) {
-        simulation.stop(); // Ferma la simulazione
+        simulation.stop(); 
     }
 
-    // **Rimuove l'SVG precedente se esiste**
     d3.select("#d3-bubble-chart").select("svg").remove();
-
-    // **Crea un nuovo SVG**
     let svg = d3.select("#d3-bubble-chart")
         .append("svg")
         .attr("width", width)
         .attr("height", height);
 
-    // **Crea la nuova simulazione D3**
     simulation = d3.forceSimulation(termData)
-    .force("x", d3.forceX(width / 2).strength(0.03))
-    .force("y", d3.forceY(height / 2).strength(0.03))
+    .force("x", d3.forceX(width / 2).strength(0.04))
+    .force("y", d3.forceY(height / 2).strength(0.04))
     .force("collision", d3.forceCollide(d => radiusScale(d.frequency) + 10))
     .force("charge", d3.forceManyBody().strength(-15))
     .on("tick", ticked);
 
-
-    // **Creazione delle bolle**
     const bubbles = svg.selectAll(".bubble")
-        .data(termData)
-        .enter()
-        .append("circle")
-        .attr("class", "bubble")
-        .attr("r", d => radiusScale(d.frequency))
-        .attr("fill", "#00a3cc")
-        .attr("stroke", "#076578")
-        .attr("stroke-width", 2);
+    .data(termData)
+    .enter()
+    .append("circle")
+    .attr("class", "bubble")
+    .attr("r", d => radiusScale(d.frequency))
+    .attr("fill", "#00a3cc")
+    .attr("stroke", "#076578")
+    .attr("stroke-width", 2)
+    .attr("data-bs-toggle", "tooltip")
+    .attr("data-bs-placement", "top")
+    .attr("title", d => `${d.term}: ${d.frequency}`); // Tooltip dinamico con la frequenza
 
     // **Creazione delle etichette**
 const defs = svg.append("defs");
@@ -816,4 +826,8 @@ const labels = svg.selectAll(".label")
         .attr("x", d => d.x)
         .attr("y", d => d.y + 3);
 }
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
 });
