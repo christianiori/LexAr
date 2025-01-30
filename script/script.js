@@ -706,7 +706,7 @@ async function getTermsFromTEI(xmlPath, maxWords = 30) {
 
     return sortedWords;
 }
-
+let bubbles = d3.selectAll(".bubble");
 bubbles
     .attr("data-bs-toggle", "tooltip")
     .attr("data-bs-placement", "top") // Tooltip sopra la bolla
@@ -819,7 +819,6 @@ const labels = svg.selectAll(".label")
 
     // **Funzione ticked aggiornata**
    function ticked() {
-    let bubbles = d3.selectAll(".bubble");
     bubbles
         .attr("cx", d => d.x = Math.max(radiusScale(d.frequency), Math.min(width - radiusScale(d.frequency), d.x)))
         .attr("cy", d => d.y = Math.max(radiusScale(d.frequency), Math.min(height - radiusScale(d.frequency), d.y)));
