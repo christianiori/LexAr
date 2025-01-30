@@ -629,6 +629,44 @@ document.querySelectorAll(".btn-check[data-filter]").forEach(button => {
 }
 
 // Evento al pulsante per caricare il file TEI
+async function getTermsFromTEI(teiFilePath) {
+    try {
+        const response = await fetch(teiFilePath);
+        if (!response.ok) throw new Error(`Errore nel caricamento del file TEI: ${response.status}`);
+
+        const teiText = await response.text();
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(teiText, "application/xml");
+
+        // Estrazione di tutto il testo contenuto in <l>
+        const lines = Array.from(xmlDoc.querySelectorAll("l")).map(el => el.textContent.trim());
+
+        // Creazione di un'unica stringa con tutto il testo
+        const fullText = lines.join(" ");
+
+        // **Estrazione delle parole**
+        const words = fullText.match(/\b[α-ωΑ-Ω]+\b/g); // Prende solo parole in greco
+
+        if (!words) return [];
+
+        // Conta la frequenza delle parole
+        const termFrequencies = {};
+        words.forEach(word => {
+            termFrequencies[word] = (termFrequencies[word] || 0) + 1;
+        });
+
+        // Converti in array per D3.js
+        return Object.keys(termFrequencies)
+            .map(term => ({ term, frequency: termFrequencies[term] }))
+            .sort((a, b) => b.frequency - a.frequency) // Ordina per frequenza decrescente
+            .slice(0, 15); // Prendi solo le 15 parole più usate
+
+    } catch (error) {
+        console.error("❌ Errore nell'elaborazione del TEI:", error);
+        return [];
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const acarnesiButton = document.querySelector('[data-bs-target="#testo-Acarnesi"]');
 
@@ -639,5 +677,109 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     } else {
         console.warn('⚠️ Elemento con data-bs-target="#testo-Acarnesi" non trovato.');
+    }
+});
+
+document.addEventListener("DOMContentLoaded", async function () {
+    const bubbleContainer = document.getElementById("d3-bubble-chart");
+    if (!bubbleContainer) return;
+
+    // Carica i termini dal file TEI (assumendo che funzioni)
+    const termData = await getTermsFromTEI("xml/ach.xml");
+
+    if (termData.length === 0) {
+        console.warn("⚠️ Nessun termine trovato.");
+        return;
+    }
+
+    const width = 800, height = 500;
+
+    // Creazione dell'SVG
+    const svg = d3.select("#d3-bubble-chart")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    // Scala per il raggio delle bolle basata sulla frequenza
+    const radiusScale = d3.scaleSqrt()
+        .domain([0, d3.max(termData, d => d.frequency)])
+        .range([10, 50]);
+
+    // Simulazione delle forze per le bolle
+    const simulation = d3.forceSimulation(termData)
+        .force("x", d3.forceX(width / 2).strength(0.05))
+        .force("y", d3.forceY(height / 2).strength(0.05))
+        .force("collision", d3.forceCollide(d => radiusScale(d.frequency) + 2))
+        .on("tick", ticked);
+
+    // ** Creazione del tooltip **
+    const tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("position", "absolute")
+        .style("background", "rgba(0, 0, 0, 0.7)")
+        .style("color", "white")
+        .style("padding", "8px")
+        .style("border-radius", "5px")
+        .style("opacity", 0)
+        .style("pointer-events", "none");
+
+    // Creazione delle bolle con animazione iniziale
+    const bubbles = svg.selectAll(".bubble")
+        .data(termData)
+        .enter()
+        .append("circle")
+        .attr("class", "bubble")
+        .attr("r", 0) // Animazione iniziale
+        .attr("fill", "#00a3cc")
+        .attr("stroke", "#076578")
+        .attr("stroke-width", 2)
+        .transition()
+        .duration(1000)
+        .attr("r", d => radiusScale(d.frequency));
+
+    // Aggiunta delle etichette (nomi dei termini)
+    const labels = svg.selectAll(".label")
+        .data(termData)
+        .enter()
+        .append("text")
+        .attr("class", "label")
+        .attr("text-anchor", "middle")
+        .attr("dy", ".3em")
+        .attr("font-size", "14px")
+        .attr("fill", "white")
+        .text(d => d.term);
+
+    // ** Tooltip interattivo **
+    bubbles.on("mouseover", function (event, d) {
+        d3.select(this)
+            .transition()
+            .duration(200)
+            .attr("r", radiusScale(d.frequency) * 1.2)
+            .attr("fill", "#ffcc00");
+
+        tooltip.style("opacity", 1)
+            .html(`<strong>${d.term}</strong>: ${d.frequency} occorrenze`)
+            .style("left", (event.pageX + 10) + "px")
+            .style("top", (event.pageY - 20) + "px");
+    })
+    .on("mousemove", function (event) {
+        tooltip.style("left", (event.pageX + 10) + "px")
+               .style("top", (event.pageY - 20) + "px");
+    })
+    .on("mouseout", function (event, d) {
+        d3.select(this)
+            .transition()
+            .duration(200)
+            .attr("r", radiusScale(d.frequency))
+            .attr("fill", "#00a3cc");
+
+        tooltip.style("opacity", 0);
+    });
+
+    // Funzione per aggiornare la posizione delle bolle
+    function ticked() {
+        bubbles.attr("cx", d => d.x).attr("cy", d => d.y);
+        labels.attr("x", d => d.x).attr("y", d => d.y);
     }
 });
