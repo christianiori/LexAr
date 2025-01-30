@@ -677,7 +677,7 @@ async function getTermsFromTEI(xmlPath, maxWords = 30) {
         "οὗ’", "οὐδ’", "μήτ’", "ἅπ’", "ἅματ’", "ἆρ’", "εἴτ’", "εἶπ’", "ἴδ’",
         "ἀλλ’", "ἄρ’", "ταυτὶ", "ταυτ’", "δῆτ’", "ἀλλ'", "νῦν", "τοῦτ'", "ὑπ'",
         "ἄρ'", "δί'", "οἷς", "ἵν'", "εἶτα", "ὅπως", "ἐμοί", "ἤδη", "δὸς", "ὁδὶ", "εἶναι",
-        "ἔτι", "εἶτ'", "οὐδ'", "δεῦρο", "ναὶ", "σφόδρα", "μόνον", "μηδαμῶς", "ποτ'", "πολὺ"
+        "ἔτι", "εἶτ'", "οὐδ'", "δεῦρο", "ναὶ", "σφόδρα", "μόνον", "μηδαμῶς", "ποτ'", "πολὺ", "οὐχὶ", "κἀμοὶ", "ἔχων", "ἔχει"
     ]);
 
     // Estrai tutti gli elementi <l> che contengono il testo
@@ -715,13 +715,15 @@ bubblesChart
         d3.select(this)
             .transition()
             .duration(200)
+            .attr("r", d => radiusScale(d.frequency) * 1.2) // 🔥 Ingrandisce la bolla
             .attr("stroke", "black") // Evidenzia la bolla
             .attr("stroke-width", 3);
     })
-    .on("mouseout", function() {
+    .on("mouseout", function(event, d) {
         d3.select(this)
             .transition()
             .duration(200)
+            .attr("r", d => radiusScale(d.frequency)) // 🔥 Torna alla dimensione originale
             .attr("stroke", "#076578") // Ripristina il bordo originale
             .attr("stroke-width", 2);
     });
