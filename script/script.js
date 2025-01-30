@@ -673,7 +673,7 @@ async function getTermsFromTEI(xmlPath, maxWords = 30) {
         "φέρε", "φέρων", "λαβών", "λαβὼν", "δίκαια", "δί’", "δός", "λέγει", "ναί", "τὰν",
 
         // TRONCAMENTI COMUNI (PRONOMI, PARTICELLE, CONGIUNZIONI)
-        "γ’", "μ’", "θ’", "τ’", "σ’", "κ’", "δ’", "π’", "ν’", "χ’", "οὑ’", "ἑ’",
+        "γ’", "μ’", "θ’", "τ’", "σ’", "κ’", "δ’", "π’", "ν’", "χ’", "οὑ’", "ἑ’", "μήτ'",
         "οὗ’", "οὐδ’", "μήτ’", "ἅπ’", "ἅματ’", "ἆρ’", "εἴτ’", "εἶπ’", "ἴδ’",
         "ἀλλ’", "ἄρ’", "ταυτὶ", "ταυτ’", "δῆτ’", "ἀλλ'", "νῦν", "τοῦτ'", "ὑπ'",
         "ἄρ'", "δί'", "οἷς", "ἵν'", "εἶτα", "ὅπως", "ἐμοί", "ἤδη", "δὸς", "ὁδὶ", "εἶναι",
@@ -743,7 +743,8 @@ document.addEventListener("DOMContentLoaded", () => {
 let simulation; 
 
 document.addEventListener("DOMContentLoaded", async function () {
-    const width = 800, height = 500;
+    const width = window.innerWidth < 600 ? window.innerWidth - 20 : 800;
+    const height = window.innerWidth < 600 ? 400 : 500;
     const bubbleContainer = document.getElementById("d3-bubble-chart");
     if (!bubbleContainer) return;
 
@@ -760,11 +761,36 @@ document.addEventListener("DOMContentLoaded", async function () {
     d.y = Math.random() * height;
 });
 
+const isMobile = window.innerWidth < 600;
+
+bubblesChart
+    .on(isMobile ? "click" : "mouseover", function(event, d) {
+        d3.select(this)
+            .transition()
+            .duration(200)
+            .attr("r", d => radiusScale(d.frequency) * 1.2)
+            .attr("stroke", "black")
+            .attr("stroke-width", 3);
+
+        if (isMobile) {
+            alert(`${d.term}: ${d.frequency}`); // Tooltip alternativo su mobile
+        }
+    })
+    .on("mouseout", function(event, d) {
+        if (!isMobile) {
+            d3.select(this)
+                .transition()
+                .duration(200)
+                .attr("r", d => radiusScale(d.frequency))
+                .attr("stroke", "#076578")
+                .attr("stroke-width", 2);
+        }
+    });
 
  
     const radiusScale = d3.scaleSqrt()
     .domain([1, d3.max(termData, d => d.frequency)])
-    .range([20, 60]);
+    .range(window.innerWidth < 600 ? [10, 40] : [20, 60]);
 
     if (simulation) {
         simulation.stop(); 
