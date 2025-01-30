@@ -720,10 +720,17 @@ document.addEventListener("DOMContentLoaded", async function () {
         .domain([0, d3.max(termData, d => d.frequency)])
         .range([10, 50]);
 
-    // Controlla se esiste già una simulazione in esecuzione e fermala
-if (typeof simulation !== "undefined") {
+// Se la simulazione esiste già, fermala e rimuovi gli elementi precedenti
+if (simulation) {
     simulation.stop();
+    d3.select("#d3-bubble-chart").select("svg").remove();
 }
+
+// Creazione dell'SVG (rimuove elementi esistenti)
+const svg = d3.select("#d3-bubble-chart")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
 
 // Creazione della nuova simulazione D3
 simulation = d3.forceSimulation(termData)
