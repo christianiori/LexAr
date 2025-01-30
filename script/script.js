@@ -720,12 +720,18 @@ document.addEventListener("DOMContentLoaded", async function () {
         .domain([0, d3.max(termData, d => d.frequency)])
         .range([10, 50]);
 
-    // Simulazione delle forze per le bolle
-    const simulation = d3.forceSimulation(termData)
-        .force("x", d3.forceX(width / 2).strength(0.05))
-        .force("y", d3.forceY(height / 2).strength(0.05))
-        .force("collision", d3.forceCollide(d => radiusScale(d.frequency) + 2))
-        .on("tick", ticked);
+    // Controlla se esiste già una simulazione in esecuzione e fermala
+if (typeof simulation !== "undefined") {
+    simulation.stop();
+}
+
+// Creazione della nuova simulazione D3
+simulation = d3.forceSimulation(termData)
+    .force("x", d3.forceX(width / 2).strength(0.05))
+    .force("y", d3.forceY(height / 2).strength(0.05))
+    .force("collision", d3.forceCollide(d => radiusScale(d.frequency) + 2))
+    .on("tick", ticked);
+
 
     // ** Creazione del tooltip **
     const tooltip = d3.select("body")
@@ -766,31 +772,32 @@ document.addEventListener("DOMContentLoaded", async function () {
         .text(d => d.term);
 
     // ** Tooltip interattivo **
-    bubbles.on("mouseover", function (event, d) {
-        d3.select(this)
-            .transition()
-            .duration(200)
-            .attr("r", radiusScale(d.frequency) * 1.2)
-            .attr("fill", "#ffcc00");
+   // Aggiunta evento mouseover alle bolle
+bubbles.on("mouseover", function (event, d) {
+    d3.select(this)
+        .transition()
+        .duration(200)
+        .attr("r", radiusScale(d.frequency) * 1.2)
+        .attr("fill", "#ffcc00");
 
-        tooltip.style("opacity", 1)
-            .html(`<strong>${d.term}</strong>: ${d.frequency} occorrenze`)
-            .style("left", (event.pageX + 10) + "px")
-            .style("top", (event.pageY - 20) + "px");
-    })
-    .on("mousemove", function (event) {
-        tooltip.style("left", (event.pageX + 10) + "px")
-               .style("top", (event.pageY - 20) + "px");
-    })
-    .on("mouseout", function (event, d) {
-        d3.select(this)
-            .transition()
-            .duration(200)
-            .attr("r", radiusScale(d.frequency))
-            .attr("fill", "#00a3cc");
+    tooltip.style("opacity", 1)
+        .html(`<strong>${d.term}</strong>: ${d.frequency} occorrenze`)
+        .style("left", (event.pageX + 10) + "px")
+        .style("top", (event.pageY - 20) + "px");
+})
+.on("mousemove", function (event) {
+    tooltip.style("left", (event.pageX + 10) + "px")
+           .style("top", (event.pageY - 20) + "px");
+})
+.on("mouseout", function () {
+    d3.select(this)
+        .transition()
+        .duration(200)
+        .attr("r", d => radiusScale(d.frequency))
+        .attr("fill", "#00a3cc");
 
-        tooltip.style("opacity", 0);
-    });
+    tooltip.style("opacity", 0);
+});
 
     // Funzione per aggiornare la posizione delle bolle
     function ticked() {
