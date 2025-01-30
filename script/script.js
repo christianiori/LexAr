@@ -819,6 +819,7 @@ const labels = svg.selectAll(".label")
 
     // **Funzione ticked aggiornata**
    function ticked() {
+    let bubbles = d3.selectAll(".bubble");
     bubbles
         .attr("cx", d => d.x = Math.max(radiusScale(d.frequency), Math.min(width - radiusScale(d.frequency), d.x)))
         .attr("cy", d => d.y = Math.max(radiusScale(d.frequency), Math.min(height - radiusScale(d.frequency), d.y)));
