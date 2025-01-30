@@ -706,8 +706,8 @@ async function getTermsFromTEI(xmlPath, maxWords = 30) {
 
     return sortedWords;
 }
-let bubbles = d3.selectAll(".bubble");
-bubbles
+let bubblesChart = d3.selectAll("#d3-bubble-chart .bubble");
+bubblesChart
     .attr("data-bs-toggle", "tooltip")
     .attr("data-bs-placement", "top") // Tooltip sopra la bolla
     .attr("title", d => `${d.term}: ${d.frequency}`) // Testo del tooltip
