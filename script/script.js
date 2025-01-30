@@ -781,8 +781,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     .force("charge", d3.forceManyBody().strength(-15))
     .on("tick", ticked);
 
-    if (termData.length > 0) { // Controlla che ci siano dati
-    var bubblesChart = svg.selectAll(".bubble")
+if (termData.length > 0) { // Controlla che ci siano dati
+    let bubblesChart = svg.selectAll(".bubble")
         .data(termData)
         .enter()
         .append("circle")
@@ -791,10 +791,19 @@ document.addEventListener("DOMContentLoaded", async function () {
         .attr("fill", "#00a3cc")
         .attr("stroke", "#076578")
         .attr("stroke-width", 2)
-        .attr("data-bs-toggle", "tooltip")
-        .attr("data-bs-placement", "top")
-        .attr("title", d => `${d.term}: ${d.frequency}`);
-    }
+        .attr("data-bs-toggle", "tooltip")  // ✅ Tooltip di Bootstrap
+        .attr("data-bs-placement", "top")   // ✅ Posiziona il tooltip sopra la bolla
+        .attr("title", d => `${d.term}: ${d.frequency}`);  // ✅ Testo del tooltip
+
+    // 🔥 Inizializza i tooltip di Bootstrap DOPO aver creato le bolle
+    setTimeout(() => {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+        console.log("✅ Tooltip di Bootstrap inizializzati correttamente.");
+    }, 500); // Aspetta un attimo per assicurarsi che gli elementi siano nel DOM
+}
 
     // **Creazione delle etichette**
 const defs = svg.append("defs");
