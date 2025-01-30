@@ -774,18 +774,19 @@ document.addEventListener("DOMContentLoaded", async function () {
     .force("charge", d3.forceManyBody().strength(-15))
     .on("tick", ticked);
 
-    const bubbles = svg.selectAll(".bubble")
-    .data(termData)
-    .enter()
-    .append("circle")
-    .attr("class", "bubble")
-    .attr("r", d => radiusScale(d.frequency))
-    .attr("fill", "#00a3cc")
-    .attr("stroke", "#076578")
-    .attr("stroke-width", 2)
-    .attr("data-bs-toggle", "tooltip")
-    .attr("data-bs-placement", "top")
-    .attr("title", d => `${d.term}: ${d.frequency}`); // Tooltip dinamico con la frequenza
+    if (termData.length > 0) { // Controlla che ci siano dati
+    var bubbles = svg.selectAll(".bubble")
+        .data(termData)
+        .enter()
+        .append("circle")
+        .attr("class", "bubble")
+        .attr("r", d => radiusScale(d.frequency))
+        .attr("fill", "#00a3cc")
+        .attr("stroke", "#076578")
+        .attr("stroke-width", 2)
+        .attr("data-bs-toggle", "tooltip")
+        .attr("data-bs-placement", "top")
+        .attr("title", d => `${d.term}: ${d.frequency}`);
 
     // **Creazione delle etichette**
 const defs = svg.append("defs");
