@@ -827,8 +827,9 @@ const labels = svg.selectAll(".label")
         .attr("x", d => d.x)
         .attr("y", d => d.y + 3);
 }
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
-} 
+
+}
