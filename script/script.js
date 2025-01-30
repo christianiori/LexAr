@@ -685,7 +685,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (!bubbleContainer) return;
 
     // Carica i termini dal file TEI (assumendo che funzioni)
-    const termData = await getTermsFromTEI("xml/ach.xml");
+    const termData = await getTermsFromTEI("../xml/ach.xml");
 
     if (termData.length === 0) {
         console.warn("⚠️ Nessun termine trovato.");
