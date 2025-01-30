@@ -819,18 +819,15 @@ const labels = svg.selectAll(".label")
 
     // **Funzione ticked aggiornata**
    function ticked() {
-    bubblesChart
+    d3.selectAll(".bubble")
         .attr("cx", d => d.x = Math.max(radiusScale(d.frequency), Math.min(width - radiusScale(d.frequency), d.x)))
         .attr("cy", d => d.y = Math.max(radiusScale(d.frequency), Math.min(height - radiusScale(d.frequency), d.y)));
 
-    labels
+    d3.selectAll(".label")
         .attr("x", d => d.x)
         .attr("y", d => d.y + 3);
 }
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
+
 
 }
 });
