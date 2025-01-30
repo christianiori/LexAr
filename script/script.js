@@ -816,3 +816,4 @@ const labels = svg.selectAll(".label")
         .attr("x", d => d.x)
         .attr("y", d => d.y + 3);
 }
+});
