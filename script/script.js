@@ -629,7 +629,7 @@ document.querySelectorAll(".btn-check[data-filter]").forEach(button => {
 }
 
 // Evento al pulsante per caricare il file TEI
-async function getTermsFromTEI(xmlPath, maxWords = 50) {
+async function getTermsFromTEI(xmlPath, maxWords = 30) {
     const response = await fetch(xmlPath);
     const text = await response.text();
     const parser = new DOMParser();
@@ -649,12 +649,12 @@ async function getTermsFromTEI(xmlPath, maxWords = 50) {
         "ἑαυτοῦ", "ἑαυτῷ", "ἑαυτὸν",
         "οὗτος", "αὕτη", "τοῦτο", "τοῦτ’", "τουτὶ", "τούτου", "ταύτης", "τούτῳ", "ταύτῃ",
         "τοῦτον", "ἐκεῖνος", "ἐκείνη", "ἐκεῖνο", "ἐκείνου", "ἐκείνης", "ἐκείνοις",
-        "ταυτὶ", "ταυτ’", "ταυτά", "ταῦτ’", "ὅστις", "πάντα",
+        "ταυτὶ", "ταυτ’", "ταυτά", "ταῦτ’", "ὅστις", "πάντα","τίς", "τις", "ὥστ'", "ἐγώ"
 
         // VERBO "ESSERE" (tutte le forme con accenti diversi)
         "εἰμί", "εἰμὶ", "εἶ", "ἐστίν", "ἐστιν", "ἐστὶ", "ἐστί", "ἐσμέν", "ἐσμὲν", "ἐστέ", "ἐστὲ",
         "εἰσίν", "εἰσὶ", "εἰσὶν", "ἔσομαι", "ἔσῃ", "ἔσται", "ἐσόμεθα", "ἔσεσθε", "ἔσονται",
-        "ἦν", "ἦσαν", "ἦσθα", "ἦμεν", "ἦτε", "ἔστιν", "ἔσθ’", "ἐστ’", "εἰσ’", "ἐστι", "ἵν’",
+        "ἦν", "ἦσαν", "ἦσθα", "ἦμεν", "ἦτε", "ἔστιν", "ἔσθ’", "ἐστ’", "εἰσ’", "ἐστι", "ἵν’", "ἐστὶν",
 
         // CONGIUNZIONI, PARTICELLE E AVVERBI
         "καί", "καὶ", "δέ", "δὲ", "ἀλλά", "ἀλλ’", "ἀλλὰ", "τε", "μέν", "μὲν", "γάρ", "γὰρ",
@@ -667,7 +667,7 @@ async function getTermsFromTEI(xmlPath, maxWords = 50) {
         "ἐν", "εἰς", "ἐκ", "πρός", "πρὸς", "μετά", "μετὰ", "κατά", "κατὰ",
         "ὑπό", "ὑπὸ", "ἀπό", "ἀπὸ", "διά", "δι’", "διὰ", "ἐπί", "ἐπὶ", "παρά", "παρὰ",
         "ἀντί", "ἀντὶ", "ὑπέρ", "ὑπὲρ", "περὶ", "ἀμφί", "ἀμφὶ", "χωρίς",
-        "εἴσω", "ἄνευ", "ἐγγύς", "ἄχρι", "ἕνεκα", "χάριν", "ἔνδον",
+        "εἴσω", "ἄνευ", "ἐγγύς", "ἄχρι", "ἕνεκα", "χάριν", "ἔνδον", "κατ'",
 
         // VERBI COMUNI E IMPERATIVI TRONCAMENTI
         "φέρε", "φέρων", "λαβών", "λαβὼν", "δίκαια", "δί’", "δός", "λέγει", "ναί", "τὰν",
@@ -676,7 +676,8 @@ async function getTermsFromTEI(xmlPath, maxWords = 50) {
         "γ’", "μ’", "θ’", "τ’", "σ’", "κ’", "δ’", "π’", "ν’", "χ’", "οὑ’", "ἑ’",
         "οὗ’", "οὐδ’", "μήτ’", "ἅπ’", "ἅματ’", "ἆρ’", "εἴτ’", "εἶπ’", "ἴδ’",
         "ἀλλ’", "ἄρ’", "ταυτὶ", "ταυτ’", "δῆτ’", "ἀλλ'", "νῦν", "τοῦτ'", "ὑπ'",
-        "ἄρ'", "δί'", "οἷς", "ἵν'", "εἶτα", "ὅπως", "ἐμοί", "ἤδη", "δὸς", "ὁδὶ", "εἶναι"
+        "ἄρ'", "δί'", "οἷς", "ἵν'", "εἶτα", "ὅπως", "ἐμοί", "ἤδη", "δὸς", "ὁδὶ", "εἶναι",
+        "ἔτι", "εἶτ'", "οὐδ'", "δεῦρο", "ναὶ", "σφόδρα", "μόνον"
     ]);
 
     // Estrai tutti gli elementi <l> che contengono il testo
@@ -776,16 +777,28 @@ document.addEventListener("DOMContentLoaded", async function () {
         .attr("stroke-width", 2);
 
     // **Creazione delle etichette**
-    const labels = svg.selectAll(".label")
-        .data(termData)
-        .enter()
-        .append("text")
-        .attr("class", "label")
-        .attr("text-anchor", "middle")
-        .attr("dy", ".3em")
-        .attr("font-size", "14px")
-        .attr("fill", "white")
-        .text(d => d.term);
+const defs = svg.append("defs");
+
+const paths = svg.selectAll(".circlePath")
+    .data(termData)
+    .enter()
+    .append("path")
+    .attr("id", (d, i) => "circlePath" + i)
+    .attr("d", d => `M ${-radiusScale(d.frequency) / 2}, 0 A ${radiusScale(d.frequency) / 2}, ${radiusScale(d.frequency) / 2} 0 1,1 ${radiusScale(d.frequency) / 2},0`)
+    .style("fill", "none");
+
+const labels = svg.selectAll(".label")
+    .data(termData)
+    .enter()
+    .append("text")
+    .append("textPath")
+    .attr("xlink:href", (d, i) => "#circlePath" + i)
+    .attr("startOffset", "50%")
+    .attr("text-anchor", "middle")
+    .attr("font-size", d => Math.max(radiusScale(d.frequency) / 3, 8) + "px")
+    .attr("fill", "white")
+    .text(d => d.term);
+
 
     // **Funzione ticked aggiornata**
     function ticked() {
