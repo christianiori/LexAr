@@ -675,9 +675,10 @@ async function getTermsFromTEI(xmlPath, maxWords = 50) {
         // TRONCAMENTI COMUNI (PRONOMI, PARTICELLE, CONGIUNZIONI)
         "γ’", "μ’", "θ’", "τ’", "σ’", "κ’", "δ’", "π’", "ν’", "χ’", "οὑ’", "ἑ’",
         "οὗ’", "οὐδ’", "μήτ’", "ἅπ’", "ἅματ’", "ἆρ’", "εἴτ’", "εἶπ’", "ἴδ’",
-        "ἀλλ’", "ἄρ’", "ταυτὶ", "ταυτ’", "δῆτ’"
+        "ἀλλ’", "ἄρ’", "ταυτὶ", "ταυτ’", "δῆτ’", "ἀλλ'", "νῦν", "τοῦτ'", "ὑπ'",
+        "ἄρ'", "δί'", "οἷς", "ἵν'", "εἶτα", "ὅπως", "ἐμοί", "ἤδη", "δὸς", "ὁδὶ", "εἶναι"
     ]);
- 
+
     // Estrai tutti gli elementi <l> che contengono il testo
     const lines = xmlDoc.getElementsByTagName("l");
     let wordCount = {};
