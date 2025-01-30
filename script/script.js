@@ -833,3 +833,4 @@ const labels = svg.selectAll(".label")
     });
 
 }
+});
