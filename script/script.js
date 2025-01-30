@@ -791,7 +791,7 @@ bubblesChart
  
     const radiusScale = d3.scaleSqrt()
     .domain([1, d3.max(termData, d => d.frequency)])
-    .range(window.innerWidth < 600 ? [15, 50] : [20, 60]);
+    .range(window.innerWidth < 600 ? [25, 70] : [20, 60]);
 
     if (simulation) {
         simulation.stop(); 
