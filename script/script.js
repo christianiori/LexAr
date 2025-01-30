@@ -694,7 +694,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.warn('⚠️ Elemento con data-bs-target="#testo-Acarnesi" non trovato.');
     }
 });
-
+let simulation;
 document.addEventListener("DOMContentLoaded", async function () {
     const bubbleContainer = document.getElementById("d3-bubble-chart");
     if (!bubbleContainer) return;
