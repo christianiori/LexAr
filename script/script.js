@@ -752,6 +752,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         return;
     }
 
+    termData.forEach(d => {
+    d.x = Math.random() * width; 
+    d.y = Math.random() * height;
+});
+
+
     const width = 800, height = 500;
     const radiusScale = d3.scaleSqrt()
     .domain([1, d3.max(termData, d => d.frequency)])
@@ -768,8 +774,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         .attr("height", height);
 
     simulation = d3.forceSimulation(termData)
-    .force("x", d3.forceX(width / 2).strength(0.04))
-    .force("y", d3.forceY(height / 2).strength(0.04))
+    .force("x", d3.forceX(width / 2).strength(0.03))
+    .force("y", d3.forceY(height / 2).strength(0.03))
     .force("collision", d3.forceCollide(d => radiusScale(d.frequency) + 10))
     .force("charge", d3.forceManyBody().strength(-15))
     .on("tick", ticked);
@@ -787,6 +793,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         .attr("data-bs-toggle", "tooltip")
         .attr("data-bs-placement", "top")
         .attr("title", d => `${d.term}: ${d.frequency}`);
+    }
 
     // **Creazione delle etichette**
 const defs = svg.append("defs");
@@ -826,8 +833,6 @@ const labels = svg.selectAll(".label")
     d3.selectAll(".label")
         .attr("x", d => d.x)
         .attr("y", d => d.y + 3);
-}
-
 
 }
 });
