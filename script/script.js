@@ -749,7 +749,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (!bubbleContainer) return;
 
     // Carica i termini dal file TEI (assumendo che funzioni)
-    const termData = await getTermsFromTEI("../xml/ach.xml");
+    const maxWords = window.innerWidth < 600 ? 15 : 30;
+    const termData = (await getTermsFromTEI("../xml/ach.xml")).slice(0, maxWords);
 
     if (termData.length === 0) {
         console.warn("⚠️ Nessun termine trovato.");
@@ -803,11 +804,12 @@ bubblesChart
         .attr("height", height);
 
     simulation = d3.forceSimulation(termData)
-    .force("x", d3.forceX(width / 2).strength(0.03))
-    .force("y", d3.forceY(height / 2).strength(0.03))
-    .force("collision", d3.forceCollide(d => radiusScale(d.frequency) + 10))
-    .force("charge", d3.forceManyBody().strength(-15))
+    .force("x", d3.forceX(width / 2).strength(window.innerWidth < 600 ? 0.2 : 0.1)) // 🔥 Maggiore attrazione al centro su mobile
+    .force("y", d3.forceY(height / 2).strength(window.innerWidth < 600 ? 0.2 : 0.1))
+    .force("collision", d3.forceCollide(d => radiusScale(d.frequency) + (window.innerWidth < 600 ? 15 : 5))) // 🔥 Più spazio tra bolle su mobile
+    .force("charge", d3.forceManyBody().strength(-30))
     .on("tick", ticked);
+
 
 if (termData.length > 0) { // Controlla che ci siano dati
     let bubblesChart = svg.selectAll(".bubble")
