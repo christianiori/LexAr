@@ -799,19 +799,25 @@ bubblesChart
 
     d3.select("#d3-bubble-chart").select("svg").remove();
     let svg = d3.select("#d3-bubble-chart")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height);
+    .append("svg")
+    .attr("width", "100%") 
+    .attr("height", height)
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMidYMid meet");
 
-    simulation = d3.forceSimulation(termData)
-    .force("x", d3.forceX(width / 2).strength(window.innerWidth < 600 ? 0.2 : 0.1)) // 🔥 Maggiore attrazione al centro su mobile
-    .force("y", d3.forceY(height / 2).strength(window.innerWidth < 600 ? 0.2 : 0.1))
-    .force("collision", d3.forceCollide(d => radiusScale(d.frequency) + (window.innerWidth < 600 ? 15 : 5))) // 🔥 Più spazio tra bolle su mobile
+    const containerRect = document.getElementById("d3-bubble-chart").getBoundingClientRect();
+const centerX = containerRect.width / 2;
+const centerY = containerRect.height / 2;
+
+simulation = d3.forceSimulation(termData)
+    .force("x", d3.forceX(centerX).strength(window.innerWidth < 600 ? 0.3 : 0.1)) 
+    .force("y", d3.forceY(centerY).strength(window.innerWidth < 600 ? 0.3 : 0.1))
+    .force("collision", d3.forceCollide(d => radiusScale(d.frequency) + (window.innerWidth < 600 ? 15 : 5))) 
     .force("charge", d3.forceManyBody().strength(-30))
     .on("tick", ticked);
 
 
-if (termData.length > 0) { // Controlla che ci siano dati
+if (termData.length > 0) { 
     let bubblesChart = svg.selectAll(".bubble")
         .data(termData)
         .enter()
@@ -821,24 +827,20 @@ if (termData.length > 0) { // Controlla che ci siano dati
         .attr("fill", "#00a3cc")
         .attr("stroke", "#076578")
         .attr("stroke-width", 2)
-        .attr("data-bs-toggle", "tooltip")  // ✅ Tooltip di Bootstrap
-        .attr("data-bs-placement", "top")   // ✅ Posiziona il tooltip sopra la bolla
-        .attr("title", d => `${d.term}: ${d.frequency}`);  // ✅ Testo del tooltip
+        .attr("data-bs-toggle", "tooltip")  
+        .attr("data-bs-placement", "top")   
+        .attr("title", d => `${d.term}: ${d.frequency}`);
 
-    // 🔥 Inizializza i tooltip di Bootstrap DOPO aver creato le bolle
     setTimeout(() => {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl);
         });
         console.log("✅ Tooltip di Bootstrap inizializzati correttamente.");
-    }, 500); // Aspetta un attimo per assicurarsi che gli elementi siano nel DOM
+    }, 500); 
 }
 
-    // **Creazione delle etichette**
 const defs = svg.append("defs");
-
-// Definizione dei percorsi circolari per il testo
 const paths = defs.selectAll(".circlePath")
     .data(termData)
     .enter()
@@ -857,14 +859,11 @@ const labels = svg.selectAll(".label")
     .append("text")
     .attr("class", "label")
     .attr("text-anchor", "middle")
-    .attr("dy", ".3em") // Posiziona il testo leggermente più in alto
-    .attr("font-size", d => Math.max(radiusScale(d.frequency) / 3, 8) + "px") // Font dinamico
+    .attr("dy", ".3em") 
+    .attr("font-size", d => Math.max(radiusScale(d.frequency) / 3, 8) + "px")
     .attr("fill", "white")
     .text(d => d.term);
 
-
-
-    // **Funzione ticked aggiornata**
    function ticked() {
     d3.selectAll(".bubble")
         .attr("cx", d => d.x = Math.max(radiusScale(d.frequency), Math.min(width - radiusScale(d.frequency), d.x)))
