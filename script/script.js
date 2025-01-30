@@ -661,7 +661,7 @@ async function getTermsFromTEI(xmlPath, maxWords = 30) {
         "οὐ", "οὐκ", "οὐχ", "οὐχί", "οὔτε", "οὔ", "μή", "μήτε", "μηδέ", "μὴ",
         "ἄν", "ἐάν", "ἐὰν", "ἤ", "εἰ", "ὡς", "ὥς", "ὥστε", "ὅταν", "ἵνα", "ὅτι",
         "οὖν", "ἆρα", "γέ", "γὰρ", "μήν", "μὴν", "τοι", "τοίνυν", "νυν", "πῶς",
-        "δῆτα", "δῆτ’", "ἀεὶ", "οἷον", "οἴμοι", "καλῶς", "κακῶς",
+        "δῆτα", "δῆτ’", "ἀεὶ", "οἷον", "οἴμοι", "καλῶς", "κακῶς", "γάρ", "ταῦτ'", "κᾆτ'", "ὥσπερ", "δεῖ", "ἀνὴρ", "δῆτ'"
 
         // PREPOSIZIONI
         "ἐν", "εἰς", "ἐκ", "πρός", "πρὸς", "μετά", "μετὰ", "κατά", "κατὰ",
@@ -759,10 +759,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // **Crea la nuova simulazione D3**
     simulation = d3.forceSimulation(termData)
-    .force("x", d3.forceX(width / 2).strength(0.05))
-    .force("y", d3.forceY(height / 2).strength(0.05))
-    .force("collision", d3.forceCollide(d => radiusScale(d.frequency) + 2))
-    .force("charge", d3.forceManyBody().strength(-15)) // Mantiene le bolle separate
+    .force("x", d3.forceX(width / 2).strength(0.03))
+    .force("y", d3.forceY(height / 2).strength(0.03))
+    .force("collision", d3.forceCollide(d => radiusScale(d.frequency) + 10))
+    .force("charge", d3.forceManyBody().strength(-15))
     .on("tick", ticked);
 
 
@@ -807,14 +807,12 @@ const labels = svg.selectAll(".label")
 
 
     // **Funzione ticked aggiornata**
-    function ticked() {
+   function ticked() {
     bubbles
-        .attr("cx", d => d.x)
-        .attr("cy", d => d.y);
+        .attr("cx", d => d.x = Math.max(radiusScale(d.frequency), Math.min(width - radiusScale(d.frequency), d.x)))
+        .attr("cy", d => d.y = Math.max(radiusScale(d.frequency), Math.min(height - radiusScale(d.frequency), d.y)));
 
     labels
         .attr("x", d => d.x)
-        .attr("y", d => d.y);
+        .attr("y", d => d.y + 3);
 }
-
-});
