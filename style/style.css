@@ -1060,3 +1060,11 @@ ult li .descr::before {
   text-decoration: none; 
   color: black;
 }
+#d3-bubble-chart {
+    display: flex;
+    justify-content: center !important; 
+    align-items: center !important; 
+    width: 100%;
+    height: 100%;
+    position: relative;
+}

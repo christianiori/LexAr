@@ -739,8 +739,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Scala per il raggio delle bolle basata sulla frequenza
     const radiusScale = d3.scaleSqrt()
-        .domain([0, d3.max(termData, d => d.frequency)])
-        .range([10, 50]);
+    .domain([1, d3.max(termData, d => d.frequency)])
+    .range([20, 60]); // Minimo 20, massimo 60
+
 
     // **Interrompe e pulisce la simulazione esistente**
     if (simulation) {
