@@ -791,7 +791,7 @@ bubblesChart
  
     const radiusScale = d3.scaleSqrt()
     .domain([1, d3.max(termData, d => d.frequency)])
-    .range(window.innerWidth < 600 ? [25, 70] : [20, 60]);
+    .range(window.innerWidth < 600 ? [20, 50] : [25, 70]);
 
     if (simulation) {
         simulation.stop(); 
@@ -861,7 +861,8 @@ const labels = svg.selectAll(".label")
     .attr("text-anchor", "middle")
     .attr("dy", ".3em")
     .attr("font-size", d => 
-        window.innerWidth < 600 ? Math.max(radiusScale(d.frequency) / 2, 12) + "px" : Math.max(radiusScale(d.frequency) / 3, 10) + "px")
+    window.innerWidth < 600 ? Math.max(radiusScale(d.frequency) / 2.5, 10) + "px"
+                            : Math.max(radiusScale(d.frequency) / 2.2, 14) + "px")
     .attr("fill", "white")
     .text(d => d.term);
 
