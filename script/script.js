@@ -721,7 +721,7 @@ if (simulation) {
 }
 
 // Creazione dell'SVG (rimuove elementi esistenti)
-const svg = d3.select("#d3-bubble-chart")
+let svg = d3.select("#d3-bubble-chart")
     .append("svg")
     .attr("width", width)
     .attr("height", height);
