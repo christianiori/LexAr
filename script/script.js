@@ -635,37 +635,51 @@ async function getTermsFromTEI(teiFilePath) {
         if (!response.ok) throw new Error(`Errore nel caricamento del file TEI: ${response.status}`);
 
         const teiText = await response.text();
+        console.log("📄 Contenuto TEI caricato:", teiText); // DEBUG: Verifica che il file sia stato letto
+
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(teiText, "application/xml");
 
-        // Estrazione di tutto il testo contenuto in <l>
-        const lines = Array.from(xmlDoc.querySelectorAll("l")).map(el => el.textContent.trim());
+        // **Estrazione delle linee di testo contenute nei tag <l>**
+        const lines = Array.from(xmlDoc.getElementsByTagName("l")).map(el => el.textContent.trim());
 
-        // Creazione di un'unica stringa con tutto il testo
+        console.log("📝 Testo estratto da <l>:", lines); // DEBUG: Controlla il contenuto estratto
+
+        // Se non troviamo righe, mostriamo un messaggio di errore
+        if (lines.length === 0) {
+            console.warn("⚠️ Nessun testo trovato nei tag <l>. Verifica la struttura del file TEI.");
+            return [];
+        }
+
+        // **Unire tutte le righe in un unico testo**
         const fullText = lines.join(" ");
 
-        // **Estrazione delle parole**
+        // **Estrarre le parole greche**
         const words = fullText.match(/\b[α-ωΑ-Ω]+\b/g); // Prende solo parole in greco
 
-        if (!words) return [];
+        if (!words) {
+            console.warn("⚠️ Nessuna parola greca trovata nel testo.");
+            return [];
+        }
 
-        // Conta la frequenza delle parole
+        // **Conta la frequenza delle parole**
         const termFrequencies = {};
         words.forEach(word => {
             termFrequencies[word] = (termFrequencies[word] || 0) + 1;
         });
 
-        // Converti in array per D3.js
+        // **Restituisce i primi 15 termini più usati**
         return Object.keys(termFrequencies)
             .map(term => ({ term, frequency: termFrequencies[term] }))
             .sort((a, b) => b.frequency - a.frequency) // Ordina per frequenza decrescente
-            .slice(0, 15); // Prendi solo le 15 parole più usate
+            .slice(0, 15); // Prendi solo i primi 15 termini più usati
 
     } catch (error) {
         console.error("❌ Errore nell'elaborazione del TEI:", error);
         return [];
     }
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const acarnesiButton = document.querySelector('[data-bs-target="#testo-Acarnesi"]');
