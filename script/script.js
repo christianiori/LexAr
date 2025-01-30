@@ -694,7 +694,9 @@ document.addEventListener("DOMContentLoaded", () => {
         console.warn('⚠️ Elemento con data-bs-target="#testo-Acarnesi" non trovato.');
     }
 });
-let simulation;
+// Dichiarazione globale della simulazione
+let simulation; 
+
 document.addEventListener("DOMContentLoaded", async function () {
     const bubbleContainer = document.getElementById("d3-bubble-chart");
     if (!bubbleContainer) return;
@@ -714,53 +716,39 @@ document.addEventListener("DOMContentLoaded", async function () {
         .domain([0, d3.max(termData, d => d.frequency)])
         .range([10, 50]);
 
-// Se la simulazione esiste già, fermala e rimuovi gli elementi precedenti
-if (simulation) {
-    simulation.stop();
+    // **Interrompe e pulisce la simulazione esistente**
+    if (simulation) {
+        simulation.stop(); // Ferma la simulazione
+    }
+
+    // **Rimuove l'SVG precedente se esiste**
     d3.select("#d3-bubble-chart").select("svg").remove();
-}
 
-// Creazione dell'SVG (rimuove elementi esistenti)
-let svg = d3.select("#d3-bubble-chart")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    // **Crea un nuovo SVG**
+    let svg = d3.select("#d3-bubble-chart")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
 
-// Creazione della nuova simulazione D3
-simulation = d3.forceSimulation(termData)
-    .force("x", d3.forceX(width / 2).strength(0.05))
-    .force("y", d3.forceY(height / 2).strength(0.05))
-    .force("collision", d3.forceCollide(d => radiusScale(d.frequency) + 2))
-    .on("tick", ticked);
+    // **Crea la nuova simulazione D3**
+    simulation = d3.forceSimulation(termData)
+        .force("x", d3.forceX(width / 2).strength(0.05))
+        .force("y", d3.forceY(height / 2).strength(0.05))
+        .force("collision", d3.forceCollide(d => radiusScale(d.frequency) + 2))
+        .on("tick", ticked);
 
-
-    // ** Creazione del tooltip **
-    const tooltip = d3.select("body")
-        .append("div")
-        .attr("class", "tooltip")
-        .style("position", "absolute")
-        .style("background", "rgba(0, 0, 0, 0.7)")
-        .style("color", "white")
-        .style("padding", "8px")
-        .style("border-radius", "5px")
-        .style("opacity", 0)
-        .style("pointer-events", "none");
-
-    // Creazione delle bolle con animazione iniziale
+    // **Creazione delle bolle**
     const bubbles = svg.selectAll(".bubble")
         .data(termData)
         .enter()
         .append("circle")
         .attr("class", "bubble")
-        .attr("r", 0) // Animazione iniziale
+        .attr("r", d => radiusScale(d.frequency))
         .attr("fill", "#00a3cc")
         .attr("stroke", "#076578")
-        .attr("stroke-width", 2)
-        .transition()
-        .duration(1000)
-        .attr("r", d => radiusScale(d.frequency));
+        .attr("stroke-width", 2);
 
-    // Aggiunta delle etichette (nomi dei termini)
+    // **Creazione delle etichette**
     const labels = svg.selectAll(".label")
         .data(termData)
         .enter()
@@ -772,35 +760,7 @@ simulation = d3.forceSimulation(termData)
         .attr("fill", "white")
         .text(d => d.term);
 
-    // ** Tooltip interattivo **
-   // Aggiunta evento mouseover alle bolle
-bubbles.on("mouseover", function (event, d) {
-    d3.select(this)
-        .transition()
-        .duration(200)
-        .attr("r", radiusScale(d.frequency) * 1.2)
-        .attr("fill", "#ffcc00");
-
-    tooltip.style("opacity", 1)
-        .html(`<strong>${d.term}</strong>: ${d.frequency} occorrenze`)
-        .style("left", (event.pageX + 10) + "px")
-        .style("top", (event.pageY - 20) + "px");
-})
-.on("mousemove", function (event) {
-    tooltip.style("left", (event.pageX + 10) + "px")
-           .style("top", (event.pageY - 20) + "px");
-})
-.on("mouseout", function () {
-    d3.select(this)
-        .transition()
-        .duration(200)
-        .attr("r", d => radiusScale(d.frequency))
-        .attr("fill", "#00a3cc");
-
-    tooltip.style("opacity", 0);
-});
-
-    // Funzione per aggiornare la posizione delle bolle
+    // **Funzione ticked aggiornata**
     function ticked() {
         bubbles.attr("cx", d => d.x).attr("cy", d => d.y);
         labels.attr("x", d => d.x).attr("y", d => d.y);
