@@ -812,7 +812,7 @@ const centerY = containerRect.height / 2;
 simulation = d3.forceSimulation(termData)
     .force("x", d3.forceX(centerX).strength(window.innerWidth < 600 ? 0.3 : 0.1)) 
     .force("y", d3.forceY(centerY).strength(window.innerWidth < 600 ? 0.3 : 0.1))
-    .force("collision", d3.forceCollide(d => radiusScale(d.frequency) + (window.innerWidth < 600 ? 15 : 5))) 
+    .force("collision", d3.forceCollide(d => radiusScale(d.frequency) + (window.innerWidth < 600 ? 30 : 10))) 
     .force("charge", d3.forceManyBody().strength(-30))
     .on("tick", ticked);
 
@@ -859,10 +859,12 @@ const labels = svg.selectAll(".label")
     .append("text")
     .attr("class", "label")
     .attr("text-anchor", "middle")
-    .attr("dy", ".3em") 
-    .attr("font-size", d => Math.max(radiusScale(d.frequency) / 3, 8) + "px")
+    .attr("dy", ".3em")
+    .attr("font-size", d => 
+        window.innerWidth < 600 ? Math.max(radiusScale(d.frequency) / 2, 12) + "px" : Math.max(radiusScale(d.frequency) / 3, 10) + "px")
     .attr("fill", "white")
     .text(d => d.term);
+
 
    function ticked() {
     d3.selectAll(".bubble")
