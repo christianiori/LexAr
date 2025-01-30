@@ -629,56 +629,44 @@ document.querySelectorAll(".btn-check[data-filter]").forEach(button => {
 }
 
 // Evento al pulsante per caricare il file TEI
-async function getTermsFromTEI(teiFilePath) {
-    try {
-        const response = await fetch(teiFilePath);
-        if (!response.ok) throw new Error(`Errore nel caricamento del file TEI: ${response.status}`);
+async function getTermsFromTEI(xmlPath, maxWords = 50) {
+    const response = await fetch(xmlPath);
+    const text = await response.text();
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(text, "application/xml");
 
-        const teiText = await response.text();
-        console.log("📄 Contenuto TEI caricato:", teiText); // DEBUG: Verifica che il file sia stato letto
+    // Lista di stopwords comuni in greco antico (può essere ampliata)
+    const stopwords = new Set([
+        "ὁ", "ἡ", "τό", "καί", "δέ", "γάρ", "μέν", "δὲ", "εἰ", "ἐν", "πρός", "εἰς",
+        "ἐκ", "ὡς", "οὐ", "μή", "ἀλλά", "τε", "τοῦ", "ταῦτα", "αὐτός", "ἐστιν",
+        "ἔστι", "ἦν", "οὗτος", "ἤ", "ὅς", "τις", "τι", "πάντα", "πάντες"
+    ]);
 
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(teiText, "application/xml");
+    // Estrai tutti gli elementi <l> che contengono il testo
+    const lines = xmlDoc.getElementsByTagName("l");
+    let wordCount = {};
 
-        // **Estrazione delle linee di testo contenute nei tag <l>**
-        const lines = Array.from(xmlDoc.getElementsByTagName("l")).map(el => el.textContent.trim());
+    for (let line of lines) {
+        const words = line.textContent
+            .trim()
+            .toLowerCase()
+            .replace(/[.,;!?()«»"“”‘’]/g, '') // Rimuove punteggiatura
+            .split(/\s+/); // Divide in parole
 
-        console.log("📝 Testo estratto da <l>:", lines); // DEBUG: Controlla il contenuto estratto
-
-        // Se non troviamo righe, mostriamo un messaggio di errore
-        if (lines.length === 0) {
-            console.warn("⚠️ Nessun testo trovato nei tag <l>. Verifica la struttura del file TEI.");
-            return [];
-        }
-
-        // **Unire tutte le righe in un unico testo**
-        const fullText = lines.join(" ");
-
-        // **Estrarre le parole greche**
-       const words = fullText.match(/[α-ωάέήίόύώΑ-ΩΆΈΉΊΌΎΏ]+/g);
-
-
-        if (!words) {
-            console.warn("⚠️ Nessuna parola greca trovata nel testo.");
-            return [];
-        }
-
-        // **Conta la frequenza delle parole**
-        const termFrequencies = {};
         words.forEach(word => {
-            termFrequencies[word] = (termFrequencies[word] || 0) + 1;
+            if (word.length > 2 && !stopwords.has(word)) { // Esclude parole corte e stopwords
+                wordCount[word] = (wordCount[word] || 0) + 1;
+            }
         });
-
-        // **Restituisce i primi 15 termini più usati**
-        return Object.keys(termFrequencies)
-            .map(term => ({ term, frequency: termFrequencies[term] }))
-            .sort((a, b) => b.frequency - a.frequency) // Ordina per frequenza decrescente
-            .slice(0, 15); // Prendi solo i primi 15 termini più usati
-
-    } catch (error) {
-        console.error("❌ Errore nell'elaborazione del TEI:", error);
-        return [];
     }
+
+    // Converti in array e ordina per frequenza decrescente
+    let sortedWords = Object.entries(wordCount)
+        .sort((a, b) => b[1] - a[1]) // Ordina per frequenza
+        .slice(0, maxWords) // Seleziona le top N parole più frequenti
+        .map(([term, frequency]) => ({ term, frequency }));
+
+    return sortedWords;
 }
 
 
@@ -732,10 +720,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // **Crea la nuova simulazione D3**
     simulation = d3.forceSimulation(termData)
-        .force("x", d3.forceX(width / 2).strength(0.05))
-        .force("y", d3.forceY(height / 2).strength(0.05))
-        .force("collision", d3.forceCollide(d => radiusScale(d.frequency) + 2))
-        .on("tick", ticked);
+    .force("x", d3.forceX(width / 2).strength(0.05))
+    .force("y", d3.forceY(height / 2).strength(0.05))
+    .force("collision", d3.forceCollide(d => radiusScale(d.frequency) + 2))
+    .force("charge", d3.forceManyBody().strength(-15)) // Mantiene le bolle separate
+    .on("tick", ticked);
+
 
     // **Creazione delle bolle**
     const bubbles = svg.selectAll(".bubble")
@@ -762,7 +752,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // **Funzione ticked aggiornata**
     function ticked() {
-        bubbles.attr("cx", d => d.x).attr("cy", d => d.y);
-        labels.attr("x", d => d.x).attr("y", d => d.y);
-    }
+    bubbles
+        .attr("cx", d => d.x)
+        .attr("cy", d => d.y);
+
+    labels
+        .attr("x", d => d.x)
+        .attr("y", d => d.y);
+}
+
 });
