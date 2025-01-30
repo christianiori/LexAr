@@ -709,12 +709,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     const width = 800, height = 500;
 
-    // Creazione dell'SVG
-    const svg = d3.select("#d3-bubble-chart")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height);
-
     // Scala per il raggio delle bolle basata sulla frequenza
     const radiusScale = d3.scaleSqrt()
         .domain([0, d3.max(termData, d => d.frequency)])
