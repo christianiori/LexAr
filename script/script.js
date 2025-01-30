@@ -779,25 +779,31 @@ document.addEventListener("DOMContentLoaded", async function () {
     // **Creazione delle etichette**
 const defs = svg.append("defs");
 
-const paths = svg.selectAll(".circlePath")
+// Definizione dei percorsi circolari per il testo
+const paths = defs.selectAll(".circlePath")
     .data(termData)
     .enter()
     .append("path")
-    .attr("id", (d, i) => "circlePath" + i)
-    .attr("d", d => `M ${-radiusScale(d.frequency) / 2}, 0 A ${radiusScale(d.frequency) / 2}, ${radiusScale(d.frequency) / 2} 0 1,1 ${radiusScale(d.frequency) / 2},0`)
+    .attr("id", (d, i) => `circlePath${i}`)
+    .attr("d", d => {
+        let r = radiusScale(d.frequency) / 2;
+        return `M ${-r}, 0 A ${r},${r} 0 1,1 ${r},0`;
+    })
     .style("fill", "none");
 
+// Creazione delle etichette testuali
 const labels = svg.selectAll(".label")
     .data(termData)
     .enter()
     .append("text")
     .append("textPath")
-    .attr("xlink:href", (d, i) => "#circlePath" + i)
+    .attr("href", (d, i) => `#circlePath${i}`)
     .attr("startOffset", "50%")
     .attr("text-anchor", "middle")
-    .attr("font-size", d => Math.max(radiusScale(d.frequency) / 3, 8) + "px")
+    .attr("font-size", d => `${Math.max(radiusScale(d.frequency) / 3, 8)}px`)
     .attr("fill", "white")
     .text(d => d.term);
+
 
 
     // **Funzione ticked aggiornata**
