@@ -796,11 +796,10 @@ const labels = svg.selectAll(".label")
     .data(termData)
     .enter()
     .append("text")
-    .append("textPath")
-    .attr("href", (d, i) => `#circlePath${i}`)
-    .attr("startOffset", "50%")
+    .attr("class", "label")
     .attr("text-anchor", "middle")
-    .attr("font-size", d => `${Math.max(radiusScale(d.frequency) / 3, 8)}px`)
+    .attr("dy", ".3em") // Posiziona il testo leggermente più in alto
+    .attr("font-size", d => Math.max(radiusScale(d.frequency) / 3, 8) + "px") // Font dinamico
     .attr("fill", "white")
     .text(d => d.term);
 
