@@ -925,17 +925,18 @@ async function loadAndProcessVocabulary() {
 
 // Funzione per ottenere il lemma da Perseus
 async function getLemmaFromPerseus(word) {
-    const url = `https://www.perseus.tufts.edu/hopper/morph?l=${word}&la=greek`;
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/"; // Proxy per bypassare CORS
+    const url = `https://www.perseus.tufts.edu/hopper/xmlmorph?lang=greek&lookup=${word}`;
     try {
         const response = await fetch(url);
         const text = await response.text();
 
-        console.log(`Risposta API Perseus per "${word}":`, text); // ✅ LOG della risposta completa
+        console.log(`Risposta API Perseus per "${word}":`, text); // ✅ LOG per verificare il contenuto
 
-        // Estrarre il lemma dal testo restituito (HTML)
-        const lemmaMatch = text.match(/lemma="([^"]+)"/);
+        // Estrarre il lemma dal testo restituito (cercando nella risposta HTML)
+        const lemmaMatch = text.match(/<hdwd>(.*?)<\/hdwd>/);
         if (lemmaMatch) {
-            console.log(`Radice trovata per "${word}":`, lemmaMatch[1]); // ✅ LOG per il lemma trovato
+            console.log(`Radice trovata per "${word}":`, lemmaMatch[1]); // ✅ LOG per debug
             return lemmaMatch[1];
         }
     } catch (error) {
@@ -943,6 +944,7 @@ async function getLemmaFromPerseus(word) {
     }
     return word; // Se non trova nulla, restituisce la parola originale
 }
+
 
 // Funzione per generare il grafico a bolle con D3.js
 function generateBubbleChart(radiciDict) {
