@@ -880,6 +880,49 @@ const labels = svg.selectAll(".label")
 
 
 //PAGINA RADICI
+// Funzione per caricare vocaboli.html e processare i vocaboli
+async function loadAndProcessVocabulary() {
+    try {
+        const response = await fetch("../lessico/vocaboli.html"); // Percorso corretto di vocaboli.html
+        const text = await response.text();
+        
+        // Creiamo un elemento temporaneo per analizzare l'HTML di vocaboli.html
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, "text/html");
+
+        // Selezioniamo i vocaboli
+        const terms = doc.querySelectorAll(".term b"); // Seleziona i vocaboli in grassetto
+
+        console.log("Vocaboli trovati:", terms.length); // ✅ LOG numero vocaboli trovati
+        if (terms.length === 0) {
+            console.error("❌ Nessun vocabolo trovato! Controlla il selettore.");
+            return;
+        }
+
+        const radiciDict = {};
+
+        for (const term of terms) {
+            const word = term.textContent.trim();
+            console.log(`Elaborando il vocabolo: ${word}`); // ✅ LOG per ogni vocabolo estratto
+
+            const lemma = await getLemmaFromPerseus(word); // Ottiene il lemma da Perseus
+
+            // Raggruppa le parole per lemma
+            if (!radiciDict[lemma]) {
+                radiciDict[lemma] = [];
+            }
+            radiciDict[lemma].push(word);
+        }
+
+        console.log("Radici e vocaboli raggruppati:", radiciDict); // ✅ LOG per verificare il risultato finale
+
+        // Genera il grafico con i dati delle radici
+        generateBubbleChart(radiciDict);
+    } catch (error) {
+        console.error("Errore nel caricamento di vocaboli.html:", error);
+    }
+}
+
 // Funzione per ottenere il lemma da Perseus
 async function getLemmaFromPerseus(word) {
     const url = `https://www.perseus.tufts.edu/hopper/morph?l=${word}&la=greek`;
@@ -887,41 +930,19 @@ async function getLemmaFromPerseus(word) {
         const response = await fetch(url);
         const text = await response.text();
 
+        console.log(`Risposta API Perseus per "${word}":`, text); // ✅ LOG della risposta completa
+
         // Estrarre il lemma dal testo restituito (HTML)
         const lemmaMatch = text.match(/lemma="([^"]+)"/);
         if (lemmaMatch) {
-            return lemmaMatch[1]; // Restituisce il lemma trovato
+            console.log(`Radice trovata per "${word}":`, lemmaMatch[1]); // ✅ LOG per il lemma trovato
+            return lemmaMatch[1];
         }
     } catch (error) {
         console.error(`Errore durante il recupero del lemma per '${word}':`, error);
     }
     return word; // Se non trova nulla, restituisce la parola originale
 }
-
-// Funzione per processare i vocaboli e raggrupparli per radice
-async function processVocabulary() {
-    const terms = document.querySelectorAll(".term b"); // Seleziona i vocaboli in grassetto
-    const radiciDict = {};
-
-    for (const term of terms) {
-        const word = term.textContent.trim();
-        console.log(`Elaborando il vocabolo: ${word}`); // LOG dei vocaboli estratti
-
-        const lemma = await getLemmaFromPerseus(word); // Ottiene il lemma da Perseus
-
-        // Raggruppa le parole per lemma
-        if (!radiciDict[lemma]) {
-            radiciDict[lemma] = [];
-        }
-        radiciDict[lemma].push(word);
-    }
-
-    console.log("Radici e vocaboli raggruppati:", radiciDict);
-
-    // Genera il grafico con i dati delle radici
-    generateBubbleChart(radiciDict);
-}
-
 
 // Funzione per generare il grafico a bolle con D3.js
 function generateBubbleChart(radiciDict) {
@@ -974,7 +995,7 @@ function generateBubbleChart(radiciDict) {
     }
 }
 
-// Avvia il processo quando il DOM è pronto
+// ✅ Avvia il processo quando il DOM è pronto
 document.addEventListener("DOMContentLoaded", () => {
-    processVocabulary();
+    loadAndProcessVocabulary(); // Ora carichiamo i vocaboli dalla pagina giusta!
 });
