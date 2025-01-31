@@ -880,84 +880,101 @@ const labels = svg.selectAll(".label")
 
 
 //PAGINA RADICI
-
-async function getLemma(word) {
-    let url = `https://www.perseus.tufts.edu/hopper/morph?l=${word}&la=greek`;
+// Funzione per ottenere il lemma da Perseus
+async function getLemmaFromPerseus(word) {
+    const url = `https://www.perseus.tufts.edu/hopper/morph?l=${word}&la=greek`;
     try {
-        let response = await fetch(url);
-        let text = await response.text();
+        const response = await fetch(url);
+        const text = await response.text();
 
-        // Estrarre la radice dal codice HTML restituito
-        let match = text.match(/lemma="([^"]+)"/);
-        return match ? match[1] : word; // Restituisce il lemma trovato o la parola stessa
+        // Estrarre il lemma dal testo restituito (HTML)
+        const lemmaMatch = text.match(/lemma="([^"]+)"/);
+        if (lemmaMatch) {
+            return lemmaMatch[1]; // Restituisce il lemma trovato
+        }
     } catch (error) {
-        console.error("Errore:", error);
-        return word;
+        console.error(`Errore durante il recupero del lemma per '${word}':`, error);
+    }
+    return word; // Se non trova nulla, restituisce la parola originale
+}
+
+// Funzione per processare i vocaboli e raggrupparli per radice
+async function processVocabulary() {
+    const terms = document.querySelectorAll(".term b"); // Seleziona i vocaboli in grassetto
+    const radiciDict = {};
+
+    for (const term of terms) {
+        const word = term.textContent.trim();
+        console.log(`Elaborando il vocabolo: ${word}`); // LOG dei vocaboli estratti
+
+        const lemma = await getLemmaFromPerseus(word); // Ottiene il lemma da Perseus
+
+        // Raggruppa le parole per lemma
+        if (!radiciDict[lemma]) {
+            radiciDict[lemma] = [];
+        }
+        radiciDict[lemma].push(word);
+    }
+
+    console.log("Radici e vocaboli raggruppati:", radiciDict);
+
+    // Genera il grafico con i dati delle radici
+    generateBubbleChart(radiciDict);
+}
+
+
+// Funzione per generare il grafico a bolle con D3.js
+function generateBubbleChart(radiciDict) {
+    const data = Object.keys(radiciDict).map(lemma => ({
+        id: lemma,
+        group: lemma,
+        size: radiciDict[lemma].length,
+        words: radiciDict[lemma],
+    }));
+
+    const width = 800;
+    const height = 600;
+
+    const svg = d3.select("#bubble-chart")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    const simulation = d3.forceSimulation(data)
+        .force("charge", d3.forceManyBody().strength(-50))
+        .force("center", d3.forceCenter(width / 2, height / 2))
+        .force("collision", d3.forceCollide().radius(d => Math.sqrt(d.size) * 10 + 5))
+        .on("tick", ticked);
+
+    const bubbles = svg.selectAll("circle")
+        .data(data)
+        .enter().append("circle")
+        .attr("r", d => Math.sqrt(d.size) * 10)
+        .attr("fill", "#0dcaf0")
+        .attr("stroke", "#076578")
+        .attr("stroke-width", 2)
+        .on("click", showWords);
+
+    const labels = svg.selectAll("text")
+        .data(data)
+        .enter().append("text")
+        .attr("text-anchor", "middle")
+        .style("font-size", "12px")
+        .style("fill", "#333")
+        .text(d => d.id);
+
+    function ticked() {
+        bubbles.attr("cx", d => d.x).attr("cy", d => d.y);
+        labels.attr("x", d => d.x).attr("y", d => d.y);
+    }
+
+    function showWords(event, d) {
+        const wordList = document.getElementById("word-list");
+        wordList.innerHTML = `<h3>${d.id}</h3><p>${d.words.join(", ")}</p>`;
     }
 }
 
-// Esempio di utilizzo
-getLemma("ἀγγελία").then(lemma => console.log(`Radice trovata: ${lemma}`));
-// D3.js Bubble Chart per visualizzare le radici
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Carica il JSON contenente radici e vocaboli
-    fetch("../script/radici.json")
-        .then(response => response.json())
-        .then(data => drawBubbleChart(data));
-
-    function drawBubbleChart(data) {
-        const width = 800;
-        const height = 600;
-
-        // Convertire i dati in un array di oggetti
-        const nodes = Object.keys(data).map(radice => {
-            return {
-                id: radice,
-                group: radice,
-                size: data[radice].length,
-                words: data[radice]
-            };
-        });
-
-        const svg = d3.select("#bubble-chart")
-            .append("svg")
-            .attr("width", width)
-            .attr("height", height);
-
-        const simulation = d3.forceSimulation(nodes)
-            .force("charge", d3.forceManyBody().strength(-50))
-            .force("center", d3.forceCenter(width / 2, height / 2))
-            .force("collision", d3.forceCollide().radius(d => Math.sqrt(d.size) * 10 + 5))
-            .on("tick", ticked);
-
-        const bubbles = svg.selectAll("circle")
-            .data(nodes)
-            .enter().append("circle")
-            .attr("r", d => Math.sqrt(d.size) * 10)
-            .attr("fill", "#0dcaf0")
-            .attr("stroke", "#076578")
-            .attr("stroke-width", 2)
-            .on("click", d => showWords(d.target.__data__));
-
-        function ticked() {
-            bubbles.attr("cx", d => d.x)
-                   .attr("cy", d => d.y);
-        }
-
-        function showWords(d) {
-            const wordList = document.getElementById("word-list");
-            wordList.innerHTML = `<h3>${d.id}</h3><p>${d.words.join(", ")}</p>`;
-        }
-    }
+// Avvia il processo quando il DOM è pronto
+document.addEventListener("DOMContentLoaded", () => {
+    processVocabulary();
 });
-svg.selectAll("text")
-    .data(nodes)
-    .enter()
-    .append("text")
-    .attr("x", d => d.x)
-    .attr("y", d => d.y)
-    .text(d => d.id)
-    .attr("text-anchor", "middle")
-    .style("font-size", "12px")
-    .style("fill", "#333");
