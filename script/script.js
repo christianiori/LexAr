@@ -928,13 +928,13 @@ document.addEventListener("DOMContentLoaded", function() {
         const simulation = d3.forceSimulation(nodes)
             .force("charge", d3.forceManyBody().strength(-50))
             .force("center", d3.forceCenter(width / 2, height / 2))
-            .force("collision", d3.forceCollide().radius(d => d.size * 4 + 5))
+            .force("collision", d3.forceCollide().radius(d => Math.sqrt(d.size) * 10 + 5))
             .on("tick", ticked);
 
         const bubbles = svg.selectAll("circle")
             .data(nodes)
             .enter().append("circle")
-            .attr("r", d => d.size * 4)
+            .attr("r", d => Math.sqrt(d.size) * 10)
             .attr("fill", "#0dcaf0")
             .attr("stroke", "#076578")
             .attr("stroke-width", 2)
@@ -951,3 +951,13 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
+svg.selectAll("text")
+    .data(nodes)
+    .enter()
+    .append("text")
+    .attr("x", d => d.x)
+    .attr("y", d => d.y)
+    .text(d => d.id)
+    .attr("text-anchor", "middle")
+    .style("font-size", "12px")
+    .style("fill", "#333");
