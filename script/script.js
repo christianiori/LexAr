@@ -852,7 +852,6 @@ const paths = defs.selectAll(".circlePath")
     })
     .style("fill", "none");
 
-// Creazione delle etichette testuali
 const labels = svg.selectAll(".label")
     .data(termData)
     .enter()
@@ -877,4 +876,78 @@ const labels = svg.selectAll(".label")
         .attr("y", d => d.y + 3);
 
 }
+});
+
+
+//PAGINA RADICI
+
+async function getLemma(word) {
+    let url = `https://www.perseus.tufts.edu/hopper/morph?l=${word}&la=greek`;
+    try {
+        let response = await fetch(url);
+        let text = await response.text();
+
+        // Estrarre la radice dal codice HTML restituito
+        let match = text.match(/lemma="([^"]+)"/);
+        return match ? match[1] : word; // Restituisce il lemma trovato o la parola stessa
+    } catch (error) {
+        console.error("Errore:", error);
+        return word;
+    }
+}
+
+// Esempio di utilizzo
+getLemma("ἀγγελία").then(lemma => console.log(`Radice trovata: ${lemma}`));
+// D3.js Bubble Chart per visualizzare le radici
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Carica il JSON contenente radici e vocaboli
+    fetch("../script/radici.json")
+        .then(response => response.json())
+        .then(data => drawBubbleChart(data));
+
+    function drawBubbleChart(data) {
+        const width = 800;
+        const height = 600;
+
+        // Convertire i dati in un array di oggetti
+        const nodes = Object.keys(data).map(radice => {
+            return {
+                id: radice,
+                group: radice,
+                size: data[radice].length,
+                words: data[radice]
+            };
+        });
+
+        const svg = d3.select("#bubble-chart")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        const simulation = d3.forceSimulation(nodes)
+            .force("charge", d3.forceManyBody().strength(-50))
+            .force("center", d3.forceCenter(width / 2, height / 2))
+            .force("collision", d3.forceCollide().radius(d => d.size * 4 + 5))
+            .on("tick", ticked);
+
+        const bubbles = svg.selectAll("circle")
+            .data(nodes)
+            .enter().append("circle")
+            .attr("r", d => d.size * 4)
+            .attr("fill", "#0dcaf0")
+            .attr("stroke", "#076578")
+            .attr("stroke-width", 2)
+            .on("click", d => showWords(d.target.__data__));
+
+        function ticked() {
+            bubbles.attr("cx", d => d.x)
+                   .attr("cy", d => d.y);
+        }
+
+        function showWords(d) {
+            const wordList = document.getElementById("word-list");
+            wordList.innerHTML = `<h3>${d.id}</h3><p>${d.words.join(", ")}</p>`;
+        }
+    }
 });
