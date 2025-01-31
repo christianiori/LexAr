@@ -882,7 +882,7 @@ const labels = svg.selectAll(".label")
 //PAGINA RADICI
 // Funzione per caricare vocaboli.html e processare i vocaboli
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("radici.json") // Assicurati che il file sia nello stesso livello di script.js
+    fetch("https://christianiori.github.io/LexAr/script/radici.json") // Assicurati che il file sia nello stesso livello di script.js
         .then(response => {
             if (!response.ok) {
                 throw new Error("Errore nel caricamento del file JSON");
