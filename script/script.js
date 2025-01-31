@@ -881,123 +881,29 @@ const labels = svg.selectAll(".label")
 
 //PAGINA RADICI
 // Funzione per caricare vocaboli.html e processare i vocaboli
-async function loadAndProcessVocabulary() {
-    try {
-        const response = await fetch("../lessico/vocaboli.html"); // Percorso corretto di vocaboli.html
-        const text = await response.text();
-        
-        // Creiamo un elemento temporaneo per analizzare l'HTML di vocaboli.html
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(text, "text/html");
-
-        // Selezioniamo i vocaboli
-        const terms = doc.querySelectorAll(".term b"); // Seleziona i vocaboli in grassetto
-
-        console.log("Vocaboli trovati:", terms.length); // ✅ LOG numero vocaboli trovati
-        if (terms.length === 0) {
-            console.error("❌ Nessun vocabolo trovato! Controlla il selettore.");
-            return;
-        }
-
-        const radiciDict = {};
-
-        for (const term of terms) {
-            const word = term.textContent.trim();
-            console.log(`Elaborando il vocabolo: ${word}`); // ✅ LOG per ogni vocabolo estratto
-
-            const lemma = await getLemmaFromPerseus(word); // Ottiene il lemma da Perseus
-
-            // Raggruppa le parole per lemma
-            if (!radiciDict[lemma]) {
-                radiciDict[lemma] = [];
-            }
-            radiciDict[lemma].push(word);
-        }
-
-        console.log("Radici e vocaboli raggruppati:", radiciDict); // ✅ LOG per verificare il risultato finale
-
-        // Genera il grafico con i dati delle radici
-        generateBubbleChart(radiciDict);
-    } catch (error) {
-        console.error("Errore nel caricamento di vocaboli.html:", error);
-    }
-}
-
-// Funzione per ottenere il lemma da Perseus
-async function getLemmaFromPerseus(word) {
-    const proxyUrl = "https://cors-anywhere.herokuapp.com/"; // Proxy per bypassare CORS
-    const url = `https://www.perseus.tufts.edu/hopper/xmlmorph?lang=greek&lookup=${word}`;
-    try {
-        const response = await fetch(url);
-        const text = await response.text();
-
-        console.log(`Risposta API Perseus per "${word}":`, text); // ✅ LOG per verificare il contenuto
-
-        // Estrarre il lemma dal testo restituito (cercando nella risposta HTML)
-        const lemmaMatch = text.match(/<hdwd>(.*?)<\/hdwd>/);
-        if (lemmaMatch) {
-            console.log(`Radice trovata per "${word}":`, lemmaMatch[1]); // ✅ LOG per debug
-            return lemmaMatch[1];
-        }
-    } catch (error) {
-        console.error(`Errore durante il recupero del lemma per '${word}':`, error);
-    }
-    return word; // Se non trova nulla, restituisce la parola originale
-}
-
-
-// Funzione per generare il grafico a bolle con D3.js
-function generateBubbleChart(radiciDict) {
-    const data = Object.keys(radiciDict).map(lemma => ({
-        id: lemma,
-        group: lemma,
-        size: radiciDict[lemma].length,
-        words: radiciDict[lemma],
-    }));
-
-    const width = 800;
-    const height = 600;
-
-    const svg = d3.select("#bubble-chart")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height);
-
-    const simulation = d3.forceSimulation(data)
-        .force("charge", d3.forceManyBody().strength(-50))
-        .force("center", d3.forceCenter(width / 2, height / 2))
-        .force("collision", d3.forceCollide().radius(d => Math.sqrt(d.size) * 10 + 5))
-        .on("tick", ticked);
-
-    const bubbles = svg.selectAll("circle")
-        .data(data)
-        .enter().append("circle")
-        .attr("r", d => Math.sqrt(d.size) * 10)
-        .attr("fill", "#0dcaf0")
-        .attr("stroke", "#076578")
-        .attr("stroke-width", 2)
-        .on("click", showWords);
-
-    const labels = svg.selectAll("text")
-        .data(data)
-        .enter().append("text")
-        .attr("text-anchor", "middle")
-        .style("font-size", "12px")
-        .style("fill", "#333")
-        .text(d => d.id);
-
-    function ticked() {
-        bubbles.attr("cx", d => d.x).attr("cy", d => d.y);
-        labels.attr("x", d => d.x).attr("y", d => d.y);
-    }
-
-    function showWords(event, d) {
-        const wordList = document.getElementById("word-list");
-        wordList.innerHTML = `<h3>${d.id}</h3><p>${d.words.join(", ")}</p>`;
-    }
-}
-
-// ✅ Avvia il processo quando il DOM è pronto
 document.addEventListener("DOMContentLoaded", () => {
-    loadAndProcessVocabulary(); // Ora carichiamo i vocaboli dalla pagina giusta!
+    fetch("radici.json") // Assicurati che il file sia nello stesso livello di script.js
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Errore nel caricamento del file JSON");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Dati radici caricati:", data);
+            mostraRadici(data);
+        })
+        .catch(error => console.error("Errore:", error));
 });
+
+function mostraRadici(radici) {
+    const container = document.getElementById("radiciContainer");
+    if (!container) return;
+
+    Object.entries(radici).forEach(([radice, parole]) => {
+        const radiceElement = document.createElement("div");
+        radiceElement.classList.add("radice");
+        radiceElement.innerHTML = `<b>${radice}</b>: ${parole.join(", ")}`;
+        container.appendChild(radiceElement);
+    });
+}
