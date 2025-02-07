@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         sidebar.style.right = "-320px"; // Nasconde la sidebar inizialmente
         sidebar.style.top = "60px"; // Sposta la sidebar sotto la navbar
         sidebar.style.height = "calc(100vh - 60px)"; // Adatta l'altezza
+        sidebar.style.zIndex = "1050";
         sidebar.style.width = "300px";
         sidebar.style.background = "#0d6ca6";
         sidebar.style.padding = "15px";
@@ -36,22 +37,34 @@ document.addEventListener("DOMContentLoaded", function () {
         sidebar.style.transition = "right 0.3s ease-in-out";
         sidebar.style.color = "white";
         sidebar.innerHTML = `
-            <h3 style="color: white; margin-bottom: 10px;">Commenti</h3>
-            <textarea id="annotationInput" placeholder="Scrivi un commento..." rows="3"
-                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; margin-bottom: 10px;"></textarea>
-            <button id="saveAnnotation" style="background-color: white; color: #0d6ca6; border: none; padding: 10px;
-                border-radius: 5px; cursor: pointer; width: 100%; margin-bottom: 15px; font-weight: bold;">Salva</button>
-            <ul id="annotationItems" style="list-style: none; padding: 0; max-height: 70vh; overflow-y: auto;"></ul>
-            <button id="exportAnnotations" style="background-color: #0dcaf0; color: white; border: none; padding: 10px; 
-                border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px;">Esporta Commenti</button>
-        `;
+    <h3 style="color: white; margin-bottom: 10px;">Commenti</h3>
+    <textarea id="annotationInput" placeholder="Scrivi un commento..." rows="3"
+        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; margin-bottom: 10px;"></textarea>
+    <button id="saveAnnotation" style="background-color: white; color: #0d6ca6; border: none; padding: 10px;
+        border-radius: 5px; cursor: pointer; width: 100%; margin-bottom: 15px; font-weight: bold;">Salva</button>
+    
+    <div id="annotationContainer" style="max-height: 55vh; overflow-y: auto; padding-right: 5px;">
+        <ul id="annotationItems" style="list-style: none; padding: 0;"></ul>
+    </div>
+
+    <button id="exportAnnotations" style="background-color: #0dcaf0; color: white; border: none; padding: 10px; 
+        border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px;">Esporta Commenti</button>
+
+    <button id="deleteAllAnnotations" style="background-color: #0dcaf0; color: white; border: none; padding: 10px; 
+        border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px;">Elimina Tutti i Commenti</button>
+`;
+
         document.body.appendChild(sidebar);
         document.getElementById("exportAnnotations").addEventListener("click", exportAnnotations);
+        document.getElementById("deleteAllAnnotations").addEventListener("click", deleteAllAnnotations);
     }
     displayAnnotations();
 });
 
-document.addEventListener("mouseup", function () {
+document.addEventListener("mouseup", handleTextSelection); 
+document.addEventListener("touchend", handleTextSelection); 
+
+function handleTextSelection() {
     let selection = window.getSelection();
     let selectedText = selection.toString().trim();
     let existingButton = document.getElementById("annotateButton");
@@ -59,9 +72,10 @@ document.addEventListener("mouseup", function () {
     if (selectedText.length > 0) {
         setTimeout(() => showAnnotationButton(selection, selectedText), 50);
     } else if (existingButton) {
-        existingButton.remove()
+        existingButton.remove(); // Rimuove il pulsante se non c'è più selezione
     }
-});
+}
+
 
 document.addEventListener("click", function (event) {
     let sidebar = document.getElementById("annotationSidebar");
@@ -90,9 +104,15 @@ function showAnnotationButton(selection, selectedText) {
     button.innerHTML = `<i class="fas fa-feather"></i>`;
     button.style.position = "absolute";
     button.style.left = `${rect.left + window.scrollX + rect.width / 2 - 10}px`;
-    button.style.top = `${rect.bottom + window.scrollY + 5}px`;
-    button.style.background = "rgba(0, 163, 204, 0.8)"; 
-    button.style.color = "white"; 
+
+    if (window.innerWidth < 768) {
+        button.style.top = `${rect.top + window.scrollY - 50}px`;
+    } else {
+        button.style.top = `${rect.bottom + window.scrollY + 5}px`;
+    }
+
+    button.style.background = "rgba(0, 163, 204, 0.8)";
+    button.style.color = "white";
     button.style.border = "none";
     button.style.padding = "8px";
     button.style.borderRadius = "50%";
@@ -114,13 +134,31 @@ function showAnnotationButton(selection, selectedText) {
 
     document.body.appendChild(button);
 
-    // 🔹 Aggiungiamo un evento per rimuovere il pulsante quando si clicca fuori
-    document.addEventListener("mousedown", function removeButton(event) {
-        if (!button.contains(event.target) && !selection.toString().trim()) {
-            button.remove();
-            document.removeEventListener("mousedown", removeButton);
+    document.addEventListener("mousedown", removeAnnotateButton);
+document.addEventListener("touchstart", removeAnnotateButton); // Per mobile
+
+function removeAnnotateButton(event) {
+    let button = document.getElementById("annotateButton");
+    if (button && !window.getSelection().toString().trim()) {
+        button.remove();
+    }
+}
+
+}
+
+function deleteAllAnnotations() {
+    if (confirm("Sei sicuro di voler eliminare tutti i commenti? Questa azione è irreversibile.")) {
+        localStorage.removeItem("annotations"); // Cancella i dati dal localStorage
+
+        let list = document.getElementById("annotationItems");
+        if (list) {
+            list.style.display = "none"; // Nasconde la lista per evitare ridisegno
+            requestAnimationFrame(() => {
+                list.innerHTML = ""; // Ora rimuove tutto in un colpo solo
+                list.style.display = "block"; // Mostra di nuovo la lista vuota
+            });
         }
-    });
+    }
 }
 
 
