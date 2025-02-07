@@ -3,7 +3,7 @@ const terms = document.querySelectorAll(".term");
 const filterButtons = document.querySelectorAll(".dropdown-item[data-filter]");
 const clearFiltersButton = document.getElementById("clear-vocabulary-filters");
 const searchBar = document.getElementById("search-bar");
-const modalElement = document.getElementById("filter-modal"); // Modale per i filtri
+const modalElement = document.getElementById("filter-modal"); 
 const modalOverlay = document.querySelector(".modal-overlay");
 const accordions = document.querySelectorAll(".accordion");
 const searchInput = document.querySelector(".searchInput");
@@ -18,6 +18,226 @@ const toggleFiltersButton = document.getElementById("toggleFilters");
 const container = document.querySelector(".row.row-cols-1.row-cols-md-3.g-4");
 const sortButtons = document.querySelectorAll(".btn-check[data-sort]");
 const searchButton = document.getElementById("searchButton");
+
+document.addEventListener("DOMContentLoaded", function () {
+    let sidebar = document.getElementById("annotationSidebar");
+    if (!sidebar) {
+        sidebar = document.createElement("div");
+        sidebar.id = "annotationSidebar";
+        sidebar.classList.add("annotation-sidebar");
+        sidebar.style.position = "fixed";
+        sidebar.style.right = "-320px"; // Nasconde la sidebar inizialmente
+        sidebar.style.top = "60px"; // Sposta la sidebar sotto la navbar
+        sidebar.style.height = "calc(100vh - 60px)"; // Adatta l'altezza
+        sidebar.style.width = "300px";
+        sidebar.style.background = "#0d6ca6";
+        sidebar.style.padding = "15px";
+        sidebar.style.boxShadow = "-2px 0 5px rgba(0,0,0,0.2)";
+        sidebar.style.transition = "right 0.3s ease-in-out";
+        sidebar.style.color = "white";
+        sidebar.innerHTML = `
+            <h3 style="color: white; margin-bottom: 10px;">Commenti</h3>
+            <textarea id="annotationInput" placeholder="Scrivi un commento..." rows="3"
+                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; margin-bottom: 10px;"></textarea>
+            <button id="saveAnnotation" style="background-color: white; color: #0d6ca6; border: none; padding: 10px;
+                border-radius: 5px; cursor: pointer; width: 100%; margin-bottom: 15px; font-weight: bold;">Salva</button>
+            <ul id="annotationItems" style="list-style: none; padding: 0; max-height: 70vh; overflow-y: auto;"></ul>
+            <button id="exportAnnotations" style="background-color: #0dcaf0; color: white; border: none; padding: 10px; 
+                border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px;">Esporta Commenti</button>
+        `;
+        document.body.appendChild(sidebar);
+        document.getElementById("exportAnnotations").addEventListener("click", exportAnnotations);
+    }
+    displayAnnotations();
+});
+
+document.addEventListener("mouseup", function () {
+    let selection = window.getSelection();
+    let selectedText = selection.toString().trim();
+    let existingButton = document.getElementById("annotateButton");
+
+    if (selectedText.length > 0) {
+        setTimeout(() => showAnnotationButton(selection, selectedText), 50);
+    } else if (existingButton) {
+        existingButton.remove()
+    }
+});
+
+document.addEventListener("click", function (event) {
+    let sidebar = document.getElementById("annotationSidebar");
+    if (!sidebar.contains(event.target) && 
+        event.target.id !== "annotateButton" && 
+        event.target.id !== "saveAnnotation" && 
+        !event.target.classList.contains("deleteComment") && 
+        !event.target.classList.contains("editInput") &&
+        !event.target.classList.contains("editSaveButton")) {
+        sidebar.style.right = "-320px";
+    }
+});
+
+
+function showAnnotationButton(selection, selectedText) {
+    if (selection.rangeCount === 0) return;
+
+    let existingButton = document.getElementById("annotateButton");
+    if (existingButton) existingButton.remove();
+
+    let range = selection.getRangeAt(0);
+    let rect = range.getBoundingClientRect();
+
+    let button = document.createElement("button");
+    button.id = "annotateButton";
+    button.innerHTML = `<i class="fas fa-feather"></i>`;
+    button.style.position = "absolute";
+    button.style.left = `${rect.left + window.scrollX + rect.width / 2 - 10}px`;
+    button.style.top = `${rect.bottom + window.scrollY + 5}px`;
+    button.style.background = "rgba(0, 163, 204, 0.8)"; 
+    button.style.color = "white"; 
+    button.style.border = "none";
+    button.style.padding = "8px";
+    button.style.borderRadius = "50%";
+    button.style.cursor = "pointer";
+    button.style.zIndex = "1000";
+    button.style.fontSize = "16px";
+    button.style.boxShadow = "0px 2px 5px rgba(0, 0, 0, 0.2)";
+    button.style.opacity = "0";
+    button.style.transition = "opacity 0.2s ease-in-out, transform 0.2s ease-in-out";
+
+    setTimeout(() => { button.style.opacity = "1"; }, 10);
+
+    button.addEventListener("click", function (event) {
+        event.stopPropagation();
+        console.log("Pulsante piuma cliccato!");
+        openAnnotationSidebar(selectedText);
+        button.remove();
+    });
+
+    document.body.appendChild(button);
+
+    // 🔹 Aggiungiamo un evento per rimuovere il pulsante quando si clicca fuori
+    document.addEventListener("mousedown", function removeButton(event) {
+        if (!button.contains(event.target) && !selection.toString().trim()) {
+            button.remove();
+            document.removeEventListener("mousedown", removeButton);
+        }
+    });
+}
+
+
+function saveAnnotation(text, comment) {
+    let annotations = JSON.parse(localStorage.getItem("annotations") || "[]");
+    annotations.push({ text, comment });
+    localStorage.setItem("annotations", JSON.stringify(annotations));
+}
+
+function displayAnnotations() {
+    let list = document.getElementById("annotationItems");
+    if (!list) return;
+    
+    list.innerHTML = "";
+    let annotations = JSON.parse(localStorage.getItem("annotations") || "[]");
+    annotations.forEach((a, index) => {
+        let li = document.createElement("li");
+        li.style.background = "white";
+        li.style.padding = "10px";
+        li.style.margin = "5px 0";
+        li.style.borderRadius = "10px";
+        li.style.color = "#0d6ca6";
+        li.style.boxShadow = "2px 2px 5px rgba(0,0,0,0.2)";
+        li.style.position = "relative";
+        li.innerHTML = `
+            <span style="display: block; font-weight: bold;">${a.text}</span>
+            <p style="margin: 5px 0; font-size: 14px;" id="comment-${index}">${a.comment}</p>
+            <button onclick="editAnnotation(${index})" class="editButton"
+                style="background: none; border: none; color: #ff9800; cursor: pointer; position: absolute; top: 5px; right: 25px;">
+                ✎
+            </button>
+            <button onclick="deleteAnnotation(${index})" class="deleteComment"
+                style="background: none; border: none; color: red; cursor: pointer; position: absolute; top: 5px; right: 5px;">
+                ✖
+            </button>
+        `;
+        list.appendChild(li);
+    });
+}
+
+function deleteAnnotation(index) {
+    let annotations = JSON.parse(localStorage.getItem("annotations") || "[]");
+    annotations.splice(index, 1); 
+    localStorage.setItem("annotations", JSON.stringify(annotations));
+    displayAnnotations(); 
+}
+
+function editAnnotation(index) {
+    let annotations = JSON.parse(localStorage.getItem("annotations") || "[]");
+    let commentElement = document.getElementById(`comment-${index}`);
+
+    let input = document.createElement("textarea");
+    input.value = annotations[index].comment;
+    input.classList.add("editInput");
+    input.style.width = "100%";
+    input.style.height = "50px";
+    input.style.marginTop = "5px";
+    input.style.border = "1px solid #ccc";
+    input.style.borderRadius = "5px";
+    input.style.padding = "5px";
+    input.style.fontSize = "14px";
+
+    let saveButton = document.createElement("button");
+    saveButton.innerText = "Salva";
+    saveButton.classList.add("editSaveButton");
+    saveButton.style.background = "#0dcaf0";
+    saveButton.style.color = "white";
+    saveButton.style.border = "none";
+    saveButton.style.padding = "5px 10px";
+    saveButton.style.marginTop = "5px";
+    saveButton.style.borderRadius = "5px";
+    saveButton.style.cursor = "pointer";
+
+    commentElement.innerHTML = "";
+    commentElement.appendChild(input);
+    commentElement.appendChild(saveButton);
+
+    saveButton.onclick = function () {
+        annotations[index].comment = input.value;
+        localStorage.setItem("annotations", JSON.stringify(annotations));
+        displayAnnotations();
+    };
+}
+
+function exportAnnotations() {
+    let annotations = localStorage.getItem("annotations");
+    if (!annotations || annotations.length === 0) {
+        alert("Non ci sono annotazioni da esportare.");
+        return;
+    }
+
+    let blob = new Blob([annotations], { type: "application/json" });
+    let link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "annotazioni.json";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+
+function openAnnotationSidebar(selectedText) {
+    let sidebar = document.getElementById("annotationSidebar");
+    let input = document.getElementById("annotationInput");
+    let saveButton = document.getElementById("saveAnnotation");
+
+    input.value = "";
+    sidebar.style.right = "0"; // Mantieni la sidebar aperta
+
+    saveButton.onclick = function () {
+        let comment = input.value.trim();
+        if (comment) {
+            saveAnnotation(selectedText, comment);
+            displayAnnotations();
+        }
+    };
+}
 
 // PAGINA VOCABOLI
 document.addEventListener("DOMContentLoaded", () => {
