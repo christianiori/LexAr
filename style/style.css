@@ -860,6 +860,7 @@ ult li .descr::before {
   margin: 10px;
   background-color: #00a3cc;
   color: white;
+  text-align: center;
   text-decoration: none;
   font-size: 24px; 
   border-radius: 50%;
