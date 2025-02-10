@@ -106,11 +106,10 @@ function showAnnotationButton(selection, selectedText) {
     button.style.left = `${rect.left + window.scrollX + rect.width / 2 - 10}px`;
 
     if (window.innerWidth < 768) {
-        button.style.top = `${rect.top + window.scrollY - 50}px`;
+    button.style.top = `${rect.bottom + window.scrollY + 10}px`;
     } else {
-        button.style.top = `${rect.bottom + window.scrollY + 5}px`;
+    button.style.top = `${rect.bottom + window.scrollY + 5}px`;
     }
-
     button.style.background = "rgba(0, 163, 204, 0.8)";
     button.style.color = "white";
     button.style.border = "none";
@@ -278,6 +277,12 @@ function openAnnotationSidebar(selectedText) {
 }
 
 // PAGINA VOCABOLI
+ document.addEventListener("DOMContentLoaded", function() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+  });
 document.addEventListener("DOMContentLoaded", () => {
     const terms = document.querySelectorAll(".term");
     const filterButtons = document.querySelectorAll(".dropdown-item[data-filter]");
@@ -291,13 +296,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeSidebarButton = document.getElementById("closeFilterSidebar");
     const searchButton = document.getElementById("searchButton");
     const transliterationMap = {
-        "A": ["Α", "α", "Ἀ", "ἄ", "ἂ", "ἆ", "ἀ", "ά", "ὰ", "ᾶ", "ᾳ", "ᾴ", "ᾲ", "ᾷ"],
+        "A": ["Α", "α", "Ἀ", "ἄ", "ἂ", "ἆ", "ἀ", "ά", "ὰ", "ᾶ", "ᾳ", "ᾴ", "ᾲ", "ᾷ", "ά", "ἄ"],
         "B": ["Β", "β"],
         "G": ["Γ", "γ"],
         "D": ["Δ", "δ"],
-        "E": ["Ε", "ε", "Ἐ", "ἔ", "ἒ", "ἐ", "έ", "ὲ"],
+        "E": ["Ε", "ε", "Ἐ", "ἔ", "ἒ", "ἐ", "έ", "ὲ", "έ"],
         "Z": ["Ζ", "ζ"],
-        "H": ["Η", "η", "Ἠ", "ἤ", "ἢ", "ἦ", "ἠ", "ή", "ὴ", "ῆ", "ῃ", "ῄ", "ῂ", "ῇ"],
+        "H": ["Η", "η", "Ἠ", "ἤ", "ἢ", "ἦ", "ἠ", "ή", "ὴ", "ῆ", "ῃ", "ῄ", "ῂ", "ῇ", "ή"],
         "Q": ["Θ", "θ"],
         "I": ["Ι", "ι", "Ἰ", "ἴ", "ἲ", "ἶ", "ἰ", "ί", "ὶ", "ῖ", "ϊ", "ΐ", "ῒ", "ῗ"],
         "K": ["Κ", "κ"],
@@ -310,69 +315,127 @@ document.addEventListener("DOMContentLoaded", () => {
         "R": ["Ρ", "ρ", "Ῥ"],
         "S": ["Σ", "σ", "ς"],
         "T": ["Τ", "τ"],
-        "U": ["Υ", "υ", "Ὑ", "Ὕ", "Ὓ", "Ὗ", "ύ", "ὺ", "ῦ", "ϋ", "ΰ", "ῢ", "ῧ"],
+        "U": ["Υ", "υ", "Ὑ", "Ὕ", "Ὓ", "Ὗ", "ύ", "ὺ", "ῦ", "ϋ", "ΰ", "ῢ", "ῧ", "ύ"],
         "F": ["Φ", "φ"],
         "X": ["Χ", "χ"],
         "Y": ["Ψ", "ψ"],
-        "W": ["Ω", "ω", "Ὠ", "ὤ", "ὢ", "ὦ", "ὠ", "ώ", "ὼ", "ῶ", "ῳ", "ῴ", "ῲ", "ῷ"]
+        "W": ["Ω", "ω", "Ὠ", "ὤ", "ὢ", "ὦ", "ὠ", "ώ", "ὼ", "ῶ", "ῳ", "ῴ", "ῲ", "ῷ", "ώ"]
     };
 
+let searchTimeout;
 
-    function applyFiltersAndSearch() {
-    const searchQuery = Array.from(searchBars)
-        .map(searchBar => searchBar.value.trim().toLowerCase())
-        .find(query => query) || "";
+function normalizeText(text) {
+    return text
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
+}
 
-    terms.forEach(term => {
-        const boldTextElement = term.querySelector("b");
-        const boldText = boldTextElement ? boldTextElement.textContent.trim() : "";
-        const normalizedBoldText = boldText.normalize("NFC").toLowerCase();
-        const meaningText = term.innerHTML.replace(/<b>.*?<\/b>/, "").replace(/[^=]*=\s*/, "").trim().toLowerCase();
-        const categories = term.getAttribute("data-category").split(" ");
-        let matchesSearch = true;
-        let matchesFilters = true;
-
-        if (searchQuery) {
-            let queryRegexString = "";
-            for (const char of searchQuery) {
-                const variants = transliterationMap[char.toUpperCase()] || [char];
-                queryRegexString += `(${variants.join("|")})`;
-            }
-            const searchRegex = new RegExp(queryRegexString, "i");
-
-            const transliteratedText = Array.from(normalizedBoldText).map(char => {
-                for (const [key, values] of Object.entries(transliterationMap)) {
-                    if (values.includes(char.toUpperCase())) return key.toLowerCase();
-                }
-                return char;
-            }).join("");
-
-            const exactSearchRegex = new RegExp(`\\b${searchQuery}\\b`, "i"); // Cerca solo parole intere
-            matchesSearch = searchRegex.test(normalizedBoldText) ||
-            searchRegex.test(transliteratedText) ||
-            exactSearchRegex.test(meaningText);
-
+function generateTransliteration(greekText) {
+    return normalizeText(greekText.split("").map(char => {
+        for (const [latin, greekVariants] of Object.entries(transliterationMap)) {
+            if (greekVariants.includes(char.toUpperCase())) return latin.toLowerCase();
         }
+        return char;
+    }).join(""));
+}
 
-        Object.keys(activeFilters).forEach(filterType => {
-            const filterValues = activeFilters[filterType];
-            if (filterType === "Filtra per iniziale") {
-                if (!filterValues.some(initial => {
-                    const possibleVariants = transliterationMap[initial.toUpperCase()] || [initial];
-                    return possibleVariants.some(variant => normalizedBoldText.startsWith(variant));
-                })) {
-                    matchesFilters = false;
-                }
+function applyFiltersAndSearch() {
+    if (searchTimeout) cancelAnimationFrame(searchTimeout);
+
+    searchTimeout = requestAnimationFrame(() => {
+        const searchBars = [
+            document.getElementById("search-bar"), 
+            document.getElementById("search-bar-colonnasx")
+        ];
+
+        const searchText = normalizeText(searchBars.map(bar => bar?.value.trim()).find(query => query) || "");
+        const { greek: searchGreek, transliteration: searchTransliteration, meaning: searchMeaning } = getActiveCheckboxes();
+
+        const terms = document.querySelectorAll(".term");
+
+        terms.forEach(term => {
+            const termGreek = term.querySelector("b") ? normalizeText(term.querySelector("b").innerText) : "";
+            const termTransliteration = generateTransliteration(termGreek);
+            const termText = term.innerText.toLowerCase();
+            const termMeaning = normalizeText(termText.includes("=") ? termText.split("=")[1].trim() : "");
+
+            let match = false;
+
+            if (searchText !== "") {
+                let foundInGreek = searchGreek && termGreek.includes(searchText);
+                let foundInTransliteration = searchTransliteration && termTransliteration.includes(searchText);
+                let foundInMeaning = searchMeaning && termMeaning.includes(searchText);
+
+                match = foundInGreek || foundInTransliteration || foundInMeaning;
             } else {
-                if (!filterValues.some(value => categories.includes(value))) {
-                    matchesFilters = false;
-                }
+                match = true;
             }
-        });
 
-        term.style.display = matchesSearch && matchesFilters ? "block" : "none";
+            term.style.display = match ? "block" : "none";
+        });
     });
 }
+
+function syncCheckboxes(sourceGroup, targetGroup) {
+    sourceGroup.forEach((checkbox, index) => {
+        checkbox.addEventListener("change", () => {
+            targetGroup[index].checked = checkbox.checked;
+            applyFiltersAndSearch();
+        });
+    });
+}
+
+function getActiveCheckboxes() {
+    const isSidebarOpen = document.getElementById("filterSidebar")?.classList.contains("open");
+
+    return isSidebarOpen
+        ? {
+            greek: document.getElementById("search-greek-side")?.checked || false,
+            transliteration: document.getElementById("search-transliteration-side")?.checked || false,
+            meaning: document.getElementById("search-meaning-side")?.checked || false
+        }
+        : {
+            greek: document.getElementById("search-greek-main")?.checked || false,
+            transliteration: document.getElementById("search-transliteration-main")?.checked || false,
+            meaning: document.getElementById("search-meaning-main")?.checked || false
+        };
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const mainCheckboxes = [
+        document.getElementById("search-greek-main"),
+        document.getElementById("search-transliteration-main"),
+        document.getElementById("search-meaning-main")
+    ];
+    
+    const sideCheckboxes = [
+        document.getElementById("search-greek-side"),
+        document.getElementById("search-transliteration-side"),
+        document.getElementById("search-meaning-side")
+    ];
+
+    syncCheckboxes(mainCheckboxes, sideCheckboxes);
+    syncCheckboxes(sideCheckboxes, mainCheckboxes);
+});
+
+function debounce(func, delay) {
+    let timeout;
+    return function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, arguments), delay);
+    };
+}
+
+document.getElementById("search-bar")?.addEventListener("input", debounce(applyFiltersAndSearch, 100));
+document.getElementById("search-bar-colonnasx")?.addEventListener("input", debounce(applyFiltersAndSearch, 100));
+document.getElementById("searchButton")?.addEventListener("click", applyFiltersAndSearch);
+
+document.querySelectorAll("input[type='checkbox']").forEach(checkbox => {
+    checkbox.addEventListener("change", applyFiltersAndSearch);
+});
+
+
 
      function applyFiltersFromURL() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -478,9 +541,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Tutti i filtri e la ricerca sono stati rimossi.");
     });
 });
-
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.forEach(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
     if (toggleFiltersButton) {
         toggleFiltersButton.addEventListener("click", () => {

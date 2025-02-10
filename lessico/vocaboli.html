@@ -29,7 +29,6 @@
 		<script src="../script/script.js" defer></script>
 	</head>
 	<body class="vocab">
-		<!--Navbar !-->
 		<nav class="navbar navbar-expand-lg navbar-light desktop-navbar d-none d-lg-flex">
   			<div class="container-fluid">
   				<a class="navbar-brand" href="#">LexAr</a>
@@ -77,7 +76,6 @@
     			</div>
   			</div>
 		</nav>
-		<!-- Modale per l'avviso -->
 		<div class="modal fade" id="filter-modal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
   			<div class="modal-dialog">
     			<div class="modal-content" style="background-color: #ccf5ff; border: 3px solid #0dcaf0;">
@@ -123,10 +121,22 @@
 			<button class="close-btn" id="closeFilterSidebar">✖</button>
   			<h3>Filtri</h3>
   			<div class="d-flex align-items-center">
-    			<input class="form-control search-bar mb-3 me-1" id="search-bar-sidebar" type="text" placeholder="Cerca un vocabolo..." data-bs-toggle="tooltip" title="Cerca un vocabolo in greco, in traslitterazione o per significato italiano">
+    			<input class="form-control search-bar mb-3 me-1" id="search-bar" type="text" placeholder="Cerca un vocabolo...">
     			<button class="btn btn-primary mb-3" id="searchButton">
-       				<i class="fas fa-search"></i>
+        			<i class="fas fa-search"></i>
     			</button>
+			</div>
+			<div class="toggle-container">
+    			<label for="search-greek-side">Greco</label>
+    			<input type="checkbox" id="search-greek-side">
+			</div>
+			<div class="toggle-container">
+    			<label for="search-transliteration-side"data-bs-toggle="tooltip" title="La traslitterazione segue una corrispondenza diretta tra lettere greche e latine, con queste eccezioni: Θ → q, Ξ → c, Χ → x, Ψ → y, Ω → w. Il testo di ricerca viene normalizzato, ignorando differenze tra maiuscole, minuscole e accenti">Traslitterazione</label>
+    			<input type="checkbox" id="search-transliteration-side">
+			</div>
+			<div class="toggle-container mb-2">
+    			<label for="search-meaning-side">Significato</label>
+    			<input type="checkbox" id="search-meaning-side">
 			</div>
   			<div class="dropdown">				
     			<button aria-label="Filtra per iniziale" class="btn btn-outline-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -219,7 +229,24 @@
   						<li><a href="lessicogen">Lessico generale</a></li>
   						<li>Tutti i vocaboli</li>
   					</ul>
-					<input class="form-control mb-2 search-bar" id="search-bar-colonnasx" type="text" placeholder="Cerca un vocabolo..." data-bs-toggle="tooltip" title="Cerca un vocabolo in greco, in traslitterazione o per significato italiano">
+					<div class="d-flex align-items-center">
+    					<input class="form-control search-bar mb-3 me-1 vocaboli-tooltip" id="search-bar-colonnasx" type="text" placeholder="Cerca un vocabolo...">
+    					<button class="btn btn-primary mb-3" id="searchButton">
+        					<i class="fas fa-search"></i>
+    					</button>
+					</div>
+					<div class="toggle-container">
+    					<label for="search-greek-main">Greco</label>
+    					<input type="checkbox" id="search-greek-main">
+					</div>
+					<div class="toggle-container" data-bs-toggle="tooltip" title="La traslitterazione segue una corrispondenza diretta tra lettere greche e latine, con queste eccezioni: Θ → q, Ξ → c, Χ → x, Ψ → y, Ω → w. Il testo di ricerca viene normalizzato, ignorando differenze tra maiuscole, minuscole e accenti">
+    					<label for="search-transliteration-main">Traslitterazione</label>
+    					<input type="checkbox" id="search-transliteration-main">
+					</div>
+					<div class="toggle-container mb-3">
+    					<label for="search-meaning-main">Significato</label>
+    					<input type="checkbox" id="search-meaning-main">
+					</div>
 					<div class="btn-group-vertical w-100" role="group" aria-label="Vertical button group">
 						<div class="btn-group dropend" role="group">
     						<button type="button" aria-label="Filtra per iniziale" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">

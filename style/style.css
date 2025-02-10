@@ -1075,10 +1075,49 @@ ult li .descr::before {
 
 @media (max-width: 600px) {
     #d3-bubble-chart {
-        height: 400px; /* Altezza ridotta su mobile */
+        height: 400px;
     }
-
     .bubble {
-        cursor: pointer; /* Migliore interazione touch */
+        cursor: pointer; 
     }
 }
+
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #0dcaf0;
+}
+
+.toggle-container input {
+    appearance: none;
+    width: 40px;
+    height: 20px;
+    background: #00a3cc;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.toggle-container input:checked {
+    background: #0dcaf0;
+}
+
+.toggle-container input::before {
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    left: 2px;
+    top: 2px;
+    transition: transform 0.3s;
+}
+
+.toggle-container input:checked::before {
+    transform: translateX(20px);
+}
+
+
