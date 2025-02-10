@@ -351,27 +351,55 @@ function applyFiltersAndSearch() {
 
         const searchText = normalizeText(searchBars.map(bar => bar?.value.trim()).find(query => query) || "");
         const { greek: searchGreek, transliteration: searchTransliteration, meaning: searchMeaning } = getActiveCheckboxes();
-
+        
         const terms = document.querySelectorAll(".term");
+
+        const activeFilters = {};
+        let initialFilter = null;
+
+        document.querySelectorAll(".dropdown-item.paginacorrente").forEach(button => {
+            const filterType = button.closest(".dropdown-menu").previousElementSibling.textContent.trim();
+            const filterValue = button.getAttribute("data-filter");
+
+            if (filterType === "Filtra per iniziale") {
+                initialFilter = filterValue;
+            } else {
+                if (!activeFilters[filterType]) {
+                    activeFilters[filterType] = [];
+                }
+                activeFilters[filterType].push(filterValue);
+            }
+        });
 
         terms.forEach(term => {
             const termGreek = term.querySelector("b") ? normalizeText(term.querySelector("b").innerText) : "";
             const termTransliteration = generateTransliteration(termGreek);
             const termText = term.innerText.toLowerCase();
             const termMeaning = normalizeText(termText.includes("=") ? termText.split("=")[1].trim() : "");
-
-            let match = false;
+            const termCategories = term.getAttribute("data-category");
+            let match = true;
 
             if (searchText !== "") {
                 let foundInGreek = searchGreek && termGreek.includes(searchText);
                 let foundInTransliteration = searchTransliteration && termTransliteration.includes(searchText);
                 let foundInMeaning = searchMeaning && termMeaning.includes(searchText);
-
                 match = foundInGreek || foundInTransliteration || foundInMeaning;
-            } else {
-                match = true;
             }
 
+            Object.keys(activeFilters).forEach(filterType => {
+                if (!activeFilters[filterType].some(filter => termCategories.includes(filter))) {
+                    match = false;
+                }
+            });
+
+            if (initialFilter) {
+                let firstLetterGreek = termGreek.charAt(0);
+                let firstLetterTransliteration = termTransliteration.charAt(0);
+
+                if (firstLetterGreek !== initialFilter && firstLetterTransliteration !== initialFilter) {
+                    match = false;
+                }
+            }
             term.style.display = match ? "block" : "none";
         });
     });
@@ -1140,29 +1168,3 @@ const labels = svg.selectAll(".label")
 
 
 //PAGINA RADICI
-document.addEventListener("DOMContentLoaded", () => {
-    fetch("https://christianiori.github.io/LexAr/script/radici.json") // Assicurati che il file sia nello stesso livello di script.js
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Errore nel caricamento del file JSON");
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log("Dati radici caricati:", data);
-            mostraRadici(data);
-        })
-        .catch(error => console.error("Errore:", error));
-});
-
-function mostraRadici(radici) {
-    const container = document.getElementById("radiciContainer");
-    if (!container) return;
-
-    Object.entries(radici).forEach(([radice, parole]) => {
-        const radiceElement = document.createElement("div");
-        radiceElement.classList.add("radice");
-        radiceElement.innerHTML = `<b>${radice}</b>: ${parole.join(", ")}`;
-        container.appendChild(radiceElement);
-    });
-}
