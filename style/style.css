@@ -301,21 +301,20 @@ body {
 
 
 .colonnasx, .colonnadx {
-    min-height: 100vh; /* Estende le colonne a tutta l'altezza della finestra */
+    min-height: 100vh;
 }
 
 .footer {
-    margin-top: auto; /* Mantiene il footer in fondo alla pagina */
+    margin-top: auto; 
     background-color: #0dcaf0;
     text-align: center;
     color: white;
     padding: 10px;
 }
 
-/* Hero image e testo */
 .hero-image {
     background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../img/meandro.png");
-    height: 40vh; /* O un valore fisso come 600px */
+    height: 40vh;
     max-height: none;
     background-position: center;
     background-repeat: no-repeat;
@@ -330,13 +329,30 @@ body {
 
 .hero-text {
     text-align: center;
-    color: white;
-    z-index: 1; /* Mantenere sopra lo sfondo */
-    padding: 0 20px; /* Evita che il testo sia troppo vicino ai bordi */
+    font-size: 2rem;
+    color: azure;
+    z-index: 1; 
+    padding: 0 20px; 
 }
 
+@media (max-width: 768px) {
+    .hero-image {
+        background-image: none !important; 
+        background-color: #00a3cc; 
+    }
+    .hero-title{
+      font-size: 6rem !important;
+    }
+    .bottone {
+      background-color: #0dcaf0 !important;
+    }
 
-/*bottone celeste scopri di più*/
+    .hero-text {
+        color: white; !important;
+        font-size: 1.5rem;
+    }
+}
+
 .bottone {
   display: inline-block;
   border-radius: 4px;
@@ -629,6 +645,9 @@ ul.breadcrumb li a:hover {
   margin: 10px 0;
 }
 .pill span {
+  border-radius: 16px;
+  width: 100%;
+  box-sizing: border-box;
   cursor: pointer;
   display: inline-block;
   position: relative;
@@ -636,6 +655,7 @@ ul.breadcrumb li a:hover {
 }
 
 .pill span:after {
+  background-color: #00a3cc;
   content: '\00bb';
   position: absolute;
   opacity: 0;
@@ -645,10 +665,16 @@ ul.breadcrumb li a:hover {
 }
 
 .pill:hover span {
+  border-radius: 16px;
+  width: 100%;
+  box-sizing: border-box;
   padding-right: 25px;
 }
 
 .pill:hover span:after {
+  border-radius: 16px;
+  width: 100%;
+  box-sizing: border-box;
   opacity: 1;
   right: 0;
 }
