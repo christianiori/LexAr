@@ -65,12 +65,32 @@ body {
 .navbar .btn-info {
   font-size: 24px; 
 }
+.torna-su-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; 
+}
 
-/* Sidebar navbar nascosta inizialmente */
+.torna-su {
+    background-color: #0dcaf0;
+    color: white;
+    font-size: 18px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.torna-su:hover {
+    background-color: #0d6ca6;
+}
+
 .sidebar {
   position: fixed;
   top: 0;
-  left: -250px; /* Fuori dallo schermo */
+  left: -250px; 
   width: 250px;
   height: 100%;
   background-color: #00a3cc;
@@ -80,7 +100,6 @@ body {
   z-index: 2000;
 }
 
-/* Link del menu */
 .sidebar .navbar-nav {
   display: flex;
   flex-direction: column;
@@ -104,12 +123,11 @@ body {
   border-radius: 5px;
 }
 
-/* Quando la sidebar è visibile */
 .sidebar.paginacorrente {
-  left: 0; /* La sidebar scorre dentro lo schermo */
+  left: 0; 
 }
 
-/* Pulsante toggler */
+
 #toggleMenu {
   background: none;
   border: none;

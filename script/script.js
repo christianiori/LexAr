@@ -794,18 +794,39 @@ document.querySelectorAll(".btn-check[data-filter]").forEach(button => {
     });
 });
 
+    document.addEventListener("DOMContentLoaded", function () {
+    const searchInputs = document.querySelectorAll("#search-bar, #search-bar-sidebar");
+    const searchableItems = document.querySelectorAll(".searchable-item");
+
     function applySearch() {
-        let query = searchInputs[0].value.trim().toLowerCase();
-        const terms = document.querySelectorAll(".col[data-category]");
+        let query = this.value.toLowerCase().trim();
 
-        terms.forEach(term => {
-            const title = term.querySelector(".card-title")?.textContent.trim().toLowerCase() || "";
-            term.style.display = title.includes(query) ? "block" : "none";
+        searchableItems.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(query) ? "block" : "none";
         });
-
-        if (filterSidebar) filterSidebar.classList.remove("open");
-        if (toggleFiltersButton) toggleFiltersButton.style.display = "block";
     }
+
+    searchInputs.forEach(input => {
+        input.addEventListener("input", applySearch);
+        input.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                applySearch.call(this);
+            }
+        });
+    });
+
+    const searchButton = document.getElementById("searchButton");
+    if (searchButton) {
+        searchButton.addEventListener("click", function () {
+            const sidebarInput = document.getElementById("search-bar-sidebar");
+            if (sidebarInput) {
+                applySearch.call(sidebarInput);
+            }
+        });
+    }
+});
+
 
     function showAllItems() {
         document.querySelectorAll(".col[data-category]").forEach(term => {

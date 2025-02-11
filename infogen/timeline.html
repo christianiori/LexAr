@@ -12,9 +12,9 @@
         <meta name="DC.Creator" content="Christian Iori">
         <meta name="DC.Subject" content="Testi drammatici">
         <meta name="DC.Subject" content="Commedie">
-        <meta name="DC.Description" content="Raccolta di testi di Aristofane in formato digitale">
+        <meta name="DC.Description" content="Timeline delle opere di Aristofane">
         <meta name="DC.Publisher" content="Università di Bologna">
-        <meta name="DC.Date" content="2024">
+        <meta name="DC.Date" content="2025">
         <meta name="DC.Type" content="Text">
         <meta name="DC.Format" content="HTML">
         <meta name="DC.Identifier" content="tbd">
@@ -66,7 +66,7 @@
         </div>
     </nav>
                     <button id="toggleMenu" class="toggle-button mobile-navbar d-lg-none">
-                        <span>&#9664;</span> <!-- Freccia -->
+                        <span>&#9664;</span>
                     </button>
             <div class="sidebar" id="mobileSidebar">
                 <ul class="navbar-nav">
@@ -89,46 +89,50 @@
                     <li class="nav-item"><a class="nav-link" href="../catalogo/catalogo1.html">Catalogo testi</a></li>
                 </ul>
             </div>
+            <button class="d-md-none"id="toggleFilters">Ricerca</button>
+        <div class="filter-sidebar d-md-none" id="filterSidebar">
+            <button class="close-btn" id="closeFilterSidebar">✖</button>
+            <h3>Barra di ricerca</h3>
+            <div class="d-flex align-items-center">
+                <input class="searchInput form-control mb-3 me-1" id="search-bar-sidebar" data-bs-toggle="tooltip" title="Cerca il titolo, la data o il concorso di un'opera" type="text" placeholder="Cerca un'opera...">
+                <button class="btn btn-primary mb-3" id="searchButton">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
     <h1 style="font-family: 'Marck Script', cursive; font-size: 5rem; text-align: center;">Linea del tempo</h1>
     <div class="timeline">
         <ult>
-            <!-- Eventi 425 a.C. -->
             <li class="searchable-item mt-3"style="--accent-color:#0d6ca6">
                 <div class="date">425 a.C.</div>
                 <div class="title">Acarnesi</div>
                 <div class="descr">Primo posto alle Lenee.<a class="btn pill" href="../item/acarnesi.html" role="button"><span>Vai al testo</span></a></div>
             </li>
-            <!-- Eventi 424 a.C. -->
             <li class="searchable-item"style="--accent-color:#0d6ca6">
                 <div class="date">424 a.C.</div>
                 <div class="title">Cavalieri</div>
                 <div class="descr">Rappresentata alle Lenee.<a class="btn pill" href="../item/cavalieri.html" role="button"><span>Vai al testo</span></a></div>
             </li>
-            <!-- Eventi 423 a.C. -->
             <li class="searchable-item"style="--accent-color:#0d6ca6">
                 <div class="date">423 a.C.</div>
                 <div class="title">Nuvole</div>
                 <div class="descr">Nuvole I rappresentata alle Lenee del 423, Nuvole II data e concorso incerti.<a class="btn pill" href="../item/nuvole.html" role="button"><span>Vai al testo</span></a></div>
             </li>
-            <!-- Eventi 422 a.C. -->
             <li class="searchable-item"style="--accent-color:#0d6ca6">
                 <div class="date">422 a.C.</div>
                 <div class="title">Vespe</div>
                 <div class="descr">Rappresentata alle Lenee.<a class="btn pill" href="../item/vespe.html">Vai al testo</a></div>
             </li>
-            <!-- Eventi 421 a.C. -->
             <li class="searchable-item"style="--accent-color:#00a3cc">
                 <div class="date">421 a.C.</div>
                 <div class="title">Pace</div>
                 <div class="descr">Rappresentata nel 421, concorso incerto.<a class="btn pill" href="../item/pace.html">Vai al testo</a></div>
             </li>
-            <!-- Eventi 414 a.C. -->
             <li class="searchable-item" style="--accent-color:#0dcaf0">
                 <div class="date">414 a.C.</div>
                 <div class="title">Uccelli</div>
                 <div class="descr">Rappresentata alle Grandi Dionisie.<a class="btn pill" href="../item/uccelli.html">Vai al testo</a></div>
             </li>
-            <!-- Eventi 411 a.C. -->
             <li class="searchable-item"style="--accent-color:#0dcaf0">
                 <div class="date">411 a.C.</div>
                 <div class="title">Donne alle Tesmoforie</div>
@@ -139,19 +143,16 @@
                 <div class="title">Lisistrata</div>
                 <div class="descr">Rappresentata alle Lenee.<a class="btn pill" href="../item/lisistrata.html">Vai al testo</a></div>
             </li>
-            <!-- Eventi 405 a.C. -->
             <li class="searchable-item"style="--accent-color:#0d6ca6">
                 <div class="date">405 a.C.</div>
                 <div class="title">Rane</div>
                 <div class="descr">Primo posto alle Lenee.<a class="btn pill" href="../item/rane.html">Vai al testo</a></div>
             </li>
-            <!-- Eventi 392/1 a.C. -->
             <li class="searchable-item"class="searchable-item"style="--accent-color:#00a3cc">
                 <div class="date">392/1 a.C.</div>
                 <div class="title">Donne al Parlamento</div>
                 <div class="descr">Rappresentata nel 392/1, concorso incerto.<a class="btn pill" href="../item/donne.html">Vai al testo</a></div>
             </li>
-            <!-- Eventi 388 a.C. -->
             <li class="searchable-item"style="--accent-color:#0d6ca6">
                 <div class="date">388 a.C.</div>
                 <div class="title">Pluto</div>
@@ -159,9 +160,10 @@
             </li>
         </ult>
     </div>
-
-    <a href="#" aria-hidden="true" data-attribute="back-to-top" class= "btn btn-info back-to-top shadow mb-4">Torna su</a>
-<div class="pre-footer"> &#128210; <a class="link" href="#">Credits</a> | <a class="link" href="http://creativecommons.org/licenses/by/4.0/">Licenze</a> &#128210;</div>
+    <div class="torna-su-container">
+        <a href="#" class="torna-su mb-2">Torna su</a>
+    </div>
+    <div class="pre-footer"> &#128210; <a class="link" href="#">Credits</a> | <a class="link" href="http://creativecommons.org/licenses/by/4.0/">Licenze</a> &#128210;</div>
     <footer>
         <div class="footer">&copy; Christian Iori 2024-Digital Humanities e Patrimonio Culturale</div>
     </footer>
