@@ -1248,3 +1248,474 @@ const labels = svg.selectAll(".label")
 
 
 //PAGINA RADICI
+const data = {
+        nodes: [
+            
+            { id: "αγ-", group: "radice" },
+            { id: "ἀγών", group: "parola", visible: false },
+            { id: "ἀγωνίζομαι", group: "parola", visible: false },
+            { id: "ἄγω", group: "parola", visible: false },
+            { id: "εἰσάγω", group: "parola", visible: false },
+            { id: "ἄξιος", group: "parola", visible: false },
+
+            { id: "ἀγγελ-", group: "radice" },
+            { id: "ἀγγέλλω", group: "parola", visible: false },
+            { id: "ἀγγελία", group: "parola", visible: false },
+
+            { id: "αγορ-", group: "radice" },
+            { id: "ἀγορά", group: "parola", visible: false },
+            { id: "ἀγοράζω", group: "parola", visible: false },
+            { id: "ἀγορανόμος", group: "parola", visible: false },
+            { id: "ἀγορεύω", group: "parola", visible: false },
+            { id: "ἀναγορεύω", group: "parola", visible: false },
+            { id: "προσαγορεύω", group: "parola", visible: false },
+
+            { id: "ἀγρ-", group: "radice" },
+            { id: "ἀγρός", group: "parola", visible: false },
+            { id: "ἀγροιώτης", group: "parola", visible: false },
+            { id: "ἀγροικότονος", group: "parola", visible: false },
+
+            { id: "ᾀδ/ᾠδ-", group: "radice" },
+            { id: "ᾄδω", group: "parola", visible: false },
+            { id: "ᾠδή", group: "parola", visible: false },
+            { id: "κωμῳδέω", group: "parola", visible: false },
+            { id: "κωμῳδία", group: "parola", visible: false },
+            { id: "τραγῳδέω", group: "parola", visible: false },
+            { id: "τραγῳδός", group: "parola", visible: false },
+            { id: "τραγῳδία", group: "parola", visible: false },
+            { id: "τραγῳδοδιδάσκαλος", group: "parola", visible: false },
+            { id: "τραγῳδικόν", group: "parola", visible: false },
+            { id: "τραγῳδοποιός", group: "parola", visible: false },
+            { id: "τρυγῳδία", group: "parola", visible: false },
+            { id: "τρυγῳδικός", group: "parola", visible: false },
+
+            { id: "ἀρχ-", group: "radice" },
+            { id: "ἄρχω", group: "parola", visible: false },
+            { id: "ἀρχή", group: "parola", visible: false },
+            { id: "μισθαρχίδης", group: "parola", visible: false },
+            { id: "σπουδαρχίδης", group: "parola", visible: false },
+            { id: "ταξίαρχος", group: "parola", visible: false },
+            { id: "τριήραρχος", group: "parola", visible: false },
+
+            { id: "βδε-", group: "radice" },
+            { id: "βδέω", group: "parola", visible: false },
+            { id: "βδελύσσω", group: "parola", visible: false },
+            { id: "βδελυρός", group: "parola", visible: false },
+
+            { id: "βουλ-", group: "radice" },
+            { id: "βουλέυω", group: "parola", visible: false },
+            { id: "βουλὴ", group: "parola", visible: false },
+            { id: "βουλευτήριον", group: "parola", visible: false },
+            { id: "ἐπιβουλεύω", group: "parola", visible: false },
+            { id: "θερμόβουλον", group: "parola", visible: false },
+            { id: "μετάβουλος", group: "parola", visible: false },
+            { id: "πρόβουλος", group: "parola", visible: false },
+            { id: "ταχύβουλος", group: "parola", visible: false },
+
+            { id: "γαλ/γέλ-", group: "radice" },
+            { id: "γέλως", group: "parola", visible: false },
+            { id: "γελάω", group: "parola", visible: false },
+            { id: "καταγελάω", group: "parola", visible: false },
+            { id: "κατάγελως", group: "parola", visible: false },
+            { id: "Καταγέλα", group: "parola", visible: false },
+
+            { id: "δημ-", group: "radice" },
+            { id: "δῆμος", group: "parola", visible: false },
+            { id: "δημοκρατία", group: "parola", visible: false },
+            { id: "δημοκρατέομαι", group: "parola", visible: false },
+            { id: "δημοσιεύω", group: "parola", visible: false },
+            { id: "δημότης", group: "parola", visible: false },
+
+            { id: "δικ-", group: "radice" },
+            { id: "δίκη", group: "parola", visible: false },
+            { id: "δικάζω", group: "parola", visible: false },
+            { id: "Δικαιόπολις", group: "parola", visible: false },
+            { id: "δικαστήριον", group: "parola", visible: false },
+
+            { id: "γραφ-", group: "radice" },
+            { id: "γράφω", group: "parola", visible: false },
+            { id: "γραφή", group: "parola", visible: false },
+            { id: "συγγραφή", group: "parola", visible: false },
+
+
+            { id: "λεγ/λογ-", group: "radice" },
+            { id: "λογος", group: "parola", visible: false },
+            { id: "καταλέγω", group: "parola", visible: false },
+            { id: "λέγω", group: "parola", visible: false },
+            { id: "λογίζομαι", group: "parola", visible: false },
+
+            { id: "φιλ-", group: "radice" },
+            { id: "φιλέω", group: "parola", visible: false },
+            { id: "φίλος", group: "parola", visible: false },
+            { id: "φιλοτησία", group: "parola", visible: false },
+            { id: "φιλανθρακεύς", group: "parola", visible: false },
+
+            { id: "χαν-", group: "radice" },
+            { id: "χάσκω", group: "parola", visible: false },
+            { id: "ἐγχάσκω", group: "parola", visible: false },
+            { id: "χαυνοπολίτης", group: "parola", visible: false },
+            { id: "χαυνόπρωκτος", group: "parola", visible: false },
+        ],
+
+        links: [
+            { source: "αγ-", target: "ἄγω" },
+            { source: "αγ-", target: "ἄξιος" },
+            { source: "ἄγω", target: "ἀγών" },
+            { source: "ἀγών", target: "ἀγωνίζομαι" },
+            { source: "ἄγω", target: "εἰσάγω" },
+
+            { source: "ἀγγελ-", target: "ἀγγέλλω" },
+            { source: "ἀγγελ-", target: "ἀγγελία" },
+
+            { source: "αγορ-", target: "ἀγορά" },
+            { source: "ἀγορά", target: "ἀγοράζω" },
+            { source: "ἀγορά", target: "ἀγορανόμος" },
+            { source: "αγορ-", target: "ἀγορεύω" },
+            { source: "ἀγορεύω", target: "ἀναγορεύω" },
+            { source: "ἀγορεύω", target: "προσαγορεύω" },
+
+            { source: "ἀγρ-", target: "ἀγρός" },
+            { source: "ἀγρός", target: "ἀγροιώτης" },
+            { source: "ἀγρός", target: "ἀγροικότονος" },
+
+            { source: "ᾀδ/ᾠδ-", target: "ᾄδω" },
+            { source: "ᾄδω", target: "ᾠδή" },
+            { source: "ᾠδή", target: "κωμῳδέω" },
+            { source: "κωμῳδέω", target: "κωμῳδία" },
+            { source: "τραγῳδέω", target: "τραγῳδός" },
+            { source: "τραγῳδέω", target: "τραγῳδία" },
+            { source: "κωμῳδέω", target: "κωμῳδία" },
+            { source: "ᾠδή", target: "τραγῳδέω" },
+            { source: "τραγῳδός", target: "τραγῳδοδιδάσκαλος" },
+            { source: "τραγῳδέω", target: "τραγῳδικόν" },
+            { source: "τραγῳδός", target: "τραγῳδοποιός" },
+            { source: "ᾠδή", target: "τρυγῳδία" },
+            { source: "τρυγῳδία", target: "τρυγῳδικός" },
+
+            { source: "ἀρχ-", target: "ἄρχω" },
+            { source: "ἀρχ-", target: "ἀρχή" },
+            { source: "ἀρχή", target: "μισθαρχίδης" },
+            { source: "ἀρχή", target: "σπουδαρχίδης" },
+            { source: "ἄρχω", target: "ταξίαρχος" },
+            { source: "ἄρχω", target: "τριήραρχος" },
+
+
+            { source: "βδε-", target: "βδέω" },
+            { source: "βδέω", target: "βδελύσσω" },
+            { source: "βδελύσσω", target: "βδελυρός" },
+
+            { source: "βουλ-", target: "βουλὴ" },
+            { source: "βουλὴ", target: "βουλέυω" },
+            { source: "βουλέυω", target: "βουλευτήριον" },
+            { source: "βουλέυω", target: "ἐπιβουλεύω" },
+            { source: "βουλὴ", target: "θερμόβουλον" },
+            { source: "βουλὴ", target: "μετάβουλος" },
+            { source: "βουλὴ", target: "πρόβουλος" },
+            { source: "βουλὴ", target: "ταχύβουλος" },
+
+            { source: "γαλ/γέλ-", target: "γέλως" },
+            { source: "γέλως", target: "γελάω" },
+            { source: "γέλως", target: "καταγελάω" },
+            { source: "καταγελάω", target: "κατάγελως" },
+            { source: "καταγελάω", target: "Καταγέλα" },
+
+            { source: "δημ-", target: "δῆμος" },
+            { source: "δῆμος", target: "δημοκρατία" },
+            { source: "δημοκρατία", target: "δημοκρατέομαι" },
+            { source: "δῆμος", target: "δημοσιεύω" },
+            { source: "δῆμος", target: "δημότης" },
+
+            { source: "δικ-", target: "δίκη" },
+            { source: "δίκη", target: "δικάζω" },
+            { source: "δίκη", target: "Δικαιόπολις" },
+            { source: "δικάζω", target: "δικαστήριον" },
+
+            { source: "γραφ-", target: "γράφω" },
+            { source: "γραφ-", target: "γραφή" },
+            { source: "γραφή", target: "συγγραφή" },
+
+            { source: "λεγ/λογ-", target: "λογος" },
+            { source: "λεγ/λογ-", target: "λέγω" },
+            { source: "λέγω", target: "καταλέγω" },
+            { source: "λογος", target: "λογίζομαι" },
+
+            { source: "φιλ-", target: "φιλέω" },
+            { source: "φιλ-", target: "φίλος" },
+            { source: "φίλος", target: "φιλοτησία" },
+            { source: "φίλος", target: "φιλανθρακεύς" },
+
+            { source: "χαν-", target: "χάσκω" },
+            { source: "χάσκω", target: "ἐγχάσκω" },
+            { source: "χάσκω", target: "χαυνοπολίτης" },
+            { source: "χάσκω", target: "χαυνόπρωκτος" },
+           
+        ],
+    };
+const translations = {
+        "ᾀδ/ᾠδ-": "Cantare, Ode",
+        "ᾄδω": "Cantare",
+        "ᾠδή": "Ode, canto",
+        "κωμῳδέω": "Fare commedia",
+        "κωμῳδία": "Commedia",
+        "τραγῳδέω": "Fare tragedia",
+        "τραγῳδός": "Tragico, attore",
+        "τραγῳδία": "Tragedia",
+        "τραγῳδοδιδάσκαλος": "Maestro di tragedie",
+        "τραγῳδικόν": "Tragico",
+        "τραγῳδοποιός": "Compositore di tragedie",
+        "τρυγῳδία": "Commedia satirica",
+        "τρυγῳδικός": "Relativo alla commedia satirica",
+
+        "αγ-": "Condurre, guidare",
+        "ἀγών": "Gara, lotta",
+        "ἀγωνίζομαι": "Lottare, competere",
+        "ἄγω": "Guidare, condurre",
+        "εἰσάγω": "Introdurre",
+        "ἄξιος": "Degno",
+
+        "ἀγγελ-": "Annunciare",
+        "ἀγγέλλω": "Annunciare",
+        "ἀγγελία": "Messaggio, annuncio",
+
+        "αγορ-": "Mercato, parlare",
+        "ἀγορά": "Piazza, mercato",
+        "ἀγοράζω": "Comprare",
+        "ἀγορανόμος": "Magistrato del mercato",
+        "ἀγορεύω": "Parlare in pubblico",
+        "ἀναγορεύω": "Proclamare",
+        "προσαγορεύω": "Chiamare per nome",
+
+        "ἀγρ-": "Campo, campagna",
+        "ἀγρός": "Campo",
+        "ἀγροιώτης": "Contadino",
+        "ἀγροικότονος": "Rude, rustico",
+
+        "ἀρχ-": "Inizio, comando, principio",
+        "ἄρχω": "Comandare, guidare, avere una carica",
+        "ἀρχή": "Carica politica, inizio, comando, potere",
+        "μισθαρχίδης": "Signore dall'alta paga",
+        "σπουδαρχίδης": "Figlio di arrivista",
+        "ταξίαρχος": "Tassiarca, comandante di uno squadrone",
+        "τριήραρχος": "Trierarca, comandante di una trireme",
+
+        "βδε-": "Onomatopea per peto",
+        "βδέω": "Emettere un peto, scorreggiare",
+        "βδελύσσω": "Rendere disgustoso, provare disgusto",
+        "βδελυρός": "Disgustoso, ripugnante",
+
+
+        "βουλ-": "Volere, assemblea, decidere",
+        "βουλὴ": "Assemblea, volontà, progetto, consiglio",
+        "βουλέυω": "Deliberare",
+        "βουλευτήριον": "Sala del consiglio, tribunale",
+        "ἐπιβουλεύω": "Complottare, tramare, progettare, avere intenzione",
+        "θερμόβουλον": "Dall'indole ardente, focosa",
+        "μετάβουλος": "Volubile, mutevole",
+        "πρόβουλος": "Probulo, giudice",
+        "ταχύβουλος": "Dalla volontà mutevole",
+
+        "δημ-": "Popolo, demo",
+        "δῆμος": "Demo, quartiere, popolo",
+        "δημοκρατία": "Democrazia, governo del popolo",
+        "δημοκρατέομαι": "Avere un governo democratico",
+        "δημοσιεύω": "Esercitare servizi pubblici, confiscare, essere un pubblico ufficiale",
+        "δημότης": "Cittadino, uomo comune",
+
+        "δικ-": "Giustizia",
+        "δίκη": "Giustizia, pena, processo",
+        "δικάζω": "Essere giudici, giudicare, decidere, condannare",
+        "Δικαιόπολις": "Diceopoli, Cittadinogiusto",
+        "δικαστήριον": "Dicasterio, corte di giustizia, tribunale",
+
+        "γαλ/γέλ-": "Ridere, sorridere",
+        "γέλως": "Risata",
+        "γελάω": "Sorridere, ridere",
+        "καταγελάω": "Sganasciarsi, deridere",
+        "κατάγελως": "Derisione, sciocchezza",
+        "Καταγέλα": "Catagela, Risonia",
+
+        "γραφ-": "Scrivere",
+        "γράφω": "Scrivere, disegnare, dipingere, ritrarre",
+        "γραφή": "Scrittura, segno, processo",
+        "συγγραφή": "Scrittura, scrittore, contratto, coscrizione",
+
+
+        "λεγ/λογ-": "Raccogliere, leggere, parlare",
+        "λέγω": "Parlare, dire, raccontare",
+        "καταλέγω": "Parlare profusamente, ripetere, richiamare",
+        "λογος": "Parola, discorso",
+        "λογίζομαι": "Ragionare, calcolare",
+
+        "φιλ-": "Amare",
+        "φιλέω": "Amare, apprezzare, volere bene, baciare",
+        "φίλος": "Amico, caro, alleato",
+        "φιλοτησία": "Amicizia",
+        "φιλανθρακεύς": "Amico dei carbonai",
+
+        "χαν-": "Spalancare, aprire",
+        "χάσκω": "Spalancare la bocca, sbadigliare, essere sorpreso",
+        "ἐγχάσκω": "Aprire la bocca, prendere in giro",
+        "χαυνοπολίτης": "Cittadino credulone",
+        "χαυνόπρωκτος": "Rottinculo",
+    };
+
+document.addEventListener("DOMContentLoaded", function () {
+    const width = 800;
+    const height = 1200; 
+
+    const svg = d3.select("#radiciContainer")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    const tooltip = d3.select("#radiciContainer")
+        .append("div")
+        .style("position", "absolute")
+        .style("background", "white")
+        .style("border", "1px solid black")
+        .style("padding", "5px")
+        .style("border-radius", "5px")
+        .style("pointer-events", "none")
+        .style("opacity", 0);
+    data.nodes.forEach(node => {
+        node.x = width / 2 + (Math.random() - 0.5) * 200;
+        node.y = height / 2 + (Math.random() - 0.5) * 200;
+    });
+
+    const simulation = d3.forceSimulation(data.nodes)
+        .force("link", d3.forceLink(data.links).id(d => d.id).distance(100)) 
+        .force("charge", d3.forceManyBody().strength(-80)) 
+        .force("center", d3.forceCenter(width / 2, height / 2))
+        .force("collision", d3.forceCollide().radius(40))
+        .force("x", d3.forceX(width / 2).strength(0.05))
+        .force("y", d3.forceY(height / 2).strength(0.05));
+
+    const link = svg.append("g")
+        .selectAll("line")
+        .data(data.links)
+        .enter().append("line")
+        .attr("stroke", "black")
+        .attr("stroke-width", 2)
+        .style("opacity", 0);
+
+    const node = svg.append("g")
+        .selectAll("circle")
+        .data(data.nodes)
+        .enter().append("circle")
+        .attr("r", d => d.group === "radice" ? 40 : 30)
+        .attr("fill", d => d.group === "radice" ? "#0077b6" : "#00b4d8")
+        .attr("data-visible", d => d.group === "radice" ? "true" : "false")
+        .style("opacity", d => d.group === "parola" ? 0 : 1)
+        .style("cursor", d => d.group === "radice" ? "pointer" : "default")
+        .call(d3.drag()
+            .on("start", dragStarted)
+            .on("drag", dragged)
+            .on("end", dragEnded));
+
+    const labels = svg.append("g")
+        .selectAll("text")
+        .data(data.nodes)
+        .enter().append("text")
+        .attr("text-anchor", "middle")
+        .attr("dy", 5)
+        .attr("font-size", "18px")
+        .attr("fill", "black")
+        .text(d => d.id)
+        .style("opacity", d => d.group === "parola" ? 0 : 1);
+
+    function findConnectedWords(rootId) {
+        let visited = new Set();
+        let queue = [rootId];
+
+        while (queue.length > 0) {
+            let current = queue.shift();
+            visited.add(current);
+
+            data.links.forEach(link => {
+                let neighbor = null;
+                if (link.source.id === current) {
+                    neighbor = link.target.id;
+                } else if (link.target.id === current) {
+                    neighbor = link.source.id;
+                }
+                if (neighbor && !visited.has(neighbor)) {
+                    queue.push(neighbor);
+                }
+            });
+        }
+        return visited;
+    }
+
+    node.on("click", function (event, d) {
+        if (d.group !== "radice") return;
+
+        const connectedWords = findConnectedWords(d.id);
+        const words = node.filter(n => connectedWords.has(n.id) && n.group === "parola");
+        const wordLinks = link.filter(l => connectedWords.has(l.target.id) || connectedWords.has(l.source.id));
+        const wordLabels = labels.filter(n => connectedWords.has(n.id) && n.group === "parola");
+
+        const isVisible = words.attr("data-visible") === "true";
+
+        words.transition().duration(500).style("opacity", isVisible ? 0 : 1);
+        wordLinks.transition().duration(500).style("opacity", isVisible ? 0 : 1);
+        wordLabels.transition().duration(500).style("opacity", isVisible ? 0 : 1);
+
+        words.attr("data-visible", isVisible ? "false" : "true");
+    });
+node.on("mouseover", function (event, d) {
+
+    if (d3.select(this).style("opacity") == 0) return;
+
+    const translation = translations[d.id] || "Nessuna traduzione";
+    tooltip.html(`<b>${d.id}</b>: ${translation}`)
+        .style("opacity", 1)
+        .style("left", `${event.pageX + 10}px`)
+        .style("top", `${event.pageY + 10}px`);
+});
+
+node.on("mousemove", function (event) {
+
+    if (tooltip.style("opacity") == 1) {
+        tooltip.style("left", `${event.pageX + 10}px`)
+               .style("top", `${event.pageY + 10}px`);
+    }
+});
+
+node.on("mouseout", function () {
+
+    if (tooltip.style("opacity") == 1) {
+        tooltip.style("opacity", 0);
+    }
+});
+
+
+    simulation.on("tick", () => {
+        link.attr("x1", d => d.source.x)
+            .attr("y1", d => d.source.y)
+            .attr("x2", d => d.target.x)
+            .attr("y2", d => d.target.y);
+
+        node.attr("cx", d => d.x)
+            .attr("cy", d => d.y);
+
+        labels.attr("x", d => d.x)
+              .attr("y", d => d.y);
+    });
+
+    function dragStarted(event, d) {
+        if (!event.active) simulation.alphaTarget(0.1).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+
+    function dragged(event, d) {
+        d.fx = event.x;
+        d.fy = event.y;
+    }
+
+    function dragEnded(event, d) {
+        if (!event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+    }
+});

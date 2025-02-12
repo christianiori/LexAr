@@ -177,13 +177,13 @@ body {
 
 @media (max-width: 768px) {
   .colonnasx {
-    display: none; /* Nascondi la colonna sinistra */
+    display: none; 
   }
 
   .filter-sidebar {
     position: fixed;
     top: 0;
-    right: -300px; /* Inizialmente nascosta */
+    right: -300px; 
     width: 300px;
     height: 100%;
     background-color: #0d6ca6;
@@ -195,23 +195,23 @@ body {
   }
 
   .filter-sidebar.open {
-    right: 0; /* Mostra la sidebar */
+    right: 0; 
   }
 
   .filter-sidebar .close-btn {
   position: absolute;
-  top: 10px; /* Distanza dall'alto */
-  left: 10px; /* Distanza dalla sinistra */
+  top: 10px; 
+  left: 10px; 
   background: none;
   border: none;
   font-size: 20px;
   color: white;
   cursor: pointer;
-  z-index: 1050; /* Assicurati che sia visibile sopra gli altri elementi */
+  z-index: 1050; 
   }
 
   .filter-sidebar h3 {
-  margin-top: 40px; /* Sposta gli altri elementi in basso per evitare sovrapposizioni */
+  margin-top: 40px; 
   }
 
   #toggleFilters {
@@ -276,7 +276,7 @@ body {
 
 .tei-line {
     margin-left: 20px;
-    text-indent: -20px; /* Allinea bene i versi */
+    text-indent: -20px; 
     margin-bottom: 5px;
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
@@ -295,26 +295,26 @@ body {
 
 
 .imgaut {
-  max-width: 100%; /* L'immagine non supera la larghezza del contenitore */
-  max-height: 500px; /* Imposta un'altezza massima */
-  height: auto; /* Mantiene le proporzioni */
-  margin: 20px auto; /* Centra l'immagine orizzontalmente */
-  display: block; /* Rende l'immagine un elemento a blocco */
+  max-width: 100%; 
+  max-height: 500px; 
+  height: auto;
+  margin: 20px auto; 
+  display: block; 
 }
 
 .imglis {
-  max-width: 100%; /* L'immagine non supera la larghezza del contenitore */
-  max-height: 350px; /* Imposta un'altezza massima */
-  height: auto; /* Mantiene le proporzioni */
-  margin: 20px auto; /* Centra l'immagine orizzontalmente */
-  display: block; /* Rende l'immagine un elemento a blocco */
+  max-width: 100%; 
+  max-height: 350px;
+  height: auto; 
+  margin: 20px auto; 
+  display: block;
 }
 .imgucc {
-  max-width: 100%; /* L'immagine non supera la larghezza del contenitore */
-  height: 18rem; /* Mantiene le proporzioni */
+  max-width: 100%; 
+  height: 18rem; 
   width: 27rem;
-  margin: 20px auto; /* Centra l'immagine orizzontalmente */
-  display: block; /* Rende l'immagine un elemento a blocco */
+  margin: 20px auto; 
+  display: block; 
 }
 
 
@@ -360,9 +360,6 @@ body {
     }
     .hero-title{
       font-size: 6rem !important;
-    }
-    .bottone {
-      background-color: #0dcaf0 !important;
     }
 
     .hero-text {
@@ -420,7 +417,6 @@ body {
 
 .link {color: #076578;}
 
-/*accordion con icone*/
 .accordion {
   background-color: #00a3cc;
   font-family: 'Marck Script', cursive;
@@ -463,60 +459,59 @@ body {
   overflow: hidden;
 }
 
-/*cards*/
+
 .card img {
   border-radius: 5px 5px 0 0;
 }
 .cardhome {
-    max-width: 300px; /* Limita la larghezza massima */
-    margin: 0 auto;   /* Centra le card */
-    text-align: center; /* Allinea il contenuto */
+    max-width: 300px; 
+    margin: 0 auto;   
+    text-align: center; 
 }
 
 .cardhome img {
-    width: 100%; /* L'immagine occupa la larghezza della card */
-    height: auto; /* Mantiene le proporzioni originali */
+    width: 100%; 
+    height: auto; 
 }
 
 .cardhome h5, .cardhome h4 {
-    font-size: 18px; /* Riduci la dimensione del testo */
+    font-size: 18px; 
     margin-bottom: 10px;
 }
 @media (max-width: 576px) {
 
     .btn {
-        font-size: 1rem; /* Riduce leggermente la dimensione dei pulsanti */
+        font-size: 1rem; 
     }
 }
 
 
-/*breadcrumbs*/
 ul.breadcrumb {
   padding: 10px 16px;
   list-style: none;
   background-color: white;
 }
 
-/* Display list items side by side */
+
 ul.breadcrumb li {
   display: inline;
   font-size: 16px;
 }
 
-/* Add a slash symbol (/) before/behind each list item */
+
 ul.breadcrumb li+li:before {
   padding: 3px;
   color: black;
   content: "/\00a0";
 }
 
-/* Add a color to all links inside the list */
+
 ul.breadcrumb li a {
   color: #0275d8;
   text-decoration: none;
 }
 
-/* Add a color on mouse-over */
+
 ul.breadcrumb li a:hover {
   color: #01447e;
   text-decoration: underline;
@@ -565,20 +560,20 @@ ul.breadcrumb li a:hover {
   margin: 8px -16px;
 }
 
-/* Add padding BETWEEN each column (if you want) */
+
 .row,
 .row > .column {
   padding: 25px;
 }
 
-/* Create three equal columns that floats next to each other */
+
 .column {
   float: left;
   width: 33.33%;
-  display: block; /* Hide columns by default */
+  display: block; 
 }
 
-/* Clear floats after rows */
+
 .row:after {
   content: "";
   display: table;
@@ -590,30 +585,30 @@ ul.breadcrumb li a:hover {
   padding: 10px;
 }
 
-/* The "show" class is added to the filtered elements */
+
 .show {
   display: block;
 }
 
-/* Imposta un'altezza minima e controlla il ridimensionamento delle immagini */
+
 .card-img-top {
-    max-height: 250px; /* Altezza massima per evitare immagini troppo grandi */
-    min-height: 250px; /* Altezza minima per uniformare le immagini */
-    width: 100%; /* La larghezza si adatta al contenitore */
-    object-fit: cover; /* Ritaglia l'immagine mantenendo le proporzioni */
-    object-position: center; /* Centra il contenuto dell'immagine ritagliata */
+    max-height: 250px; 
+    min-height: 250px; 
+    width: 100%; 
+    object-fit: cover; 
+    object-position: center; 
 }
 
-/* Imposta un'altezza uniforme per tutte le card */
+
 .cardcat {
-    height: auto; /* Rimuove l'altezza fissa */
+    height: auto; 
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Allinea immagine, testo e pulsante */
-    overflow: hidden; /* Impedisce il contenuto in eccesso */
+    justify-content: space-between; 
+    overflow: hidden;
 }
 
-/* Stile del corpo delle card */
+
 .card-body {
     flex-grow: 1;
     display: flex;
@@ -622,31 +617,31 @@ ul.breadcrumb li a:hover {
     text-align: center;
 }
 
-/* Pulsante sempre in basso */
+
 .cardcat .btn {
     margin-top: auto;
 }
 @media (max-width: 576px) {
   .row > .col {
-        display: block; /* Rimuove Flexbox per layout mobile */
+        display: block; 
     }
     .cardcat {
-        height: auto; /* Permette alle card di adattarsi al contenuto */
+        height: auto; 
     }
 
     .card-body {
         display: flex;
         flex-grow: 1;
         flex-direction: column;
-        align-items: stretch; /* Allinea gli elementi alla larghezza della card */
+        align-items: stretch;
     }
 
     .cardcat .btn {
-        width: 100%; /* Riempie la larghezza della card */
-        margin-top: 10px; /* Aggiunge uno spazio sopra i pulsanti */
+        width: 100%; 
+        margin-top: 10px; 
     }
     .card-img-top {
-        display: none; /* Nasconde le immagini */
+        display: none; 
     }
 }
 .pill {
@@ -697,10 +692,10 @@ ul.breadcrumb li a:hover {
   right: 0;
 }
 .pagination {
-  display: flex; /* Allinea i link in riga */
-  justify-content: center; /* Centra orizzontalmente */
-  margin-top: 3rem; /* Spinge la paginazione verso il basso */
-  margin-bottom: 20px; /* Aggiungi uno spazio dal bordo inferiore */
+  display: flex; 
+  justify-content: center; 
+  margin-top: 3rem; 
+  margin-bottom: 20px; 
 }
 
 .pagination a {
@@ -811,24 +806,23 @@ ult li .date::after {
   right: calc(100% + var(--col-gap) + var(--line-w) / 2);
 }
 
-/* title descr */
 ult li .title,
 ult li .descr {
-  background: white; /* Colore di sfondo bianco */
+  background: white; 
   position: relative;
-  padding: 1.5rem; /* Aggiungi un'imbottitura uniforme */
-  border: 1px solid #ddd; /* Bordo sottile grigio */
-  border-radius: 8px; /* Angoli arrotondati */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Effetto ombra */
+  padding: 1.5rem; /
+  border: 1px solid #ddd; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 ult li .title {
-  font-family: 'Marck Script', cursive; /* Stile del logo */
-  font-size: 2.5rem; /* Dimensione del font più grande */
-  color: #333; /* Colore del testo (puoi cambiarlo in base al design) */
-  margin-bottom: 0; /* Rimuovi lo spazio sotto il titolo */
-  font-weight: bold; /* Rendi il titolo più evidente */
-  text-align: center; /* Allinea il titolo al centro */
+  font-family: 'Marck Script', cursive; 
+  font-size: 2.5rem; 
+  color: #333; 
+  margin-bottom: 0; 
+  font-weight: bold; 
+  text-align: center; 
 }
 
 ult li .descr {
@@ -871,7 +865,6 @@ ult li .descr::before {
     grid-column: 3;
   }
 
-  /* start second card */
   ult li:nth-child(2) {
     grid-row: 2/4;
   }
@@ -891,10 +884,10 @@ ult li .descr::before {
 }
 
 .bolle-container {
-  display: flex; /* Usare flexbox */
-  flex-wrap: wrap; /* Permette il wrapping se necessario */
-  justify-content: center; /* Centrare orizzontalmente */
-  gap: 15px; /* Spazio tra le bolle */
+  display: flex; 
+  flex-wrap: wrap;
+  justify-content: center; 
+  gap: 15px; 
 }
 
 .bolla {
@@ -927,8 +920,6 @@ ult li .descr::before {
     }
 }
 
-
-/* Stile per il modale circolare */
 .modalebolla {
   display: none;
   position: fixed;
@@ -936,27 +927,27 @@ ult li .descr::before {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 90%; /* Limita la larghezza massima al 90% dello schermo */
-  max-height: 80%; /* Limita l'altezza massima all'80% dello schermo */
+  max-width: 90%; 
+  max-height: 80%; /
   background-color: #0d6ca6;
   color: white;
   text-align: center;
-  padding: 20px; /* Aggiungi spazio interno */
+  padding: 20px; 
   font-size: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  overflow-y: auto; /* Aggiungi uno scorrimento verticale se il contenuto eccede l'altezza */
-  border-radius: 16px; /* Mantieni un aspetto arrotondato */
+  overflow-y: auto;
+  border-radius: 16px; 
 }
 
 .modal-overlay {
   display: none;
   position: fixed;
-  z-index: 999; /* Deve essere sotto il modale */
+  z-index: 999; 
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Sfondo semi-trasparente */
+  background-color: rgba(0, 0, 0, 0.7); 
 }
 
 .modal-overlay.show {
@@ -964,7 +955,7 @@ ult li .descr::before {
 }
 
 .modalebolla.show {
-  display: block; /* Mostra il modale */
+  display: block; 
 }
 
 .modalebolla-close {
@@ -997,7 +988,6 @@ ult li .descr::before {
     }
 }
 
-/* Stile per section-title */
 .section-title {
     font-family: 'Marck Script', cursive;
     font-size: 2rem;
@@ -1005,8 +995,8 @@ ult li .descr::before {
     cursor: pointer;
     margin-bottom: 10px;
     transition: color 0.3s ease;
-    position: relative; /* Necessario per posizionare il pallino */
-    padding-left: 20px; /* Spazio per il pallino */
+    position: relative; 
+    padding-left: 20px; 
 }
 
 .section-title::before {
@@ -1060,7 +1050,7 @@ ult li .descr::before {
     color: #00a3cc;
     cursor: pointer;
     margin-bottom: 10px;
-    display: inline-block; /* Rende i termini simili ai pulsanti */
+    display: inline-block;
     transition: color 0.3s ease;
     text-decoration: none;
 }
@@ -1071,8 +1061,8 @@ ult li .descr::before {
 }
 
 .termgl-selected {
-    color: #0d6ca6; /* Colore per il termine selezionato */
-    font-weight: bold; /* Enfatizza il termine selezionato */
+    color: #0d6ca6; 
+    font-weight: bold; 
     text-decoration: none;
 }
 
