@@ -1560,8 +1560,9 @@ const translations = {
     };
 
 document.addEventListener("DOMContentLoaded", function () {
-    const width = 800;
-    const height = 1200; 
+    const isMobile = window.innerWidth < 600;
+    const width = window.innerWidth * 0.9;
+    const height = window.innerHeight * 0.8; 
 
     const svg = d3.select("#radiciContainer")
         .append("svg")
@@ -1582,13 +1583,16 @@ document.addEventListener("DOMContentLoaded", function () {
         node.y = height / 2 + (Math.random() - 0.5) * 200;
     });
 
-    const simulation = d3.forceSimulation(data.nodes)
-        .force("link", d3.forceLink(data.links).id(d => d.id).distance(100)) 
-        .force("charge", d3.forceManyBody().strength(-80)) 
-        .force("center", d3.forceCenter(width / 2, height / 2))
-        .force("collision", d3.forceCollide().radius(40))
-        .force("x", d3.forceX(width / 2).strength(0.05))
-        .force("y", d3.forceY(height / 2).strength(0.05));
+
+const simulation = d3.forceSimulation(data.nodes)
+    .force("link", d3.forceLink(data.links).id(d => d.id).distance(isMobile ? 30 : 80))
+    .force("charge", d3.forceManyBody().strength(isMobile ? -30 : -80))
+    .force("center", d3.forceCenter(width / 2, height / 2))
+    .force("collision", d3.forceCollide().radius(isMobile ? 20 : 40))
+    .force("x", d3.forceX(width / 2).strength(isMobile ? 0.5 : 0.05)) 
+    .force("y", d3.forceY(height / 2).strength(isMobile ? 0.5 : 0.05)); 
+
+
 
     const link = svg.append("g")
         .selectAll("line")
@@ -1598,30 +1602,49 @@ document.addEventListener("DOMContentLoaded", function () {
         .attr("stroke-width", 2)
         .style("opacity", 0);
 
-    const node = svg.append("g")
-        .selectAll("circle")
-        .data(data.nodes)
-        .enter().append("circle")
-        .attr("r", d => d.group === "radice" ? 40 : 30)
-        .attr("fill", d => d.group === "radice" ? "#0077b6" : "#00b4d8")
-        .attr("data-visible", d => d.group === "radice" ? "true" : "false")
-        .style("opacity", d => d.group === "parola" ? 0 : 1)
-        .style("cursor", d => d.group === "radice" ? "pointer" : "default")
-        .call(d3.drag()
-            .on("start", dragStarted)
-            .on("drag", dragged)
-            .on("end", dragEnded));
+    const nodeSize = isMobile ? 20 : 30; 
+    const fontSize = isMobile ? "12px" : "18px";
+
+const node = svg.append("g")
+    .selectAll("circle")
+    .data(data.nodes)
+    .enter().append("circle")
+    .attr("r", d => d.group === "radice" ? nodeSize + 10 : nodeSize)
+    .attr("fill", d => d.group === "radice" ? "#0077b6" : "#00b4d8")
+    .style("opacity", d => d.group === "parola" ? 0 : 1)
+    .style("cursor", d => d.group === "radice" ? "pointer" : "default")
+    .call(d3.drag()
+        .on("start", dragStarted)
+        .on("drag", dragged)
+        .on("end", dragEnded));
 
     const labels = svg.append("g")
-        .selectAll("text")
-        .data(data.nodes)
-        .enter().append("text")
-        .attr("text-anchor", "middle")
-        .attr("dy", 5)
-        .attr("font-size", "18px")
-        .attr("fill", "black")
-        .text(d => d.id)
-        .style("opacity", d => d.group === "parola" ? 0 : 1);
+    .selectAll("text")
+    .data(data.nodes)
+    .enter().append("text")
+    .attr("text-anchor", "middle")
+    .attr("dy", 5)
+    .attr("font-size", fontSize)
+    .attr("fill", "black")
+    .text(d => d.id)
+    .style("opacity",  d => d.group === "parola" ? 0 : 1);
+
+const nodeRadius = isMobile ? 20 : 40;  
+const linkDistance = isMobile ? 50 : 100; 
+svg.attr("width", window.innerWidth * 0.9)
+   .attr("height", window.innerHeight * 0.8)
+   .attr("viewBox", `0 0 ${width} ${height}`)
+   .attr("preserveAspectRatio", "xMidYMid meet");
+
+
+
+node.attr("r", d => d.group === "radice" ? nodeRadius * 1.5 : nodeRadius);
+
+labels.attr("font-size", fontSize);
+
+simulation.force("link").distance(linkDistance);
+simulation.alpha(1).restart();
+
 
     function findConnectedWords(rootId) {
         let visited = new Set();
@@ -1663,8 +1686,7 @@ document.addEventListener("DOMContentLoaded", function () {
         words.attr("data-visible", isVisible ? "false" : "true");
     });
 node.on("mouseover", function (event, d) {
-
-    if (d3.select(this).style("opacity") == 0) return;
+    if (d3.select(this).style("opacity") == 0 || !d3.select(this).attr("data-visible")) return; 
 
     const translation = translations[d.id] || "Nessuna traduzione";
     tooltip.html(`<b>${d.id}</b>: ${translation}`)
@@ -1672,6 +1694,7 @@ node.on("mouseover", function (event, d) {
         .style("left", `${event.pageX + 10}px`)
         .style("top", `${event.pageY + 10}px`);
 });
+
 
 node.on("mousemove", function (event) {
 
@@ -1687,6 +1710,13 @@ node.on("mouseout", function () {
         tooltip.style("opacity", 0);
     }
 });
+
+node.on("touchstart", function (event, d) {
+    if (event.touches.length > 1) return;
+    d3.select(this).dispatch("click");
+});
+
+
 
 
     simulation.on("tick", () => {
