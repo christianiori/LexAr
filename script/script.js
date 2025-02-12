@@ -26,9 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
         sidebar.id = "annotationSidebar";
         sidebar.classList.add("annotation-sidebar");
         sidebar.style.position = "fixed";
-        sidebar.style.right = "-320px"; // Nasconde la sidebar inizialmente
-        sidebar.style.top = "60px"; // Sposta la sidebar sotto la navbar
-        sidebar.style.height = "calc(100vh - 60px)"; // Adatta l'altezza
+        sidebar.style.right = "-320px";
+        sidebar.style.top = "60px";
+        sidebar.style.height = "calc(100vh - 60px)";
         sidebar.style.zIndex = "1050";
         sidebar.style.width = "300px";
         sidebar.style.background = "#0d6ca6";
@@ -37,25 +37,30 @@ document.addEventListener("DOMContentLoaded", function () {
         sidebar.style.transition = "right 0.3s ease-in-out";
         sidebar.style.color = "white";
         sidebar.innerHTML = `
-    <h3 style="color: white; margin-bottom: 10px;">Commenti</h3>
-    <textarea id="annotationInput" placeholder="Scrivi un commento..." rows="3"
-        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; margin-bottom: 10px;"></textarea>
-    <button id="saveAnnotation" style="background-color: white; color: #0d6ca6; border: none; padding: 10px;
-        border-radius: 5px; cursor: pointer; width: 100%; margin-bottom: 15px; font-weight: bold;">Salva</button>
-    
-    <div id="annotationContainer" style="max-height: 55vh; overflow-y: auto; padding-right: 5px;">
-        <ul id="annotationItems" style="list-style: none; padding: 0;"></ul>
-    </div>
+            <h3 style="color: white; margin-bottom: 10px;">Commenti</h3>
+            <textarea id="annotationInput" placeholder="Scrivi un commento..." rows="3"
+                style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; margin-bottom: 10px;"></textarea>
+            <button id="saveAnnotation" style="background-color: white; color: #0d6ca6; border: none; padding: 10px;
+                border-radius: 5px; cursor: pointer; width: 100%; margin-bottom: 15px; font-weight: bold;">Salva</button>
+            
+            <div id="annotationContainer" style="max-height: 55vh; overflow-y: auto; padding-right: 5px;">
+                <ul id="annotationItems" style="list-style: none; padding: 0;"></ul>
+            </div>
 
-    <button id="exportAnnotations" style="background-color: #0dcaf0; color: white; border: none; padding: 10px; 
-        border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px;">Esporta Commenti</button>
+            <button id="exportAnnotations" style="background-color: #0dcaf0; color: white; border: none; padding: 10px; 
+                border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px;">Esporta Commenti</button>
 
-    <button id="deleteAllAnnotations" style="background-color: #0dcaf0; color: white; border: none; padding: 10px; 
-        border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px;">Elimina Tutti i Commenti</button>
-`;
+            <button id="importAnnotations" style="background-color: #0dcaf0; color: white; border: none; padding: 10px; 
+                border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px;">Importa Commenti</button>
+
+            <button id="deleteAllAnnotations" style="background-color: #0dcaf0; color: white; border: none; padding: 10px; 
+                border-radius: 5px; cursor: pointer; width: 100%; margin-top: 10px;">Elimina Tutti i Commenti</button>
+        `;
 
         document.body.appendChild(sidebar);
+
         document.getElementById("exportAnnotations").addEventListener("click", exportAnnotations);
+        document.getElementById("importAnnotations").addEventListener("click", importAnnotations);
         document.getElementById("deleteAllAnnotations").addEventListener("click", deleteAllAnnotations);
     }
     displayAnnotations();
@@ -240,6 +245,38 @@ function editAnnotation(index) {
         localStorage.setItem("annotations", JSON.stringify(annotations));
         displayAnnotations();
     };
+}
+function importAnnotations() {
+    let input = document.createElement("input");
+    input.type = "file";
+    input.accept = "application/json";
+
+    input.addEventListener("change", function (event) {
+        let file = event.target.files[0];
+        if (!file) return;
+
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            try {
+                let importedAnnotations = JSON.parse(e.target.result);
+
+                if (!Array.isArray(importedAnnotations)) {
+                    alert("Il file non è nel formato corretto.");
+                    return;
+                }
+
+                localStorage.setItem("annotations", JSON.stringify(importedAnnotations));
+                displayAnnotations();
+                alert("Commenti importati con successo!");
+            } catch (error) {
+                alert("Errore nell'importazione del file.");
+            }
+        };
+
+        reader.readAsText(file);
+    });
+
+    input.click();
 }
 
 function exportAnnotations() {
@@ -624,6 +661,28 @@ document.querySelectorAll("input[type='checkbox']").forEach(checkbox => {
         });
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".term").forEach(term => {
+        let boldElements = term.getElementsByTagName("b");
+        
+        if (boldElements.length > 0) {
+            let firstBold = boldElements[0];  
+            let termText = firstBold.innerText.trim();
+            let encodedTerm = encodeURIComponent(termText);
+            let externalUrl = `https://www.perseus.tufts.edu/hopper/morph?l=${encodedTerm}&la=greek`;
+
+            let link = document.createElement("a");
+            link.href = externalUrl;
+            link.target = "_blank"; 
+            link.innerHTML = firstBold.innerHTML;
+
+            firstBold.innerHTML = "";
+            firstBold.appendChild(link);
+        }
+    });
+});
+
 
 // PAGINA INDEX
 
