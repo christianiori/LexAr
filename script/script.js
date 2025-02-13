@@ -1561,6 +1561,37 @@ const translations = {
 
 document.addEventListener("DOMContentLoaded", function () {
     const isMobile = window.innerWidth < 600;
+    if (isMobile) {
+    let radiciDaMantenere = new Set();
+    
+    data.nodes.forEach((node, index) => {
+        if (node.group === "radice" && index % 2 === 0) { 
+            radiciDaMantenere.add(node.id);
+        }
+    });
+
+    let paroleDaMantenere = new Set();
+
+data.links.forEach(link => {
+    if (radiciDaMantenere.has(link.source.id)) {
+        paroleDaMantenere.add(link.target.id);
+    }
+    if (radiciDaMantenere.has(link.target.id)) {
+        paroleDaMantenere.add(link.source.id);
+    }
+});
+
+data.nodes = data.nodes.filter(node => 
+    node.group === "radice" && radiciDaMantenere.has(node.id) ||
+    node.group === "parola" && paroleDaMantenere.has(node.id)
+);
+
+
+    data.links = data.links.filter(link => 
+        radiciDaMantenere.has(link.source.id) || radiciDaMantenere.has(link.target.id)
+    );
+}
+
     const width = window.innerWidth * 0.9;
     const height = window.innerHeight * 0.8; 
 
@@ -1569,26 +1600,17 @@ document.addEventListener("DOMContentLoaded", function () {
         .attr("width", width)
         .attr("height", height);
 
-    const tooltip = d3.select("#radiciContainer")
-        .append("div")
-        .style("position", "absolute")
-        .style("background", "white")
-        .style("border", "1px solid black")
-        .style("padding", "5px")
-        .style("border-radius", "5px")
-        .style("pointer-events", "none")
-        .style("opacity", 0);
     data.nodes.forEach(node => {
-        node.x = width / 2 + (Math.random() - 0.5) * 200;
-        node.y = height / 2 + (Math.random() - 0.5) * 200;
-    });
+    node.x = width / 2 + (Math.random() - 0.5) * 200;
+    node.y = height / 2 + (Math.random() - 0.5) * 200;
+});
 
 
 const simulation = d3.forceSimulation(data.nodes)
-    .force("link", d3.forceLink(data.links).id(d => d.id).distance(isMobile ? 30 : 80))
-    .force("charge", d3.forceManyBody().strength(isMobile ? -30 : -80))
+    .force("link", d3.forceLink(data.links).id(d => d.id).distance(isMobile ? 50 : 80))
+    .force("charge", d3.forceManyBody().strength(isMobile ? -50 : -120))
     .force("center", d3.forceCenter(width / 2, height / 2))
-    .force("collision", d3.forceCollide().radius(isMobile ? 20 : 40))
+    .force("collision", d3.forceCollide().radius(isMobile ? 38 : 40).strength(1.2))
     .force("x", d3.forceX(width / 2).strength(isMobile ? 0.5 : 0.05)) 
     .force("y", d3.forceY(height / 2).strength(isMobile ? 0.5 : 0.05)); 
 
@@ -1602,7 +1624,7 @@ const simulation = d3.forceSimulation(data.nodes)
         .attr("stroke-width", 2)
         .style("opacity", 0);
 
-    const nodeSize = isMobile ? 20 : 30; 
+    const nodeSize = isMobile ? 12 : 20;  
     const fontSize = isMobile ? "12px" : "18px";
 
 const node = svg.append("g")
@@ -1611,12 +1633,24 @@ const node = svg.append("g")
     .enter().append("circle")
     .attr("r", d => d.group === "radice" ? nodeSize + 10 : nodeSize)
     .attr("fill", d => d.group === "radice" ? "#0077b6" : "#00b4d8")
-    .style("opacity", d => d.group === "parola" ? 0 : 1)
+    .attr("data-bs-toggle", "tooltip")  
+    .attr("data-bs-placement", "top")   
+    .attr("title", d => translations[d.id] || d.id)
+    .style("opacity", d => d.group === "parola" && !d.visible ? 0 : 1)
+    .style("display", d => d.group === "parola" && !d.visible ? "none" : "block")
     .style("cursor", d => d.group === "radice" ? "pointer" : "default")
     .call(d3.drag()
         .on("start", dragStarted)
         .on("drag", dragged)
         .on("end", dragEnded));
+
+    document.addEventListener("DOMContentLoaded", function () {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('circle[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+});
+
 
     const labels = svg.append("g")
     .selectAll("text")
@@ -1638,85 +1672,257 @@ svg.attr("width", window.innerWidth * 0.9)
 
 
 
-node.attr("r", d => d.group === "radice" ? nodeRadius * 1.5 : nodeRadius);
+node.attr("r", d => d.group === "radice" ? nodeRadius * 1.2 : nodeRadius * 0.8);
 
 labels.attr("font-size", fontSize);
 
-simulation.force("link").distance(linkDistance);
+simulation.force("link").distance(isMobile ? 70 : 120);
 simulation.alpha(1).restart();
 
 
     function findConnectedWords(rootId) {
-        let visited = new Set();
-        let queue = [rootId];
+    let visited = new Set();
+    let queue = [rootId];
 
-        while (queue.length > 0) {
-            let current = queue.shift();
-            visited.add(current);
+    while (queue.length > 0) {
+        let current = queue.shift();
+        visited.add(current);
 
-            data.links.forEach(link => {
-                let neighbor = null;
-                if (link.source.id === current) {
-                    neighbor = link.target.id;
-                } else if (link.target.id === current) {
-                    neighbor = link.source.id;
-                }
-                if (neighbor && !visited.has(neighbor)) {
-                    queue.push(neighbor);
-                }
+        data.links.forEach(link => {
+            let neighbor = null;
+            if (link.source.id === current) {
+                neighbor = link.target.id;
+            } else if (link.target.id === current) {
+                neighbor = link.source.id;
+            }
+            if (neighbor && !visited.has(neighbor) && data.nodes.some(n => n.id === neighbor)) {
+                queue.push(neighbor);
+            }
+        });
+    }
+    return visited;
+}
+
+
+    node.on("click touchstart", function (event, d) {
+    event.preventDefault();
+    if (d.group !== "radice") return;
+
+
+    const connectedWords = findConnectedWords(d.id);
+    const words = node.filter(n => connectedWords.has(n.id) && n.group === "parola" && data.nodes.some(e => e.id === n.id));
+    const wordLinks = link.filter(l => connectedWords.has(l.target.id) || connectedWords.has(l.source.id));
+    const wordLabels = labels.filter(n => connectedWords.has(n.id) && n.group === "parola");
+
+    const isVisible = words.attr("data-visible") === "true";
+
+    words.transition().duration(500)
+    .style("opacity", isVisible ? 0 : 1)
+    .on("end", function () {
+        d3.select(this).style("display", isVisible ? "none" : "block");
+        if (isMobile) {
+            setTimeout(() => d3.select(this).style("display", isVisible ? "none" : "block"), 50);
+        }
+        updateTooltips();
+    });
+
+
+
+    wordLinks.transition().duration(500).style("opacity", isVisible ? 0 : 1);
+    wordLabels.transition().duration(500).style("opacity", isVisible ? 0 : 1);
+
+    words.attr("data-visible", isVisible ? "false" : "true");
+});
+
+
+node.on("mouseover", function (event, d) {
+    let elemento = d3.select(this).node();
+if (!elemento) return; 
+document.addEventListener("DOMContentLoaded", function () {
+    const isMobile = window.innerWidth < 600;
+    if (isMobile) {
+    let radiciDaMantenere = new Set();
+    
+    data.nodes.forEach((node, index) => {
+        if (node.group === "radice" && index % 2 === 0) { 
+            radiciDaMantenere.add(node.id);
+        }
+    });
+
+    let paroleDaMantenere = new Set();
+
+data.links.forEach(link => {
+    if (radiciDaMantenere.has(link.source.id)) {
+        paroleDaMantenere.add(link.target.id);
+    }
+    if (radiciDaMantenere.has(link.target.id)) {
+        paroleDaMantenere.add(link.source.id);
+    }
+});
+
+data.nodes = data.nodes.filter(node => 
+    node.group === "radice" && radiciDaMantenere.has(node.id) ||
+    node.group === "parola" && paroleDaMantenere.has(node.id)
+);
+
+
+    data.links = data.links.filter(link => 
+        radiciDaMantenere.has(link.source.id) || radiciDaMantenere.has(link.target.id)
+    );
+}
+
+    const width = window.innerWidth * 0.9;
+    const height = window.innerHeight * 0.8; 
+
+    const svg = d3.select("#radiciContainer")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    data.nodes.forEach(node => {
+    node.x = width / 2 + (Math.random() - 0.5) * 200;
+    node.y = height / 2 + (Math.random() - 0.5) * 200;
+});
+
+
+const simulation = d3.forceSimulation(data.nodes)
+    .force("link", d3.forceLink(data.links).id(d => d.id).distance(isMobile ? 50 : 80))
+    .force("charge", d3.forceManyBody().strength(isMobile ? -50 : -120))
+    .force("center", d3.forceCenter(width / 2, height / 2))
+    .force("collision", d3.forceCollide().radius(isMobile ? 38 : 40).strength(1.2))
+    .force("x", d3.forceX(width / 2).strength(isMobile ? 0.5 : 0.05)) 
+    .force("y", d3.forceY(height / 2).strength(isMobile ? 0.5 : 0.05)); 
+
+
+
+    const link = svg.append("g")
+        .selectAll("line")
+        .data(data.links)
+        .enter().append("line")
+        .attr("stroke", "black")
+        .attr("stroke-width", 2)
+        .style("opacity", 0);
+
+    const nodeSize = isMobile ? 12 : 20;  
+    const fontSize = isMobile ? "12px" : "18px";
+
+const node = svg.append("g")
+    .selectAll("circle")
+    .data(data.nodes)
+    .enter().append("circle")
+    .attr("r", d => d.group === "radice" ? nodeSize + 10 : nodeSize)
+    .attr("fill", d => d.group === "radice" ? "#0077b6" : "#00b4d8")
+    .attr("data-bs-toggle", "tooltip")  
+    .attr("data-bs-placement", "top")   
+    .attr("title", d => translations[d.id] || d.id)
+    .style("opacity", d => d.group === "parola" && !d.visible ? 0 : 1)
+    .style("display", d => d.group === "parola" && !d.visible ? "none" : "block")
+    .style("cursor", d => d.group === "radice" ? "pointer" : "default")
+    .call(d3.drag()
+        .on("start", dragStarted)
+        .on("drag", dragged)
+        .on("end", dragEnded));
+
+    document.addEventListener("DOMContentLoaded", function () {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('circle[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+});
+
+
+    const labels = svg.append("g")
+    .selectAll("text")
+    .data(data.nodes)
+    .enter().append("text")
+    .attr("text-anchor", "middle")
+    .attr("dy", 5)
+    .attr("font-size", fontSize)
+    .attr("fill", "black")
+    .text(d => d.id)
+    .style("opacity",  d => d.group === "parola" ? 0 : 1);
+
+const nodeRadius = isMobile ? 20 : 40;  
+const linkDistance = isMobile ? 50 : 100; 
+svg.attr("width", window.innerWidth * 0.9)
+   .attr("height", window.innerHeight * 0.8)
+   .attr("viewBox", `0 0 ${width} ${height}`)
+   .attr("preserveAspectRatio", "xMidYMid meet");
+
+
+
+node.attr("r", d => d.group === "radice" ? nodeRadius * 1.2 : nodeRadius * 0.8);
+
+labels.attr("font-size", fontSize);
+
+simulation.force("link").distance(isMobile ? 70 : 120);
+simulation.alpha(1).restart();
+
+
+    function findConnectedWords(rootId) {
+    let visited = new Set();
+    let queue = [rootId];
+
+    while (queue.length > 0) {
+        let current = queue.shift();
+        visited.add(current);
+
+        data.links.forEach(link => {
+            let neighbor = null;
+            if (link.source.id === current) {
+                neighbor = link.target.id;
+            } else if (link.target.id === current) {
+                neighbor = link.source.id;
+            }
+            if (neighbor && !visited.has(neighbor) && data.nodes.some(n => n.id === neighbor)) {
+                queue.push(neighbor);
+            }
+        });
+    }
+    return visited;
+}
+
+
+    node.on("click touchstart", function (event, d) {
+    event.preventDefault();
+    if (d.group !== "radice") return;
+
+
+    const connectedWords = findConnectedWords(d.id);
+    const words = node.filter(n => connectedWords.has(n.id) && n.group === "parola" && d3.select(this).node());
+    const wordLinks = link.filter(l => connectedWords.has(l.target.id) || connectedWords.has(l.source.id));
+    const wordLabels = labels.filter(n => connectedWords.has(n.id) && n.group === "parola");
+
+    const isVisible = words.attr("data-visible") === "true";
+
+    words.transition().duration(500)
+    .style("opacity", isVisible ? 0 : 1)
+    .on("end", function () {
+        d3.select(this).style("display", isVisible ? "none" : "block");
+        if (isMobile) {
+            requestAnimationFrame(() => {
+                d3.select(this).style("display", isVisible ? "none" : "block");
             });
         }
-        return visited;
-    }
-
-    node.on("click", function (event, d) {
-        if (d.group !== "radice") return;
-
-        const connectedWords = findConnectedWords(d.id);
-        const words = node.filter(n => connectedWords.has(n.id) && n.group === "parola");
-        const wordLinks = link.filter(l => connectedWords.has(l.target.id) || connectedWords.has(l.source.id));
-        const wordLabels = labels.filter(n => connectedWords.has(n.id) && n.group === "parola");
-
-        const isVisible = words.attr("data-visible") === "true";
-
-        words.transition().duration(500).style("opacity", isVisible ? 0 : 1);
-        wordLinks.transition().duration(500).style("opacity", isVisible ? 0 : 1);
-        wordLabels.transition().duration(500).style("opacity", isVisible ? 0 : 1);
-
-        words.attr("data-visible", isVisible ? "false" : "true");
+        updateTooltips();
     });
+
+
+    wordLinks.transition().duration(500).style("opacity", isVisible ? 0 : 1);
+    wordLabels.transition().duration(500).style("opacity", isVisible ? 0 : 1);
+
+    words.attr("data-visible", isVisible ? "false" : "true");
+});
+
+
 node.on("mouseover", function (event, d) {
-    if (d3.select(this).style("opacity") == 0 || !d3.select(this).attr("data-visible")) return; 
+    let elemento = d3.select(this).node();
+if (!elemento) return; 
+if (!elemento || d3.select(this).style("opacity") == 0 || !elemento.hasAttribute("data-visible")) return;
 
-    const translation = translations[d.id] || "Nessuna traduzione";
-    tooltip.html(`<b>${d.id}</b>: ${translation}`)
-        .style("opacity", 1)
-        .style("left", `${event.pageX + 10}px`)
-        .style("top", `${event.pageY + 10}px`);
+    let tooltipElement = bootstrap.Tooltip.getOrCreateInstance(this);
+    tooltipElement.show();
 });
-
-
-node.on("mousemove", function (event) {
-
-    if (tooltip.style("opacity") == 1) {
-        tooltip.style("left", `${event.pageX + 10}px`)
-               .style("top", `${event.pageY + 10}px`);
-    }
-});
-
-node.on("mouseout", function () {
-
-    if (tooltip.style("opacity") == 1) {
-        tooltip.style("opacity", 0);
-    }
-});
-
-node.on("touchstart", function (event, d) {
-    if (event.touches.length > 1) return;
-    d3.select(this).dispatch("click");
-});
-
-
 
 
     simulation.on("tick", () => {
@@ -1725,11 +1931,29 @@ node.on("touchstart", function (event, d) {
             .attr("x2", d => d.target.x)
             .attr("y2", d => d.target.y);
 
-        node.attr("cx", d => d.x)
-            .attr("cy", d => d.y);
+        node.attr("cx", d => d.x = Math.max(60, Math.min(width - 60, d.x)))
+            .attr("cy", d => d.y = Math.max(80, Math.min(height - 80, d.y)));
+
 
         labels.attr("x", d => d.x)
               .attr("y", d => d.y);
+    if (isMobile) {
+    let stopAfter = 300; 
+
+    let iteration = 0;
+
+    simulation.on("tick", () => {
+        iteration++;
+        if (iteration > stopAfter) {
+            simulation.alphaTarget(0.01);
+            if (iteration > stopAfter + 50) {
+                simulation.stop();
+            }
+        }
+    });
+}
+
+
     });
 
     function dragStarted(event, d) {
@@ -1748,4 +1972,87 @@ node.on("touchstart", function (event, d) {
         d.fx = null;
         d.fy = null;
     }
+    function updateTooltips() {
+    document.querySelectorAll(".tooltip").forEach(t => t.remove());
+    var tooltipTriggerList = document.querySelectorAll('circle[data-bs-toggle="tooltip"]:not([data-tooltip-init])');
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
+        tooltipTriggerEl.setAttribute("data-tooltip-init", "true");
+    });
+}
+
+   document.addEventListener("DOMContentLoaded", function () {
+    updateTooltips();
+});
+
+
+});
+
+
+    let tooltipElement = bootstrap.Tooltip.getOrCreateInstance(this);
+    tooltipElement.show();
+});
+
+
+    simulation.on("tick", () => {
+        link.attr("x1", d => d.source.x)
+            .attr("y1", d => d.source.y)
+            .attr("x2", d => d.target.x)
+            .attr("y2", d => d.target.y);
+
+        node.attr("cx", d => d.x = Math.max(60, Math.min(width - 60, d.x)))
+            .attr("cy", d => d.y = Math.max(80, Math.min(height - 80, d.y)));
+
+
+        labels.attr("x", d => d.x)
+              .attr("y", d => d.y);
+    if (isMobile) {
+    let stopAfter = 300; 
+
+    let iteration = 0;
+
+    simulation.on("tick", () => {
+        iteration++;
+        if (iteration > stopAfter) {
+            simulation.alphaTarget(0.01);
+            if (iteration > stopAfter + 50) {
+                simulation.stop();
+            }
+        }
+    });
+}
+
+
+    });
+
+    function dragStarted(event, d) {
+        if (!event.active) simulation.alphaTarget(0.1).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+    }
+
+    function dragged(event, d) {
+        d.fx = event.x;
+        d.fy = event.y;
+    }
+
+    function dragEnded(event, d) {
+        if (!event.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+    }
+    function updateTooltips() {
+    document.querySelectorAll(".tooltip").forEach(t => t.remove());
+    var tooltipTriggerList = document.querySelectorAll('circle[data-bs-toggle="tooltip"]:not([data-tooltip-init])');
+    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+        new bootstrap.Tooltip(tooltipTriggerEl);
+        tooltipTriggerEl.setAttribute("data-tooltip-init", "true");
+    });
+}
+
+   document.addEventListener("DOMContentLoaded", function () {
+    updateTooltips();
+});
+
+
 });
