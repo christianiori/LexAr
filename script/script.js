@@ -1561,57 +1561,14 @@ const translations = {
 
 document.addEventListener("DOMContentLoaded", function () {
     const isMobile = window.innerWidth < 600;
-
-    if (isMobile) {
-        let radiciDaMantenere = new Set();
-        data.nodes.forEach((node, index) => {
-            if (node.group === "radice" && index % 2 === 0) {
-                radiciDaMantenere.add(node.id);
-            }
-        });
-
-        let paroleDaMantenere = new Set();
-        data.links.forEach(link => {
-            if (radiciDaMantenere.has(link.source.id)) {
-                paroleDaMantenere.add(link.target.id);
-            }
-            if (radiciDaMantenere.has(link.target.id)) {
-                paroleDaMantenere.add(link.source.id);
-            }
-        });
-
-        data.nodes = data.nodes.filter(node =>
-            node.group === "radice" && radiciDaMantenere.has(node.id) ||
-            node.group === "parola" && paroleDaMantenere.has(node.id)
-        );
-
-        data.links = data.links.filter(link =>
-            radiciDaMantenere.has(link.source.id) || radiciDaMantenere.has(link.target.id)
-        );
-    }
-
     const width = window.innerWidth * 0.9;
     const height = window.innerHeight * 0.8;
-
     const svg = d3.select("#radiciContainer")
         .append("svg")
         .attr("width", width)
         .attr("height", height);
 
-    data.nodes.forEach(node => {
-        node.x = width / 2 + (Math.random() - 0.5) * 200;
-        node.y = height / 2 + (Math.random() - 0.5) * 200;
-    });
-
-    const simulation = d3.forceSimulation(data.nodes)
-    .force("link", d3.forceLink(data.links).id(d => d.id).distance(isMobile ? 80 : 100))
-    .force("charge", d3.forceManyBody().strength(isMobile ? -100 : -150))
-    .force("center", d3.forceCenter(width / 2, height / 2))
-    .force("collision", d3.forceCollide().radius(isMobile ? 35 : 40).strength(1.5)) 
-    .force("x", d3.forceX(width / 2).strength(isMobile ? 0.4 : 0.1)) 
-    .force("y", d3.forceY(height / 2).strength(isMobile ? 0.4 : 0.1));
-
-
+    let node, labels;
     const link = svg.append("g")
         .selectAll("line")
         .data(data.links)
@@ -1623,7 +1580,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const nodeSize = isMobile ? 20 : 40;
     const fontSize = isMobile ? "12px" : "18px";
 
-    const node = svg.append("g")
+    node = svg.append("g")
         .selectAll("circle")
         .data(data.nodes)
         .enter().append("circle")
@@ -1637,7 +1594,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .style("cursor", d => d.group === "radice" ? "pointer" : "default")
         .call(d3.drag().on("start", dragStarted).on("drag", dragged).on("end", dragEnded));
 
-    const labels = svg.append("g")
+    labels = svg.append("g")
         .selectAll("text")
         .data(data.nodes)
         .enter().append("text")
@@ -1647,6 +1604,124 @@ document.addEventListener("DOMContentLoaded", function () {
         .attr("fill", "black")
         .text(d => d.id)
         .style("opacity", d => d.group === "parola" ? 0 : 1);
+
+if (isMobile) {
+    let radici = data.nodes.filter(node => node.group === "radice");
+
+    const container = document.getElementById("radiciContainer");
+    container.innerHTML = "";  
+
+    let grid = document.createElement("div");
+    grid.classList.add("radici-grid");
+
+    radici.forEach(radice => {
+        let btn = document.createElement("button");
+        btn.classList.add("radice-btn");
+        btn.innerText = radice.id;
+        btn.setAttribute("data-radice", radice.id);
+
+        let list = document.createElement("div");
+        list.classList.add("parole-list");
+        list.style.display = "none";
+
+        let paroleDirette = data.links
+            .filter(link => link.source === radice.id || link.target === radice.id)
+            .map(link => (link.source === radice.id ? link.target : link.source))
+            .filter(id => data.nodes.find(node => node.id === id && node.group === "parola"));
+
+        let paroleMostrate = new Set(paroleDirette);
+        
+        paroleDirette.forEach(parola => {
+            let paroleSecondarie = data.links
+                .filter(link => link.source === parola || link.target === parola)
+                .map(link => (link.source === parola ? link.target : link.source))
+                .filter(id => data.nodes.find(node => node.id === id && node.group === "parola"));
+            
+            paroleSecondarie.forEach(p => paroleMostrate.add(p));
+        });
+
+        if (paroleMostrate.size === 0) {
+            let noParole = document.createElement("div");
+            noParole.classList.add("parola-item");
+            noParole.innerText = "Nessuna parola collegata";
+            list.appendChild(noParole);
+        } else {
+            paroleMostrate.forEach(parola => {
+                let parolaDiv = document.createElement("div");
+                parolaDiv.classList.add("parola-item");
+                parolaDiv.innerText = parola;
+                list.appendChild(parolaDiv);
+            });
+        }
+
+        btn.addEventListener("click", () => {
+            if (list.style.display === "none") {
+                list.style.display = "grid";
+                list.style.opacity = "0";
+                setTimeout(() => list.style.opacity = "1", 10);
+            } else {
+                list.style.opacity = "0";
+                setTimeout(() => list.style.display = "none", 300);
+            }
+        });
+
+        let wrapper = document.createElement("div");
+        wrapper.classList.add("radice-wrapper");
+        wrapper.appendChild(btn);
+        wrapper.appendChild(list);
+
+        grid.appendChild(wrapper);
+    });
+
+    container.appendChild(grid);
+}
+
+    const simulation = isMobile ? null : d3.forceSimulation(data.nodes)
+        .force("link", d3.forceLink(data.links).id(d => d.id).distance(150))
+        .force("charge", d3.forceManyBody().strength(-200))
+        .force("center", d3.forceCenter(width / 2, height / 2))
+        .force("collision", d3.forceCollide().radius(45).strength(0.9))
+        .force("x", d3.forceX(width / 2).strength(0.05))
+        .force("y", d3.forceY(height / 2).strength(0.05));
+
+    if (simulation) {
+    simulation.on("tick", () => {
+        link.attr("x1", d => Math.max(50, Math.min(width - 50, d.source.x)))
+            .attr("y1", d => Math.max(50, Math.min(height - 50, d.source.y)))
+            .attr("x2", d => Math.max(50, Math.min(width - 50, d.target.x)))
+            .attr("y2", d => Math.max(50, Math.min(height - 50, d.target.y)));
+
+        node.attr("cx", d => Math.max(50, Math.min(width - 50, d.x)))
+            .attr("cy", d => Math.max(50, Math.min(height - 50, d.y)));
+
+        labels.attr("x", d => Math.max(50, Math.min(width - 50, d.x)))
+              .attr("y", d => Math.max(50, Math.min(height - 50, d.y)));
+    });
+}
+
+
+    function dragStarted(event, d) {
+        if (simulation) {
+            if (!event.active) simulation.alphaTarget(0.1).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+    }
+
+    function dragged(event, d) {
+        if (simulation) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+    }
+
+    function dragEnded(event, d) {
+        if (simulation) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+    }
 
     function findConnectedWords(rootId) {
         let visited = new Set();
@@ -1673,40 +1748,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
     node.on("mouseover", function (event, d) {
         if (isMobile) return;
-
         let tooltipElement = bootstrap.Tooltip.getOrCreateInstance(this);
         tooltipElement.show();
     });
 
     node.on("mouseout", function (event, d) {
         if (isMobile) return;
-
         let tooltipElement = bootstrap.Tooltip.getInstance(this);
         if (tooltipElement) tooltipElement.hide();
     });
-    node.on("click touchend", function (event, d) {
-    if (d.group !== "radice") return;
 
-    const connectedWords = findConnectedWords(d.id);
-    const words = node.filter(n => connectedWords.has(n.id) && n.group === "parola");
-    const wordLinks = link.filter(l => connectedWords.has(l.target.id) || connectedWords.has(l.source.id));
-    const wordLabels = labels.filter(n => connectedWords.has(n.id) && n.group === "parola");
+    setTimeout(() => {
+        node.on(isMobile ? "touchend pointerdown" : "click", function (event, d) {
+            event.preventDefault();
+            if (d.group !== "radice") return;
 
-    const isVisible = words.attr("data-visible") === "true";
+            const connectedWords = findConnectedWords(d.id);
+            const words = node.filter(n => connectedWords.has(n.id) && n.group === "parola");
+            const wordLinks = link.filter(l => connectedWords.has(l.target.id) || connectedWords.has(l.source.id));
+            const wordLabels = labels.filter(n => connectedWords.has(n.id) && n.group === "parola");
 
-    words.attr("data-visible", isVisible ? "false" : "true")
-        .transition().duration(300)
-        .style("opacity", isVisible ? 0 : 1)
-        .style("display", isVisible ? "none" : "block");
+            const isVisible = words.attr("data-visible") === "true";
 
-    wordLinks.transition().duration(300)
-        .style("opacity", isVisible ? 0 : 1);
+            words.attr("data-visible", isVisible ? "false" : "true")
+                .transition().duration(300)
+                .style("opacity", isVisible ? 0 : 1)
+                .style("display", isVisible ? "none" : "block");
 
-    wordLabels.transition().duration(300)
-        .style("opacity", isVisible ? 0 : 1);
-});
+            wordLinks.transition().duration(300)
+                .style("opacity", isVisible ? 0 : 1);
 
-
+            wordLabels.transition().duration(300)
+                .style("opacity", isVisible ? 0 : 1);
+        });
+    }, 100);
 
     function updateTooltips() {
         document.querySelectorAll(".tooltip").forEach(t => t.remove());
@@ -1715,35 +1790,6 @@ document.addEventListener("DOMContentLoaded", function () {
             new bootstrap.Tooltip(tooltipTriggerEl);
             tooltipTriggerEl.setAttribute("data-tooltip-init", "true");
         });
-    }
-
-    simulation.on("tick", () => {
-        link.attr("x1", d => d.source.x)
-            .attr("y1", d => d.source.y)
-            .attr("x2", d => d.target.x)
-            .attr("y2", d => d.target.y);
-
-        node.attr("cx", d => d.x = Math.max(50, Math.min(width - 50, d.x)))
-            .attr("cy", d => d.y = Math.max(60, Math.min(height - 60, d.y)));
-
-        labels.attr("x", d => d.x).attr("y", d => d.y);
-    });
-
-    function dragStarted(event, d) {
-        if (!event.active) simulation.alphaTarget(0.1).restart();
-        d.fx = d.x;
-        d.fy = d.y;
-    }
-
-    function dragged(event, d) {
-        d.fx = event.x;
-        d.fy = event.y;
-    }
-
-    function dragEnded(event, d) {
-        if (!event.active) simulation.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
     }
 
     updateTooltips();
