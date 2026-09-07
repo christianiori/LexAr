@@ -1,5 +1,3 @@
-const menuToggle = document.querySelector(".menu-toggle");
-const mainMenu = document.getElementById("menu-principale");
 const grid = document.getElementById("catalogue-grid");
 const searchInput = document.getElementById("catalogue-search");
 const sortSelect = document.getElementById("catalogue-sort");
@@ -133,26 +131,37 @@ function resetCatalogue() {
   setActiveAgone("all");
 }
 
-function setMenuOpen(isOpen) {
-  if (!menuToggle || !mainMenu) return;
-  mainMenu.classList.toggle("is-open", isOpen);
-  menuToggle.setAttribute("aria-expanded", String(isOpen));
-  menuToggle.setAttribute("aria-label", isOpen ? "Chiudi il menu" : "Apri il menu");
-}
+const mobileControls = window.matchMedia("(max-width: 760px)");
+let controlsFocusTimer;
 
-function setControlsOpen(isOpen) {
+function setControlsOpen(isOpen, { returnFocus = true } = {}) {
   if (!controls || !filtersToggle || !controlsBackdrop) return;
-  controls.classList.toggle("is-open", isOpen);
-  filtersToggle.setAttribute("aria-expanded", String(isOpen));
-  controlsBackdrop.hidden = !isOpen;
-  document.body.classList.toggle("controls-open", isOpen);
+  window.clearTimeout(controlsFocusTimer);
+  const open = Boolean(isOpen && mobileControls.matches);
+  controls.classList.toggle("is-open", open);
+  controls.inert = mobileControls.matches && !open;
+  filtersToggle.setAttribute("aria-expanded", String(open));
+  controlsBackdrop.hidden = !open;
+  document.body.classList.toggle("controls-open", open);
 
-  if (isOpen) {
-    window.setTimeout(() => searchInput?.focus(), 280);
-  } else {
+  if (open) {
+    controlsFocusTimer = window.setTimeout(() => {
+      if (controls.classList.contains("is-open")) searchInput?.focus();
+    }, 280);
+  } else if (returnFocus && mobileControls.matches) {
     filtersToggle.focus();
   }
 }
+
+mobileControls.addEventListener("change", () => {
+  const focusInControls = controls?.contains(document.activeElement);
+  const focusOnToggle = document.activeElement === filtersToggle;
+  setControlsOpen(false, { returnFocus: false });
+  if (focusInControls || focusOnToggle) {
+    (mobileControls.matches ? filtersToggle : searchInput)?.focus();
+  }
+});
+setControlsOpen(false, { returnFocus: false });
 
 function updateCardFromApi(work) {
   const card = cards.find((item) => item.dataset.slug === work.slug);
@@ -205,10 +214,6 @@ async function synchroniseWithApi() {
   }
 }
 
-menuToggle?.addEventListener("click", () => {
-  setMenuOpen(!mainMenu?.classList.contains("is-open"));
-});
-
 agoneChips.forEach((chip) => {
   chip.addEventListener("click", () => setActiveAgone(chip.dataset.agone || "all"));
 });
@@ -229,17 +234,9 @@ document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
   if (controls?.classList.contains("is-open")) {
     setControlsOpen(false);
-  } else if (mainMenu?.classList.contains("is-open")) {
-    setMenuOpen(false);
-    menuToggle?.focus();
   }
 });
 
-window.addEventListener("resize", () => {
-  if (window.innerWidth > 760 && controls?.classList.contains("is-open")) {
-    setControlsOpen(false);
-  }
-});
 
 renderCatalogue();
 synchroniseWithApi();

@@ -1,39 +1,12 @@
-:root {
-  --ink: #0b2e4f;
-  --ink-soft: #164d70;
-  --muted: #52798c;
-  --paper: #edf8fb;
-  --paper-deep: #dfeff5;
-  --panel-blue: #d9f1f8;
-  --aqua: #1b91b5;
-  --aqua-dark: #126b8a;
-  --coral: #67d2ee;
-  --line: #bddce7;
-  --white: #fff;
-  --shadow: 0 18px 42px rgba(11, 46, 79, .12);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
 body.catalogue-page {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: Poppins, sans-serif;
+  font-family: var(--font-body);
 }
 
 body.controls-open {
   overflow: hidden;
-}
-
-a {
-  color: inherit;
 }
 
 button,
@@ -42,16 +15,9 @@ select {
   font: inherit;
 }
 
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-select:focus-visible {
-  outline: 3px solid var(--coral);
-  outline-offset: 3px;
-}
 
 .catalogue-shell {
-  width: min(1180px, calc(100% - 48px));
+  width: min(var(--content-width-wide), calc(100% - var(--content-gutter)));
   margin: 0 auto;
 }
 
@@ -89,7 +55,7 @@ select:focus-visible {
 }
 
 .catalogue-brand {
-  font: 2.2rem/1 "Marck Script", cursive;
+  font: 2.2rem/1 var(--font-script);
   text-decoration: none;
   white-space: nowrap;
 }
@@ -115,38 +81,6 @@ select:focus-visible {
 .catalogue-nav-links a:hover,
 .catalogue-nav-links a[aria-current="page"] {
   opacity: 1;
-}
-
-.nav-action {
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: .65rem;
-  width: 240px;
-  padding: .72rem 1.25rem;
-  border: 1px solid rgba(255, 255, 255, .6);
-  border-radius: 100px;
-  transition: border-color .2s, background .2s, color .2s;
-}
-
-.nav-action:hover,
-.nav-action:focus-visible {
-  border-color: var(--coral);
-  background: var(--coral);
-  color: var(--ink);
-}
-
-.menu-toggle {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  padding: 0;
-  border: 1px solid rgba(255, 255, 255, .6);
-  background: transparent;
-  color: var(--white);
-  cursor: pointer;
 }
 
 .catalogue-hero {
@@ -176,7 +110,7 @@ select:focus-visible {
 
 .catalogue-hero h1 {
   margin: 0;
-  font: 600 clamp(3rem, 6vw, 5.7rem)/.96 "Spectral", Georgia, serif;
+  font: 600 clamp(3rem, 6vw, 5.7rem)/.96 var(--font-editorial);
 }
 
 .catalogue-hero h1 em {
@@ -234,7 +168,7 @@ select:focus-visible {
 
 .hero-summary strong {
   color: var(--coral);
-  font: 600 1.8rem/1 "Spectral", Georgia, serif;
+  font: 600 1.8rem/1 var(--font-editorial);
 }
 
 .hero-summary span {
@@ -263,7 +197,7 @@ select:focus-visible {
 .catalogue-heading h2,
 .catalogue-callout h2 {
   margin: 0;
-  font: 600 clamp(2.4rem, 4vw, 3.9rem)/1 "Marck Script", cursive;
+  font: 600 clamp(2.4rem, 4vw, 3.9rem)/1 var(--font-script);
 }
 
 .filters-toggle {
@@ -414,7 +348,7 @@ select:focus-visible {
   gap: .35rem;
 }
 
-.filter-chip:hover,
+.filter-chip:where(:not(:disabled)):is(:hover, :focus-visible),
 .filter-chip.is-active {
   border-color: var(--coral);
   background: var(--coral);
@@ -441,7 +375,7 @@ select:focus-visible {
   font-size: .78rem;
 }
 
-.reset-button:hover {
+.reset-button:where(:not(:disabled)):is(:hover, :focus-visible) {
   border-color: var(--coral);
   background: var(--coral);
   color: var(--ink);
@@ -576,28 +510,21 @@ select:focus-visible {
 }
 
 .card-content::before {
-  position: absolute;
   z-index: -1;
-  inset: 0;
-  background-image: url("../img/meandro.png");
-  background-position: center;
   background-size: 58% auto;
-  background-repeat: repeat;
   opacity: .075;
-  content: "";
-  pointer-events: none;
 }
 
 .card-content h3 {
   margin: .65rem 0 .8rem;
-  font: 600 2rem/1.05 "Marck Script", cursive;
+  font: 600 2rem/1.05 var(--font-script);
 }
 
 .card-content h3 a {
   text-decoration: none;
 }
 
-.card-content h3 a:hover {
+.card-content h3 a:is(:hover, :focus-visible) {
   color: var(--aqua-dark);
 }
 
@@ -677,12 +604,12 @@ select:focus-visible {
 
 .empty-state > span {
   color: var(--aqua);
-  font: 400 2.5rem/1 "GFS Didot", Georgia, serif;
+  font: 400 2.5rem/1 var(--font-greek-georgia);
 }
 
 .empty-state h3 {
   margin: .75rem 0 .5rem;
-  font: 600 2.1rem/1 "Marck Script", cursive;
+  font: 600 2.1rem/1 var(--font-script);
 }
 
 .empty-state p {
@@ -738,38 +665,29 @@ select:focus-visible {
   transition: transform .2s;
 }
 
-.button-light:hover {
+.button-light:is(:hover, :focus-visible) {
   transform: translateY(-2px);
 }
 
 .catalogue-footer {
-  padding: 2rem 0;
-  background: #071f35;
-  color: #e9f6fa;
-}
-
-.footer-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  background: var(--footer-deep);
 }
 
 .footer-content p,
 .footer-content > a:not(.catalogue-brand) {
   margin: 0;
-  color: #bad4de;
+  color: var(--footer-muted);
   font-size: .73rem;
 }
 
-@media (max-width: 1227px) {
+@media (max-width: 1280px) {
   .catalogue-workspace {
     width: auto;
     margin-left: 0;
   }
 }
 
-@media (max-width: 1040px) {
+@media (max-width: 1280px) {
   .catalogue-controls {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -782,6 +700,9 @@ select:focus-visible {
     grid-column: 1 / -1;
   }
 
+}
+
+@media (max-width: 1040px) {
   .catalogue-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -797,31 +718,9 @@ select:focus-visible {
     min-height: 68px;
   }
 
-  .menu-toggle {
-    display: inline-flex;
-    margin-right: .5rem;
-    margin-left: auto;
-  }
 
-  .catalogue-nav-links {
-    position: absolute;
-    top: 68px;
-    right: 0;
-    left: 0;
-    display: none;
-    flex-direction: column;
-    gap: 0;
-    padding: .75rem 1rem;
-    background: var(--ink);
-  }
 
-  .catalogue-nav-links.is-open {
-    display: flex;
-  }
 
-  .catalogue-nav-links a {
-    padding: .8rem 0;
-  }
 
   .nav-action {
     justify-content: center;
@@ -923,7 +822,7 @@ select:focus-visible {
   .controls-heading h3 {
     margin: 0;
     color: var(--white);
-    font: 600 2rem/1 "Marck Script", cursive;
+    font: 600 2rem/1 var(--font-script);
   }
 
   .controls-close {
@@ -978,13 +877,9 @@ select:focus-visible {
     border-left: 0;
   }
 
-  .footer-content {
-    align-items: flex-start;
-    flex-direction: column;
-  }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 480px) {
   .catalogue-heading {
     flex-direction: column;
   }

@@ -1,40 +1,17 @@
 :root {
-  --ink: #0b2e4f;
   --ink-deep: #082844;
-  --ink-soft: #164d70;
-  --muted: #52798c;
-  --paper: #edf8fb;
-  --paper-deep: #dfeff5;
-  --panel-blue: #d9f1f8;
-  --aqua: #1b91b5;
-  --aqua-dark: #126b8a;
-  --coral: #67d2ee;
-  --line: #bddce7;
-  --white: #fff;
   --shadow: 0 20px 54px rgba(11, 46, 79, .15);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 body.work-page {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: Poppins, sans-serif;
+  font-family: var(--font-body);
 }
 
 body.menu-open {
   overflow: hidden;
-}
-
-a {
-  color: inherit;
 }
 
 button,
@@ -42,20 +19,7 @@ input {
   font: inherit;
 }
 
-a:focus-visible,
-button:focus-visible,
-input:focus-visible {
-  outline: 3px solid var(--ink);
-  outline-offset: 4px;
-}
 
-.work-header a:focus-visible,
-.work-header button:focus-visible,
-.work-hero a:focus-visible,
-.work-next a:focus-visible,
-.work-footer a:focus-visible {
-  outline-color: var(--white);
-}
 
 [hidden] {
   display: none !important;
@@ -74,7 +38,7 @@ input:focus-visible {
 }
 
 .work-shell {
-  width: min(1180px, calc(100% - 48px));
+  width: min(var(--content-width-wide), calc(100% - var(--content-gutter)));
   margin: 0 auto;
 }
 
@@ -111,7 +75,7 @@ input:focus-visible {
 }
 
 .work-brand {
-  font: 2.2rem/1 "Marck Script", cursive;
+  font: 2.2rem/1 var(--font-script);
   text-decoration: none;
   white-space: nowrap;
 }
@@ -137,38 +101,6 @@ input:focus-visible {
 .work-nav-links a:hover,
 .work-nav-links a[aria-current="page"] {
   opacity: 1;
-}
-
-.nav-action {
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 240px;
-  gap: .65rem;
-  padding: .72rem 1.25rem;
-  border: 1px solid rgba(255, 255, 255, .6);
-  border-radius: 100px;
-  transition: border-color .2s, background .2s, color .2s;
-}
-
-.nav-action:hover,
-.nav-action:focus-visible {
-  border-color: var(--coral);
-  background: var(--coral);
-  color: var(--ink);
-}
-
-.menu-toggle {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  padding: 0;
-  border: 1px solid rgba(255, 255, 255, .6);
-  background: transparent;
-  color: var(--white);
-  cursor: pointer;
 }
 
 .work-hero {
@@ -207,7 +139,7 @@ input:focus-visible {
   align-items: flex-start;
   gap: .16em;
   margin: 0;
-  font: 700 clamp(4rem, 7vw, 6.7rem)/.9 Spectral, Georgia, serif;
+  font: 700 clamp(4rem, 7vw, 6.7rem)/.9 var(--font-editorial);
   letter-spacing: -.055em;
   white-space: nowrap;
 }
@@ -236,7 +168,7 @@ input:focus-visible {
   display: block;
   margin: 0;
   color: #fff;
-  font: 400 1em/.9 "GFS Didot", Georgia, serif;
+  font: 400 1em/.9 var(--font-greek-georgia);
   letter-spacing: -.02em;
   opacity: .34;
   text-shadow: 0 3px 16px rgba(255, 255, 255, .14);
@@ -260,32 +192,16 @@ input:focus-visible {
 }
 
 .button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: .75rem;
   min-height: 48px;
   padding: .82rem 1.25rem;
   border: 1px solid transparent;
-  border-radius: 4px;
   font-size: .88rem;
-  font-weight: 700;
   line-height: 1.25;
-  text-decoration: none;
   cursor: pointer;
   transition: transform .2s, background .2s, border-color .2s, color .2s;
 }
 
-.button:hover {
-  transform: translateY(-2px);
-}
-
-.button-primary {
-  background: var(--coral);
-  color: var(--ink);
-}
-
-.button-primary:hover {
+.button-primary:where(:not(:disabled)):is(:hover, :focus-visible) {
   background: var(--white);
 }
 
@@ -294,7 +210,7 @@ input:focus-visible {
   color: var(--white);
 }
 
-.button-ghost:hover {
+.button-ghost:where(:not(:disabled)):is(:hover, :focus-visible) {
   border-color: var(--white);
   background: rgba(255, 255, 255, .1);
 }
@@ -374,20 +290,20 @@ input:focus-visible {
 .artwork-metadata dt {
   margin-bottom: .28rem;
   color: var(--ink);
-  font: 600 .73rem/1.2 Spectral, Georgia, serif;
+  font: 600 .73rem/1.2 var(--font-editorial);
 }
 
 .artwork-metadata dd {
   margin: 0;
   overflow: hidden;
   color: var(--white);
-  font: 600 .85rem/1.35 Spectral, Georgia, serif;
+  font: 600 .85rem/1.35 var(--font-editorial);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .artwork-metadata dd[lang="grc"] {
-  font-family: "GFS Didot", Georgia, serif;
+  font-family: var(--font-greek-georgia);
   font-weight: 400;
 }
 
@@ -439,11 +355,11 @@ input:focus-visible {
 
 .facts-grid span {
   color: #a9dfea;
-  font: 600 .8rem/1.2 Spectral, Georgia, serif;
+  font: 600 .8rem/1.2 var(--font-editorial);
 }
 
 .facts-grid strong {
-  font: 600 1.45rem/1.25 Spectral, Georgia, serif;
+  font: 600 1.45rem/1.25 var(--font-editorial);
 }
 
 .work-introduction {
@@ -468,13 +384,13 @@ input:focus-visible {
 .text-heading h2,
 .work-next h2 {
   margin: 0;
-  font: 700 clamp(2.7rem, 4.6vw, 4.6rem)/.98 Spectral, Georgia, serif;
+  font: 700 clamp(2.7rem, 4.6vw, 4.6rem)/.98 var(--font-editorial);
   letter-spacing: -.045em;
 }
 
 .section-heading h2 em {
   color: var(--aqua);
-  font-family: "Marck Script", cursive;
+  font-family: var(--font-script);
   font-weight: 400;
   letter-spacing: -.02em;
 }
@@ -490,14 +406,14 @@ input:focus-visible {
 .introduction-copy p {
   margin: 0;
   color: var(--ink-soft);
-  font: 500 clamp(.98rem, 1.08vw, 1.08rem)/1.68 Poppins, sans-serif;
+  font: 500 clamp(.98rem, 1.08vw, 1.08rem)/1.68 var(--font-body);
 }
 
 .introduction-summary {
   max-width: 440px;
   margin: 1.65rem 0 0;
   color: var(--ink);
-  font: 600 clamp(1.08rem, 1.4vw, 1.28rem)/1.52 Spectral, Georgia, serif;
+  font: 600 clamp(1.08rem, 1.4vw, 1.28rem)/1.52 var(--font-editorial);
 }
 
 .introduction-copy p + p {
@@ -551,7 +467,7 @@ input:focus-visible {
   right: 2.7rem;
   bottom: 1.6rem;
   color: rgba(103, 210, 238, .23);
-  font: 400 clamp(5rem, 10vw, 9rem)/.8 "GFS Didot", serif;
+  font: 400 clamp(5rem, 10vw, 9rem)/.8 var(--font-greek);
   pointer-events: none;
 }
 
@@ -616,7 +532,7 @@ input:focus-visible {
   transform: translateY(.8rem);
 }
 
-.term-item:hover {
+.term-item:is(:hover, :focus-within) {
   z-index: 2;
   border-color: rgba(255, 255, 255, .82);
   background:
@@ -650,7 +566,7 @@ input:focus-visible {
 .term-word {
   max-width: calc(100% - 1rem);
   color: var(--white);
-  font: 400 clamp(1.25rem, 2vw, 1.65rem)/1 "GFS Didot", serif;
+  font: 400 clamp(1.25rem, 2vw, 1.65rem)/1 var(--font-greek);
   white-space: nowrap;
 }
 
@@ -684,11 +600,11 @@ input:focus-visible {
   transition: transform .2s;
 }
 
-.text-link:hover i {
+.text-link:is(:hover, :focus-visible) i {
   transform: translateX(4px);
 }
 
-.text-link:hover {
+.text-link:is(:hover, :focus-visible) {
   color: var(--white);
 }
 
@@ -739,14 +655,14 @@ input:focus-visible {
   transition: border-color .2s, color .2s;
 }
 
-.text-resources a:hover {
+.text-resources a:is(:hover, :focus-visible) {
   border-color: var(--aqua);
   color: var(--aqua-dark);
 }
 
 .text-resources span {
   color: var(--muted);
-  font: 500 .72rem/1.2 Spectral, Georgia, serif;
+  font: 500 .72rem/1.2 var(--font-editorial);
 }
 
 .text-resources strong {
@@ -761,7 +677,7 @@ input:focus-visible {
   color: var(--white);
 }
 
-.button-reader:hover {
+.button-reader:where(:not(:disabled)):is(:hover, :focus-visible) {
   border-color: var(--ink);
   background: var(--ink);
 }
@@ -803,7 +719,7 @@ input:focus-visible {
   width: min(420px, 100%);
   gap: .45rem;
   color: var(--ink);
-  font: 600 .82rem/1.3 Spectral, Georgia, serif;
+  font: 600 .82rem/1.3 var(--font-editorial);
 }
 
 .reader-search-field {
@@ -845,7 +761,7 @@ input:focus-visible {
   width: min(235px, 100%);
   gap: .45rem;
   color: var(--ink);
-  font: 600 .82rem/1.3 Spectral, Georgia, serif;
+  font: 600 .82rem/1.3 var(--font-editorial);
 }
 
 .reader-jump-field {
@@ -878,11 +794,11 @@ input:focus-visible {
   background: var(--aqua-dark);
   color: var(--white);
   cursor: pointer;
-  font: 700 .72rem/1 Spectral, Georgia, serif;
+  font: 700 .72rem/1 var(--font-editorial);
   transition: background .2s, transform .2s;
 }
 
-.reader-jump button:hover {
+.reader-jump button:where(:not(:disabled)):is(:hover, :focus-visible) {
   background: var(--ink);
 }
 
@@ -898,12 +814,12 @@ input:focus-visible {
   background: var(--paper);
   color: var(--aqua-dark);
   cursor: pointer;
-  font: 700 .75rem/1 Spectral, Georgia, serif;
+  font: 700 .75rem/1 var(--font-editorial);
   white-space: nowrap;
   transition: background .2s, border-color .2s, color .2s;
 }
 
-.reader-metric-toggle:hover {
+.reader-metric-toggle:where(:not(:disabled)):is(:hover, :focus-visible) {
   border-color: var(--ink);
   color: var(--ink);
 }
@@ -915,7 +831,7 @@ input:focus-visible {
 }
 
 .reader-metric-symbol {
-  font: 400 1rem/1 "Segoe UI Symbol", "DejaVu Sans", sans-serif;
+  font: 400 1rem/1 var(--font-metric);
   letter-spacing: .02em;
 }
 
@@ -935,7 +851,7 @@ input:focus-visible {
 .reader-source-note {
   margin: 0;
   color: var(--aqua-dark);
-  font: 600 .66rem/1.25 Spectral, Georgia, serif;
+  font: 600 .66rem/1.25 var(--font-editorial);
   white-space: nowrap;
 }
 
@@ -1023,7 +939,7 @@ input:focus-visible {
   gap: 1rem;
   margin: 0 0 2rem;
   color: var(--aqua-dark);
-  font: 600 .95rem/1.4 Spectral, Georgia, serif;
+  font: 600 .95rem/1.4 var(--font-editorial);
   letter-spacing: .015em;
 }
 
@@ -1055,7 +971,7 @@ input:focus-visible {
   border-radius: 6px;
   background: rgba(255, 255, 255, .94);
   color: var(--aqua-dark);
-  font: 600 .86rem/1.4 Spectral, Georgia, serif;
+  font: 600 .86rem/1.4 var(--font-editorial);
   letter-spacing: .015em;
 }
 
@@ -1082,7 +998,7 @@ input:focus-visible {
 
 .tei-line-number {
   color: var(--aqua-dark);
-  font: 600 .7rem/1.4 Spectral, Georgia, serif;
+  font: 600 .7rem/1.4 var(--font-editorial);
   letter-spacing: .015em;
   text-align: right;
   white-space: nowrap;
@@ -1095,7 +1011,7 @@ input:focus-visible {
 
 .tei-line-text {
   display: block;
-  font: 400 clamp(1.12rem, 1.6vw, 1.35rem)/1.65 "GFS Didot", serif;
+  font: 400 clamp(1.12rem, 1.6vw, 1.35rem)/1.65 var(--font-greek);
   overflow-wrap: anywhere;
 }
 
@@ -1111,24 +1027,26 @@ input:focus-visible {
   font: inherit;
   line-height: inherit;
   text-decoration: none;
-  transition: background .15s, box-shadow .15s, color .15s;
+  transition: background .15s, box-shadow .15s, color .15s, transform .15s;
 }
 
-.tei-lexicon-token:hover {
+.tei-lexicon-token:hover,
+.tei-lexicon-token:active {
   background: rgba(103, 210, 238, .22);
   color: var(--aqua-dark);
 }
 
-.tei-lexicon-token:focus-visible {
-  outline: 0;
-  box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--aqua-dark);
-}
 
 .tei-lexicon-token.is-lexicon-match {
   border-bottom-color: transparent;
   background: #fff0a8;
   box-shadow: 0 0 0 2px #fff0a8;
   color: var(--ink);
+}
+
+.tei-lexicon-token:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--aqua-dark);
 }
 
 .tei-line.is-shared-verse[data-shared-offset="quarter"] .tei-line-body {
@@ -1162,14 +1080,14 @@ input:focus-visible {
 
 .tei-metric-label {
   color: var(--aqua-dark);
-  font: 600 .66rem/1.35 Spectral, Georgia, serif;
+  font: 600 .66rem/1.35 var(--font-editorial);
   letter-spacing: .015em;
   white-space: nowrap;
 }
 
 .tei-metric-notation {
   color: var(--ink-soft);
-  font: 400 .92rem/1.35 "Segoe UI Symbol", "DejaVu Sans", sans-serif;
+  font: 400 .92rem/1.35 var(--font-metric);
   letter-spacing: .08em;
   white-space: nowrap;
 }
@@ -1194,7 +1112,7 @@ input:focus-visible {
   inset-inline-start: 0;
   color: var(--aqua);
   content: "↳";
-  font: 600 .8rem/1.35 Spectral, Georgia, serif;
+  font: 600 .8rem/1.35 var(--font-editorial);
 }
 
 .tei-line-metric.is-shared-continuation .tei-metric-label {
@@ -1208,7 +1126,7 @@ input:focus-visible {
 
 .tei-line.is-gap .tei-line-text {
   color: var(--muted);
-  font: italic 400 .86rem/1.65 Spectral, Georgia, serif;
+  font: italic 400 .86rem/1.65 var(--font-editorial);
 }
 
 .tei-line.is-target {
@@ -1259,7 +1177,7 @@ input:focus-visible {
 .reader-lexicon-heading p {
   margin: 0;
   color: var(--aqua-dark);
-  font: 700 .7rem/1.2 Spectral, Georgia, serif;
+  font: 700 .7rem/1.2 var(--font-editorial);
   letter-spacing: .06em;
   text-transform: uppercase;
 }
@@ -1285,7 +1203,7 @@ input:focus-visible {
 .reader-lexicon-card h3 {
   margin: .7rem 0 .1rem;
   color: var(--ink);
-  font: 400 2rem/1.15 "GFS Didot", serif;
+  font: 400 2rem/1.15 var(--font-greek);
 }
 
 .reader-lexicon-form {
@@ -1310,7 +1228,7 @@ input:focus-visible {
 
 .reader-lexicon-details dt {
   color: var(--aqua-dark);
-  font: 700 .68rem/1.45 Spectral, Georgia, serif;
+  font: 700 .68rem/1.45 var(--font-editorial);
 }
 
 .reader-lexicon-details dd {
@@ -1322,7 +1240,7 @@ input:focus-visible {
 
 #lexicon-card-lemma {
   color: var(--ink);
-  font: 400 1.05rem/1.35 "GFS Didot", serif;
+  font: 400 1.05rem/1.35 var(--font-greek);
 }
 
 .reader-lexicon-actions {
@@ -1345,7 +1263,7 @@ input:focus-visible {
   padding: .7rem .85rem;
   border-radius: 100px;
   cursor: pointer;
-  font: 700 .68rem/1.2 Spectral, Georgia, serif;
+  font: 700 .68rem/1.2 var(--font-editorial);
   text-align: center;
 }
 
@@ -1382,7 +1300,7 @@ input:focus-visible {
 
 .reader-empty span {
   color: var(--line);
-  font: 400 4.5rem/1 "GFS Didot", serif;
+  font: 400 4.5rem/1 var(--font-greek);
 }
 
 .reader-empty p {
@@ -1432,7 +1350,7 @@ input:focus-visible {
   color: var(--ink);
 }
 
-.button-light:hover {
+.button-light:where(:not(:disabled)):is(:hover, :focus-visible) {
   background: var(--paper);
 }
 
@@ -1441,7 +1359,7 @@ input:focus-visible {
   color: var(--white);
 }
 
-.button-dark:hover {
+.button-dark:where(:not(:disabled)):is(:hover, :focus-visible) {
   background: var(--ink-deep);
 }
 
@@ -1507,32 +1425,10 @@ input:focus-visible {
     min-height: 68px;
   }
 
-  .menu-toggle {
-    display: inline-flex;
-    margin-right: .5rem;
-    margin-left: auto;
-  }
 
-  .work-nav-links {
-    position: absolute;
-    top: 68px;
-    right: 0;
-    left: 0;
-    display: none;
-    flex-direction: column;
-    gap: 0;
-    padding: .75rem 1rem;
-    background: var(--ink);
-    box-shadow: 0 18px 32px rgba(8, 40, 68, .22);
-  }
+  .work-nav-links { box-shadow: 0 18px 32px rgba(8, 40, 68, .22); }
 
-  .work-nav-links.is-open {
-    display: flex;
-  }
 
-  .work-nav-links a {
-    padding: .8rem 0;
-  }
 
   .nav-action {
     justify-content: center;
@@ -1843,7 +1739,7 @@ input:focus-visible {
     grid-column: 1 / -1;
   }
 
-  .term-item:hover {
+  .term-item:is(:hover, :focus-within) {
     transform: translateY(-3px) scale(1.025);
   }
 
@@ -1865,4 +1761,18 @@ input:focus-visible {
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
+}
+
+/* L'ingrandimento non cambia la disposizione dei versi e resta escluso su touch. */
+@media (hover: hover) and (pointer: fine) {
+  .tei-lexicon-token:hover { transform: scale(1.06); }
+}
+
+/* Il titolo italiano deve restare nella colonna anche su tablet. */
+@media (min-width: 761px) and (max-width: 1280px) {
+  .hero-layout { gap: 3rem; }
+}
+@media (min-width: 761px) and (max-width: 980px) {
+  .hero-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
+  .work-hero h1 { font-size: clamp(3.05rem, 6.4vw, 4rem); }
 }

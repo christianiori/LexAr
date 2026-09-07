@@ -122,14 +122,46 @@ pagina-opera.
 
 ## Fase 3 — Creare il sistema visivo comune
 
+Avviata il 7 settembre 2026, su richiesta del responsabile del progetto,
+in parallelo alla revisione filologica ancora aperta dei vv. 1–46.
+La fase 2 non viene dichiarata chiusa e nessuna scansione viene promossa
+a verificata con questo intervento.
+
+Primo intervento: `style/shared.css` raccoglie palette, font del corpo,
+reset di base e stili di Cerca e del pulsante menu. Restano locali il bordo
+della Home e l'ombra degli Acarnesi, per conservare la grafica approvata.
+`script/navigation.js` gestisce il menu di Home, Progetto, Catalogo e Acarnesi
+(apertura, Escape, uscita del focus, clic esterno e cambio di breakpoint).
+Il menu usa gli stessi quattro collegamenti su desktop e mobile e il limite
+già esistente di 760px; i breakpoint dei contenuti restano da armonizzare.
+Secondo intervento: condivisi base dei pulsanti Home/Acarnesi, struttura
+dei footer Home/Progetto/Catalogo e motivo decorativo delle card. Centralizzate
+le famiglie tipografiche dei titoli, del greco e della notazione metrica,
+le larghezze dei contenitori e i colori dei footer. Dimensioni dei titoli,
+varianti delle card e griglia del footer Acarnesi restano specifiche di pagina.
+La struttura e i criteri di riuso sono documentati in `docs/CSS_SYSTEM.md`.
+
+Terzo intervento sulle quattro pagine pilota: focus comune adattato ai fondi,
+stati equivalenti per mouse e tastiera, sezione corrente sottolineata nel menu
+e controlli nativi disabilitati distinguibili. Il focus resta visibile anche
+sulle parole con occorrenze evidenziate. Le pagine legacy restano da migrare;
+le checkbox relative a tutte le pagine restano aperte.
+
+Quarto intervento: soglie comuni a 480/760/980/1280px, con eccezioni
+documentate a 900px (Progetto) e 1040px (card Catalogo). Corretti i titoli
+compressi su tablet e i filtri sovrapposti; il pannello mobile chiuso non
+entra più nel percorso di Tab. Menu e footer mobili usano regole condivise.
+
 ### Fondamenta grafiche
 
 - [ ] Centralizzare colori, font, spaziature, bordi e ombre in variabili CSS.
 - [ ] Creare stili comuni per navigazione, pulsanti, titoli, card e footer.
-- [ ] Definire stati coerenti per hover, focus, pagina corrente e disabilitato.
+- [x] Definire stati coerenti per hover, focus, pagina corrente e disabilitato
+  nelle quattro pagine pilota (Home, Progetto, Catalogo, Acarnesi).
 - [ ] Ridurre le regole duplicate fra `home.css`, `intro.css`, `catalogo.css` e
   `work.css` senza alterare le pagine già approvate.
-- [ ] Stabilire breakpoint condivisi per mobile, tablet e desktop.
+- [x] Stabilire breakpoint condivisi per mobile, tablet e desktop,
+  documentando le eccezioni necessarie alla composizione approvata.
 
 ### Navigazione
 

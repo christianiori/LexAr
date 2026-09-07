@@ -85,7 +85,7 @@ def load_public_payloads() -> tuple[list[dict], list[dict]]:
 
 
 def check_lexicon_links(errors: list[str]) -> None:
-    vocabulary_html = (ROOT / "lessico/vocaboli.html").read_text()
+    vocabulary_html = (ROOT / "lessico/vocaboli.html").read_text(encoding="utf-8")
     headwords = {
         normalise(re.sub(r"<[^>]+>", "", value))
         for value in re.findall(r'<div class="term"[^>]*>\s*<b>(.*?)</b>', vocabulary_html)
@@ -143,10 +143,10 @@ def main() -> int:
         ):
             errors.append("frammento condiviso dei vv. 1233–1234 non riconosciuto")
 
-    reader_html = (ROOT / "item/acarnesi.html").read_text()
-    reader_script = (ROOT / "script/work.js").read_text()
-    navigation_script = (ROOT / "script/intro.js").read_text()
-    shared_script = (ROOT / "script/script.js").read_text()
+    reader_html = (ROOT / "item/acarnesi.html").read_text(encoding="utf-8")
+    reader_script = (ROOT / "script/work.js").read_text(encoding="utf-8")
+    navigation_script = (ROOT / "script/navigation.js").read_text(encoding="utf-8")
+    shared_script = (ROOT / "script/script.js").read_text(encoding="utf-8")
     for expected in (
         'id="verse-jump" novalidate',
         'aria-describedby="reader-jump-status"',
