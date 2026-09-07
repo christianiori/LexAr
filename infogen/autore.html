@@ -1,180 +1,131 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
-	<head>
-		<title>LexAr-Il lessico nelle commedie aristofanee</title>
-		<link rel="icon" type="image/x-icon" href="../img/aristofane.jpg">
-		<meta charset="UTF-8"  />
-		<meta name="description" content="Sito dedicato al lessico di Aristofane"  />
-		<meta name="keywords" content="Commedie, Autore, testi" />
-		<meta name="author" content="Christian Iori"  />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="DC.Title" content="Pagina su Aristofane">
-		<meta name="DC.Creator" content="Christian Iori">
-		<meta name="DC.Subject" content="Informazioni biografiche e storiche">
-		<meta name="DC.Subject" content="Aristofane">
-		<meta name="DC.Description" content="Raccolta di testi di Aristofane in formato digitale">
-		<meta name="DC.Publisher" content="Università di Bologna">
-		<meta name="DC.Date" content="2024">
-		<meta name="DC.Type" content="Text">
-		<meta name="DC.Format" content="HTML">
-		<meta name="DC.Identifier" content="tbd">
-		<meta name="DC.Coverage" content="Bologna">
-		<link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"   />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-		<link rel="stylesheet" type="text/css" href="../style/style.css" />
-		<script src="../script/script.js" defer></script>
-	</head>
-	<body class="vocab">
-		<!--Navbar !-->
-		<nav class="navbar navbar-expand-lg navbar-light desktop-navbar d-none d-lg-flex">
-  			<div class="container-fluid">
-  				<a class="navbar-brand" href="#">LexAr</a>
-  				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-  				<span class="navbar-toggler-icon"></span>
-				</button>
-    			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-      				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        				<li class="nav-item">
-          				<a class="nav-link" aria-current="page" href="../index.html">Home</a>
-        				</li>
-        				<li class="nav-item">
-          				<a class="nav-link" href="intro.html">Introduzione</a>
-        				</li>
-        				<li class="nav-item">
-          				<a class="nav-link" href="timeline.html">Linea del tempo</a>
-        				</li>
-        				<li class="nav-item">
-          				<a class="nav-link paginacorrente" href="autore.html">Autore</a>
-        				</li>
-        				<li class="nav-item">
-          				<a class="nav-link" href="glossario.html">Glossario</a>
-        				</li>
-        				<li class="nav-item dropdown">
-          					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            				Lessico
-          					</a>
-          					<ul class="dropdown-menu">
-          						<li><a class="dropdown-item" href="../lessico/lessicogen.html">Lessico generale</a></li>
-            					<li><a class="dropdown-item" href="../lessico/vocaboli.html">Tutti i vocaboli</a></li>
-            					<li><a class="dropdown-item" href="../lessico/lesamb.html">Esplora per campo semantico</a></li>
-            					<li><a class="dropdown-item" href="../lessico/radici.html">Esplora per radice</a></li>
-          					</ul>
-        				</li>
-        				<li class="nav-item dropdown">
-          					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            				Testi
-          					</a>
-          					<ul class="dropdown-menu">
-            					<li><a class="dropdown-item" href="../item/pluto.html">Ultimo testo inserito</a></li>
-            					<li><a class="dropdown-item" href="../catalogo/catalogo1.html">Catalogo testi</a></li>
-          					</ul>
-        				</li>
-      				</ul>
-    			</div>
-  			</div>
-		</nav>
-		<button id="toggleMenu" class="toggle-button mobile-navbar d-lg-none">
-            <span>&#9664;</span>
-        </button>
-		<div class="sidebar" id="mobileSidebar">
-            <ul class="navbar-nav">
-            	<li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="intro.html">Introduzione</a></li>
-                <li class="nav-item"><a class="nav-link" href="timeline.html">Linea del tempo</a></li>
-                <li class="nav-item"><a class="nav-link" href="autore.html">Autore</a></li>
-                <li class="nav-item"><a class="nav-link" href="glossario.html">Glossario</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link paginacorrente dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Lessico
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="../lessico/lessicogen.html">Lessico generale</a></li>
-                        <li><a class="dropdown-item" href="../lessico/vocaboli.html">Tutti i vocaboli</a></li>
-                        <li><a class="dropdown-item" href="../lessico/lesamb.html">Campo semantico</a></li>
-                        <li><a class="dropdown-item" href="../lessico/radici.html">Radice</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="../catalogo/catalogo1.html">Catalogo testi</a></li>
-            </ul>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aristofane: dati biografici, carriera e stile nella prospettiva di LexAr.">
+  <meta name="author" content="Christian Iori">
+  <title>Aristofane — Autore | LexAr</title>
+  <link rel="icon" type="image/x-icon" href="../img/aristofane.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Marck+Script&family=Poppins:wght@400;500;600;700&family=Spectral:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="../style/shared.css">
+  <link rel="stylesheet" href="../style/autore.css">
+  <script src="../script/navigation.js" defer></script>
+</head>
+<body class="author-page">
+  <a class="skip-link" href="#contenuto">Salta al contenuto</a>
+  <header class="author-header">
+    <nav class="author-nav" aria-label="Navigazione principale">
+      <a class="author-brand" href="../index.html" aria-label="LexAr, home">LexAr</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principale" aria-label="Apri il menu"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+      <div class="author-nav-links" id="menu-principale">
+        <a href="../index.html">Home</a>
+        <a href="intro.html">Il progetto</a>
+        <a aria-current="page" href="autore.html">Autore</a>
+        <a href="../catalogo/catalogo1.html">Opere</a>
+        <a href="../lessico/lessicogen.html">Lessico</a>
+      </div>
+      <a class="nav-action" href="../lessico/vocaboli.html"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Cerca</a>
+    </nav>
+  </header>
+  <main id="contenuto">
+    <section class="author-hero" aria-labelledby="author-title">
+      <div class="hero-pattern" aria-hidden="true"></div>
+      <div class="author-shell author-hero-grid">
+        <div class="author-hero-copy">
+          <h1 id="author-title">Aristofane<br><em>tra scena e parola.</em></h1>
+          <p class="hero-lead">Una guida all’autore delle commedie che LexAr mette in relazione con testi, lessico e contesto.</p>
         </div>
-		<div class="container-fluid text-center">
-  			<div class="row">
-    			<div class="col-lg-2 colonnasx d-none d-md-block">
-      				<ul class="breadcrumb">
-  						<li><a href="../index.html">Home</a></li>
-  						<li>Autore</li>
-					</ul>
-					<div class="card cardhome mb-3">
-  						<img src="../img/meandro.png" class="card-img-top" alt="Introduzione">
-  						<div class="card-body">
-  							<p class="card-text">Vuoi sapere di più sul progetto?</p>
-    						<a href="intro.html" class="btn btn-info">Vai all'introduzione</a>
-    					</div>
-    				</div>
-    				<div class="card cardhome mb-3">
-  							<img src="../img/alfa.png" class="card-img-top" alt="alfaomega"style="object-position: center 10%;">
-  						<div class="card-body">
-  						<p class="card-text">Scopri di più sul lessico aristofaneo</p>
-    						<a href="../lessico/lessicogen.html" class="btn btn-info">Vai a Lessico generale</a>
-    					</div>
-    				</div>
-    				<div class="card cardhome mb-3">
-  							<img src="../img/libro.jpg" class="card-img-top" alt="libro">
-  						<div class="card-body">
-  						<p class="card-text">Visualizza il catalogo delle opere</p>
-    						<a href="../catalogo/catalogo1.html" class="btn btn-info">Vai a Catalogo testi</a>
-    					</div>
-    				</div>
-  				</div>
-  				<div class="col-lg-10 col-sm-12 colonnadx">
-  					<div>
-  						<h1 style="font-family: 'Marck Script', cursive; font-size:5rem">L'autore</h1>
-  					</div>
-  					<div>
-  						<img src="../img/aristofane2.jpg" class="imgaut">
-  						<br></br>
-  					</div>
-  					
-  					<div class="metadati">
-  						<h2 style="font-family: 'Marck Script', cursive; font-size:4rem">Aristofane</h2>
-  							<h4 style="font-family: 'Marck Script', cursive; font-size:2rem">Dati biografici</h4>
-  								<p>Le notizie biografiche riguardanti Aristofane sono per la maggior parte frutto di congetture degli studiosi sulla base della sua produzione oppure ricavate dai testi stessi delle sue commedie e, come tali, da prendere con le pinze. Aristofane nasce sicuramente nel demo di Cidateneo, ad Atene, da Filippo e madre ignota; la data di nascita è spesso posta dagli studiosi tra il 451/450 e 445/444, in base all'età minima necessaria per poter allestire il coro (20 anni) e al fatto che Aristofane dice di aver indugiato un poco nel debuttare da drammaturgo(<i>Cav</i> vv.515-516). La datazione del 450 sembrerebbe preferibile anche per incastrare meglio il dato della calvizie precoce di cui l'autore avrebbe già sofferto nella messinscena dei <a href="../item/cavalieri.html"><i>Cavalieri</i></a> e che viene più volte sottolineata nei suoi testi(<a href="../item/cavalieri.html"><i>Cav</i></a> v.550, <a href="../item/pace.html"><i>Pax</i></a> vv. 767-774, <a href="../item/nuvole.html"><i>Nu</i></a> vv. 545-548). Dalla parabasi degli <a href="../item/acarnesi.html"><i>Acarnesi</i></a> si può anche ricavare che, forse, Aristofane avesse possedimenti ad Egina, ma senza prove documentarie è difficile valutare la veridicità dell'affermazione. Ebbe due figli, Ararote e Filippo, entrambi commediografi come il padre: al primo, inoltre, sappiamo che affidò la messinscena delle sue ultime due opere, il <i>Cocalo</i> e l'<i>Eolosicone</i>. Sapendo che l'ultima commedia ottenne la vittoria nel 387/386, è ragionevole pensare che il poeta fosse morto poco dopo, nel 385 circa.
-  								</p>
-  							<h4 style="font-family: 'Marck Script', cursive; font-size:2rem">Carriera</h4>
-  								<p>Le fonti antiche ci testimoniano a nome di Aristofane quarantaquattro commedie, ma a noi son giunti quarantasei titoli e, di queste, quattro opere sono ritenute dubbie perlomeno secondo gli antichi esegeti; undici sono le <a href="../catalogo/catalogo1.html">commedie</a> che ci son giunte integre, delle altre rimangono numerosi frammenti, anche se per la maggior parte di breve estensione. Aristofane inizia la sua carriera, come lui stesso ammette nelle <a href="../item/vespe.html"><i>Vespe</i></a>(vv.1016-1025), prestando la propria penna ad altri registi(quali Callistrato e Filonide), dando loro il merito delle sue prime opere; gli studiosi pongono questo periodo nella gioventù di Aristofane, chi tra i <i>Banchettanti</i> del 427 e i <a href="../item/cavalieri.html"><i>Cavalieri</i></a> del 424, chi ancora prima del 427, visto che ci sono accenni alla notorietà del poeta nei <a href="../item/cavalieri.html"><i>Cavalieri</i></a> stessi e negli <a href="../item/acarnesi.html"><i>Acarnesi</i></a>. Già nella seconda commedia da lui firmata, i <i>Babilonesi</i>(426), anche se sotto la regia di Callistrato, emerge chiaramente il carattere politico e polemico di Aristofane: sebbene la trama non sia ricostruibile in pieno, siamo certi che il Coro fosse fatto di schiavi orientali; si tratta di una chiara rappresentazione del trattamento che Atene aveva appena riservato ai Mitilinesi nel 427, sotto il comando di Cleone. Questo attacco a Cleone e ai metodi ingiusti di un'Atene già imperialista, porta Cleone stesso ad istituire un processo contro il poeta, processo che ci viene citato da Aristofane negli <a href="../item/acarnesi.html"><i>Acarnesi</i></a> e che, probabilmente, si risolse con la sua assoluzione. Gli attacchi a Cleone, con cui, fra l'altro, condivide il demo di nascita, si ritrovano in altre opere successive, come i <a href="../item/cavalieri.html"><i>Cavalieri</i></a> e le <a href="../item/vespe.html"><i>Vespe</i></a>. La polemica politica non è però l'unico tema che contraddistingue l'inizio della carriera di Aristofane: più volte il poeta si trova coinvolto in accuse squisitamente letterarie da parte di Cratino ed Eupoli, i suoi principali avversari. Nella <i>Damigiana</i> di Cratino, Cratino accusa Aristofane di essersi avvalso dell'aiuto di Eupoli nella stesura dei <a href="../item/cavalieri.html"><i>Cavalieri</i></a>, notizia confermata e ingigantita da Eupoli stesso nei <i>Battezzatori</i>. Aristofane risponde alle accuse nelle <a href="../item/nuvole.html"><i>Nuvole</i></a>, insinuando che Eupoli nel <i>Maricante</i> avesse riadattato in malo modo i <a href="../item/cavalieri.html"><i>Cavalieri</i></a>, rincarando poi la dose nel fr.58 dell'<i>Anagiro</i>, dicendo che Eupoli ha fatto "di un solo mantello" (i <a href="../item/cavalieri.html"><i>Cavalieri</i></a>) "tre camiciotti" (<i>Maricante</i>, <i>Adulatori</i> e <i>Autolico</i>). Un cambiamento importante nella produzione di Aristofane si può individuare dopo la composizione della <a href="../item/pace.html"><i>Pace</i></a> del 421. Nel contesto della Guerra del Peloponneso, nel 422 ad Anfipoli erano morti sia Cleone che Brasida, i due sostenitori maggiori della guerra: si può immaginare, quindi, come nella <a href="../item/pace.html"><i>Pace</i></a> ci sia un vero e proprio trionfo delle idee favorevoli alla tregua con Sparta, che prima erano soltanto di sottofondo. Solo qualche giorno dopo la rappresentazione di quest'opera, infatti, si ebbe la ratifica della pace di Nicia e ciò ben mostra l'umore e il parere della gente comune. Quando Sparta violerà, poi, i trattati di pace nel 413, conquistando e fortificando Decelea, il clima pacifista che ad Atene si era già pian piano affievolito per vari dissapori, si dissolse del tutto. La <a href="../item/pace.html"><i>Pace</i></a> rappresenta, perciò, l'ultima commedia  di Aristofane in cui si respira il pacifismo e la spinta alla riconciliazione che fino ad allora avevano caratterizzato il suo lavoro. Di questo clima differente risente la seconda parte della sua produzione e carriera: le quattro commedie (integre) che fanno parte di  questa seconda fase, <a href="../item/uccelli.html"><i>Uccelli</i></a>, <a href="../item/lisistrata.html"><i>Lisistrata</i></a>, <a href="../item/tesmoforie.html"><i>Donne alle Tesmoforie</i></a> e <a href="../item/rane.html"><i>Rane</i></a> hanno tutte ambientazioni o temi che permettano la fuga dai problemi del mondo ateniese. Gli <a href="../item/uccelli.html"><i>Uccelli</i></a>, nello specifico contiene riferimenti chiari alla spedizione in Sicilia del 415, ma questa volta la spedizione è rivolta alla fondazione di una città simile ad Atene, ma purgata dei mali e situata nel cielo, Nubicuculia. La guerra è ancora lo sfondo della <a href="../item/lisistrata.html"><i>Lisistrata</i></a> nel 411, mentre man mano che la disfatta ateniese si fa più vicina e sicura, i riferimenti ai mali della guerra spariscono sia nelle <a href="../item/tesmoforie.html"><i>Donne alle Tesmoforie</i></a> del 411 che nelle <a href="../item/rane.html"><i>Rane</i></a> del 405 dove il setting si sposta negli Inferi in una gara di versi tra due grandi poeti tragici, Eschilo ed Euripide. Dopo la sconfitta totale di Atene nel 404 e con il nuovo regime politico, inizia un nuovo modo di far commedia ed Aristofane lo recepisce: le commedie della sua ultima fase abbandonano l'impegno politico che tanto aveva caratterizzato il poeta all'inizio. Sia le <a href="../item/donne.html"><i>Donne al Parlamento</i></a> che il <a href="../item/pluto.html"><i>Pluto</i></a> rappresentano temi parodistici ed utopistici, e, inoltre da quel che sappiamo, anche il <i>Cocalo</i> e l'<i>Eolosicone</i> hanno temi mitologici, lontani dalla vita politica di Atene.
-  								<br></br><a href="../catalogo/catalogo1.html" class="btn btn-info">Vai al Catalogo testi</a></p>
-  								
-  							<h4 style="font-family: 'Marck Script', cursive; font-size:2rem">Stile</h4>
-  								<p>Lo stile di Aristofane, perlomeno dalle commedie e dai frammenti che ci sono giunti, riproduce per lo più il registro ed il lessico utilizzati dal popolo nell'Atene del V sec., soprattutto nei dialoghi dei personaggi di umile origine, e.g. Diceopoli negli <a href="../item/acarnesi.html"><i>Acarnesi</i></a>. Mimare il lessico utilizzato dal popolo, anche quando volgare o rozzo, permette di aumentare il realismo della rappresentazione e dell'umanizzazione dei personaggi, li rende più concreti e legati ai tempi e luoghi raccontati; gli stratagemmi utilizzati per rendere la lingua popolare sono principalmente l'utilizzo dei significati concreti dei termini polivalenti, l'utilizzo di termini specifici solo quando legati alla professione di chi parla o alla sua classe sociale, l'utilizzo molto raro di metafore, astrazioni e concetti sottili, l'utilizzo di un lessico genericamente rozzo e legato a regionalismi o dialettismi (e.g. il Megarese negli <a href="../item/acarnesi.html"><i>Acarnesi</i></a>). Il mimetismo della lingua colloquiale, però, non esclude, e, anzi, mette in luce l'uso frequente di calchi e parodie dello stile o di specifici versi di poeti tragici: la paratragedia è un meccanismo tipico dei comici che Aristofane sfrutta tantissimo soprattutto nei confronti di Euripide (e.g. nelle <a href="../item/tesmoforie.html"><i>Donne alle Tesmoforie</i></a>). Riportare versi tragici, con un lessico arcaizzante ed un tono epico ed alto in un contesto quotidiano e basso è una strategia per suscitare una risata negli ascoltatori più attenti che riconoscono i riferimenti: quando Aristofane cita versi di Eschilo, Sofocle ed Euripide, fa leva sulla capacità del pubblico di riconoscere i riferimenti e il ribaltamento di significato che il nuovo contesto produce; in questo contesto, Aristofane usa termini arcaizzanti, a volte con una patina dorizzante, con significati astrusi o antichi, echi omerici, sintassi complesse e lontane dal parlato comune. Una delle figure retoriche più utilizzate da Aristofane per suscitare risate è, poi, l'aprosdoketon, la battuta a sorpresa che spiazza e sconvolge le aspettative del pubblico: ve ne sono di più tipi, dalla sostituzione di una parola in un verso formulario, al sovvertimento improvviso di una situazione topica (e.g. l'ostaggio negli <a href="../item/acarnesi.html"><i>Acarnesi</i></a>), al cambiamento subitaneo strutturale di un dialogo(e.g. la ripetizione interrotta sempre negli <a href="../item/acarnesi.html"><i>Acarnesi</i></a>). Oltre all'utilizzo di figure retoriche come l'aprosdoketon, Aristofane conia un gran numero di neologismi da adattare alle singole situazioni: spesso, per un maggior effetto comico, il poeta crea parole nuove seguendo pedissequamente gli stilemi grammaticali della lingua greca: la maggior parte dei neologismi sono parole composte coniate tramite l'usuale meccanismo di formazione dei composti (e.g. "kompolakythos" negli <a href="../item/acarnesi.html"><i>Acarnesi</i></a>) che uniscono due o più concetti in uno.<br></br><a href="../lessico/lessicogen.html" class="btn btn-info">Vai a Lessico generale</a>
-  								</p>
-  								
-  					</div>
-  				</div>
-  			</div>
-  		</div>
+      </div>
+    </section>
+    <section class="author-facts" aria-label="Dati sintetici">
+      <div class="author-shell facts-grid">
+        <div><strong>ca. 450</strong><span>anno di nascita</span></div>
+        <div><strong>Atene</strong><span>demo di Cidateneo</span></div>
+        <div><strong>44</strong><span>commedie nelle fonti antiche</span></div>
+        <div><strong>11</strong><span>opere conservate integralmente</span></div>
+      </div>
+    </section>
+    <section class="author-content" aria-labelledby="author-content-title">
+      <div class="author-index author-shell">
+        <h2 id="author-content-title">Una vita<br><em>sulla scena.</em></h2>
+        <nav aria-label="Indice della pagina"><ol><li><a href="#dati-biografici">Dati biografici</a></li><li><a href="#carriera">Carriera</a></li><li><a href="#stile">Stile</a></li></ol></nav>
+      </div>
+      <div class="author-sections">        <article class="author-section author-biography author-shell" id="dati-biografici" aria-labelledby="dati-biografici-title">
+          <div class="author-section-heading">
+          <h2 id="dati-biografici-title">Dati biografici</h2>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		<div class="pre-footer"> &#128210; <a class="link" href="#">Credits</a> | <a class="link" href="http://creativecommons.org/licenses/by/4.0/">Licenze</a> &#128210;</div>
-		<footer>
-			<div class="footer">&copy; Christian Iori&#127917; 2024- corso di Digital Humanities e Patrimonio Culturale </div>
-		</footer>
-		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-		<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-	</body>
+          </div>
+          <div class="author-copy"><p>Le notizie biografiche riguardanti Aristofane sono per la maggior parte frutto di congetture degli studiosi sulla base della sua produzione oppure ricavate dai testi stessi delle sue commedie e, come tali, da prendere con le pinze.</p>
+            <p>Aristofane nasce sicuramente nel demo di Cidateneo, ad Atene, da Filippo e madre ignota; la data di nascita è spesso posta dagli studiosi tra il 451/450 e 445/444, in base all'età minima necessaria per poter allestire il coro (20 anni) e al fatto che Aristofane dice di aver indugiato un poco nel debuttare da drammaturgo(<i>Cav</i> vv.515-516). La datazione del 450 sembrerebbe preferibile anche per incastrare meglio il dato della calvizie precoce di cui l'autore avrebbe già sofferto nella messinscena dei <a href="../item/cavalieri.html"><i>Cavalieri</i></a> e che viene più volte sottolineata nei suoi testi(<a href="../item/cavalieri.html"><i>Cav</i></a> v.550, <a href="../item/pace.html"><i>Pax</i></a> vv. 767-774, <a href="../item/nuvole.html"><i>Nu</i></a> vv. 545-548). Dalla parabasi degli <a href="../item/acarnesi.html"><i>Acarnesi</i></a> si può anche ricavare che, forse, Aristofane avesse possedimenti ad Egina, ma senza prove documentarie è difficile valutare la veridicità dell'affermazione.</p>
+            <p>Ebbe due figli, Ararote e Filippo, entrambi commediografi come il padre: al primo, inoltre, sappiamo che affidò la messinscena delle sue ultime due opere, il <i>Cocalo</i> e l'<i>Eolosicone</i>. Sapendo che l'ultima commedia ottenne la vittoria nel 387/386, è ragionevole pensare che il poeta fosse morto poco dopo, nel 385 circa.</p></div>
+        <figure class="author-portrait">
+          <a href="../img/aristofane2.jpg" aria-label="Ingrandisci il busto di Aristofane"><img src="../img/aristofane2.jpg" alt="Busto di Aristofane" width="800" height="1000"></a>
+          <figcaption>Busto di Aristofane, Uffizi · Foto di David Edwards · <a href="https://www.worldhistory.org/image/8492/aristophanes/">Fonte e licenza</a></figcaption>
+        </figure>
+        </article>        <article class="author-section author-career" id="carriera" aria-labelledby="carriera-title">
+          <div class="author-section-heading author-chapter-heading">
+<h2 id="carriera-title">Carriera</h2>
+<figure class="author-chapter-image author-theatre">
+  <a href="../img/teatro-dioniso.jpg" aria-label="Ingrandisci la foto del Teatro di Dioniso"><img src="../img/teatro-dioniso.jpg" width="1200" height="800" loading="lazy" decoding="async" alt="Le gradinate e l’orchestra del Teatro di Dioniso ad Atene"></a>
+  <figcaption>Teatro di Dioniso, Atene · Foto di Rrburke, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a> · <a href="https://commons.wikimedia.org/wiki/File:Theatre_of_Dionysus_1.jpg">Fonte</a></figcaption>
+</figure>
+<div class="author-chapter-intro"><div class="author-overview"><p>Le fonti antiche ci testimoniano a nome di Aristofane quarantaquattro commedie, ma a noi son giunti quarantasei titoli e, di queste, quattro opere sono ritenute dubbie perlomeno secondo gli antichi esegeti; undici sono le <a href="../catalogo/catalogo1.html">commedie</a> che ci son giunte integre, delle altre rimangono numerosi frammenti, anche se per la maggior parte di breve estensione.</p></div></div>
+</div>
+          <div class="author-copy">
+<div class="author-topic"><h3>Gli esordi</h3>
+            <p>Aristofane inizia la sua carriera, come lui stesso ammette nelle <a href="../item/vespe.html"><i>Vespe</i></a>(vv.1016-1025), prestando la propria penna ad altri registi(quali Callistrato e Filonide), dando loro il merito delle sue prime opere; gli studiosi pongono questo periodo nella gioventù di Aristofane, chi tra i <i>Banchettanti</i> del 427 e i <a href="../item/cavalieri.html"><i>Cavalieri</i></a> del 424, chi ancora prima del 427, visto che ci sono accenni alla notorietà del poeta nei <a href="../item/cavalieri.html"><i>Cavalieri</i></a> stessi e negli <a href="../item/acarnesi.html"><i>Acarnesi</i></a>.</p></div>
+<div class="author-topic"><h3>La polemica politica</h3>
+            <p>Già nella seconda commedia da lui firmata, i <i>Babilonesi</i>(426), anche se sotto la regia di Callistrato, emerge chiaramente il carattere politico e polemico di Aristofane: sebbene la trama non sia ricostruibile in pieno, siamo certi che il Coro fosse fatto di schiavi orientali; si tratta di una chiara rappresentazione del trattamento che Atene aveva appena riservato ai Mitilinesi nel 427, sotto il comando di Cleone. Questo attacco a Cleone e ai metodi ingiusti di un'Atene già imperialista, porta Cleone stesso ad istituire un processo contro il poeta, processo che ci viene citato da Aristofane negli <a href="../item/acarnesi.html"><i>Acarnesi</i></a> e che, probabilmente, si risolse con la sua assoluzione. Gli attacchi a Cleone, con cui, fra l'altro, condivide il demo di nascita, si ritrovano in altre opere successive, come i <a href="../item/cavalieri.html"><i>Cavalieri</i></a> e le <a href="../item/vespe.html"><i>Vespe</i></a>.</p></div>
+<div class="author-topic"><h3>Il confronto con Cratino ed Eupoli</h3>
+            <p>La polemica politica non è però l'unico tema che contraddistingue l'inizio della carriera di Aristofane: più volte il poeta si trova coinvolto in accuse squisitamente letterarie da parte di Cratino ed Eupoli, i suoi principali avversari. Nella <i>Damigiana</i> di Cratino, Cratino accusa Aristofane di essersi avvalso dell'aiuto di Eupoli nella stesura dei <a href="../item/cavalieri.html"><i>Cavalieri</i></a>, notizia confermata e ingigantita da Eupoli stesso nei <i>Battezzatori</i>. Aristofane risponde alle accuse nelle <a href="../item/nuvole.html"><i>Nuvole</i></a>, insinuando che Eupoli nel <i>Maricante</i> avesse riadattato in malo modo i <a href="../item/cavalieri.html"><i>Cavalieri</i></a>, rincarando poi la dose nel fr.58 dell'<i>Anagiro</i>, dicendo che Eupoli ha fatto "di un solo mantello" (i <a href="../item/cavalieri.html"><i>Cavalieri</i></a>) "tre camiciotti" (<i>Maricante</i>, <i>Adulatori</i> e <i>Autolico</i>).</p></div>
+<div class="author-topic"><h3>La guerra e la pace</h3>
+            <p>Un cambiamento importante nella produzione di Aristofane si può individuare dopo la composizione della <a href="../item/pace.html"><i>Pace</i></a> del 421. Nel contesto della Guerra del Peloponneso, nel 422 ad Anfipoli erano morti sia Cleone che Brasida, i due sostenitori maggiori della guerra: si può immaginare, quindi, come nella <a href="../item/pace.html"><i>Pace</i></a> ci sia un vero e proprio trionfo delle idee favorevoli alla tregua con Sparta, che prima erano soltanto di sottofondo. Solo qualche giorno dopo la rappresentazione di quest'opera, infatti, si ebbe la ratifica della pace di Nicia e ciò ben mostra l'umore e il parere della gente comune.</p>
+            <p>Quando Sparta violerà, poi, i trattati di pace nel 413, conquistando e fortificando Decelea, il clima pacifista che ad Atene si era già pian piano affievolito per vari dissapori, si dissolse del tutto. La <a href="../item/pace.html"><i>Pace</i></a> rappresenta, perciò, l'ultima commedia di Aristofane in cui si respira il pacifismo e la spinta alla riconciliazione che fino ad allora avevano caratterizzato il suo lavoro.</p></div>
+<div class="author-topic"><h3>La seconda fase</h3>
+<p>Di questo clima differente risente la seconda parte della sua produzione e carriera: le quattro commedie (integre) che fanno parte di questa seconda fase, <a href="../item/uccelli.html"><i>Uccelli</i></a>, <a href="../item/lisistrata.html"><i>Lisistrata</i></a>, <a href="../item/tesmoforie.html"><i>Donne alle Tesmoforie</i></a> e <a href="../item/rane.html"><i>Rane</i></a> hanno tutte ambientazioni o temi che permettano la fuga dai problemi del mondo ateniese. Gli <a href="../item/uccelli.html"><i>Uccelli</i></a>, nello specifico contiene riferimenti chiari alla spedizione in Sicilia del 415, ma questa volta la spedizione è rivolta alla fondazione di una città simile ad Atene, ma purgata dei mali e situata nel cielo, Nubicuculia. La guerra è ancora lo sfondo della <a href="../item/lisistrata.html"><i>Lisistrata</i></a> nel 411, mentre man mano che la disfatta ateniese si fa più vicina e sicura, i riferimenti ai mali della guerra spariscono sia nelle <a href="../item/tesmoforie.html"><i>Donne alle Tesmoforie</i></a> del 411 che nelle <a href="../item/rane.html"><i>Rane</i></a> del 405 dove il setting si sposta negli Inferi in una gara di versi tra due grandi poeti tragici, Eschilo ed Euripide.</p></div>
+<div class="author-topic"><h3>Le ultime commedie</h3>
+            <p>Dopo la sconfitta totale di Atene nel 404 e con il nuovo regime politico, inizia un nuovo modo di far commedia ed Aristofane lo recepisce: le commedie della sua ultima fase abbandonano l'impegno politico che tanto aveva caratterizzato il poeta all'inizio. Sia le <a href="../item/donne.html"><i>Donne al Parlamento</i></a> che il <a href="../item/pluto.html"><i>Pluto</i></a> rappresentano temi parodistici ed utopistici, e, inoltre da quel che sappiamo, anche il <i>Cocalo</i> e l'<i>Eolosicone</i> hanno temi mitologici, lontani dalla vita politica di Atene.</p></div>
+<p class="author-copy-link"><a href="../catalogo/catalogo1.html" class="btn btn-info">Vai al Catalogo testi</a></p></div>
+        </article>        <article class="author-section author-style" id="stile" aria-labelledby="stile-title">
+          <div class="author-section-heading author-chapter-heading"><div class="author-chapter-intro">
+          <h2 id="stile-title">Stile</h2>
+          </div></div>
+          <div class="author-copy"><div class="author-topic author-style-feature"><div class="author-topic-text"><h3>La lingua quotidiana</h3>
+            <p>Lo stile di Aristofane, perlomeno dalle commedie e dai frammenti che ci sono giunti, riproduce per lo più il registro ed il lessico utilizzati dal popolo nell'Atene del V sec., soprattutto nei dialoghi dei personaggi di umile origine, e.g. Diceopoli negli <a href="../item/acarnesi.html"><i>Acarnesi</i></a>.</p>
+            <p>Mimare il lessico utilizzato dal popolo, anche quando volgare o rozzo, permette di aumentare il realismo della rappresentazione e dell'umanizzazione dei personaggi, li rende più concreti e legati ai tempi e luoghi raccontati; gli stratagemmi utilizzati per rendere la lingua popolare sono principalmente l'utilizzo dei significati concreti dei termini polivalenti, l'utilizzo di termini specifici solo quando legati alla professione di chi parla o alla sua classe sociale, l'utilizzo molto raro di metafore, astrazioni e concetti sottili, l'utilizzo di un lessico genericamente rozzo e legato a regionalismi o dialettismi (e.g. il Megarese negli <a href="../item/acarnesi.html"><i>Acarnesi</i></a>).</p></div><figure class="author-chapter-image author-manuscript">
+  <a href="../img/manoscritto-rane.jpg" aria-label="Apri l’immagine del manoscritto delle Rane"><img src="../img/manoscritto-rane.jpg" width="1200" height="1745" loading="lazy" decoding="async" alt="Pagina greca delle Rane con scolii, manoscritto Vaticanus graecus 918"></a>
+  <figcaption>Le <i>Rane</i> con scolii · Vat. gr. 918, f. 116v, 1362 · <a href="https://commons.wikimedia.org/wiki/File:Aristophanes,_The_Frogs,_Vaticanus_graecus_918.jpg">Fonte e pubblico dominio</a></figcaption>
+</figure></div>
+<div class="author-topic"><h3>La parodia tragica</h3>
+            <p>Il mimetismo della lingua colloquiale, però, non esclude, e, anzi, mette in luce l'uso frequente di calchi e parodie dello stile o di specifici versi di poeti tragici: la paratragedia è un meccanismo tipico dei comici che Aristofane sfrutta tantissimo soprattutto nei confronti di Euripide (e.g. nelle <a href="../item/tesmoforie.html"><i>Donne alle Tesmoforie</i></a>).</p>
+            <p>Riportare versi tragici, con un lessico arcaizzante ed un tono epico ed alto in un contesto quotidiano e basso è una strategia per suscitare una risata negli ascoltatori più attenti che riconoscono i riferimenti: quando Aristofane cita versi di Eschilo, Sofocle ed Euripide, fa leva sulla capacità del pubblico di riconoscere i riferimenti e il ribaltamento di significato che il nuovo contesto produce; in questo contesto, Aristofane usa termini arcaizzanti, a volte con una patina dorizzante, con significati astrusi o antichi, echi omerici, sintassi complesse e lontane dal parlato comune.</p></div>
+<div class="author-topic"><h3>La battuta a sorpresa</h3>
+            <p>Una delle figure retoriche più utilizzate da Aristofane per suscitare risate è, poi, l'aprosdoketon, la battuta a sorpresa che spiazza e sconvolge le aspettative del pubblico: ve ne sono di più tipi, dalla sostituzione di una parola in un verso formulario, al sovvertimento improvviso di una situazione topica (e.g. l'ostaggio negli <a href="../item/acarnesi.html"><i>Acarnesi</i></a>), al cambiamento subitaneo strutturale di un dialogo(e.g. la ripetizione interrotta sempre negli <a href="../item/acarnesi.html"><i>Acarnesi</i></a>).</p></div>
+<div class="author-topic"><h3>I neologismi</h3>
+            <p>Oltre all'utilizzo di figure retoriche come l'aprosdoketon, Aristofane conia un gran numero di neologismi da adattare alle singole situazioni: spesso, per un maggior effetto comico, il poeta crea parole nuove seguendo pedissequamente gli stilemi grammaticali della lingua greca: la maggior parte dei neologismi sono parole composte coniate tramite l'usuale meccanismo di formazione dei composti (e.g. "kompolakythos" negli <a href="../item/acarnesi.html"><i>Acarnesi</i></a>) che uniscono due o più concetti in uno.</p></div>
+<p class="author-copy-link"><a href="../lessico/lessicogen.html" class="btn btn-info">Vai a Lessico generale</a></p></div>
+        </article></div>
+    </section>
+    <section class="author-links" aria-labelledby="author-links-title">
+      <div class="author-shell"><h2 id="author-links-title">Dall’autore<br><em>alle opere.</em></h2>
+        <div class="author-link-grid">
+          <a class="author-link-card" href="timeline.html"><strong>Linea del tempo</strong><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+          <a class="author-link-card" href="../catalogo/catalogo1.html"><strong>Catalogo delle opere</strong><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+          <a class="author-link-card" href="../lessico/lessicogen.html"><strong>Lessico generale</strong><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="author-footer">
+    <div class="author-shell footer-content">
+      <a class="footer-brand" href="../index.html">LexAr</a>
+      <p>Lessico nelle commedie aristofanee · Christian Iori</p>
+      <a href="http://creativecommons.org/licenses/by/4.0/">Licenza CC BY 4.0</a>
+    </div>
+  </footer>
+</body>
 </html>

@@ -90,7 +90,7 @@ a { color: inherit; }
 }
 
 /* Il footer degli Acarnesi conserva la sua griglia dedicata. */
-:where(.home-page, .project-page, .catalogue-page) .footer-content {
+:where(.home-page, .project-page, .catalogue-page, .author-page) .footer-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -99,7 +99,8 @@ a { color: inherit; }
 
 .home-footer,
 .project-footer,
-.catalogue-footer {
+.catalogue-footer,
+.author-footer {
   padding: 2rem 0;
   color: var(--footer-paper);
 }
@@ -123,9 +124,9 @@ a { color: inherit; }
   outline-offset: var(--focus-offset);
 }
 
-:where(.home-header, .project-header, .catalogue-header, .work-header,
-       .home-hero, .project-hero, .catalogue-hero, .work-hero,
-       .home-footer, .project-footer, .catalogue-footer, .work-footer,
+:where(.home-header, .project-header, .catalogue-header, .work-header, .author-header,
+       .home-hero, .project-hero, .catalogue-hero, .work-hero, .author-hero,
+       .home-footer, .project-footer, .catalogue-footer, .work-footer, .author-footer,
        .pathway-texts, .pathway-time, .project-section-lead,
        .project-section-dark, .catalogue-controls, .work-analysis) {
   --focus-color: var(--white);
@@ -184,8 +185,14 @@ a { color: inherit; }
   }
   #menu-principale.is-open { display: flex; }
   #menu-principale a { padding: .8rem 0; }
-  :where(.home-page, .project-page, .catalogue-page) .footer-content {
+  :where(.home-page, .project-page, .catalogue-page, .author-page) .footer-content {
     align-items: flex-start;
     flex-direction: column;
   }
+}
+
+/* Five navigation links stay separated on compact desktop widths. */
+@media (min-width: 761px) and (max-width: 980px) {
+  #menu-principale { gap: 1rem; }
+  :is(.home-nav, .project-nav, .catalogue-nav, .work-nav, .author-nav) .nav-action { width: 150px; }
 }
