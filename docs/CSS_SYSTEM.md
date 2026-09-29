@@ -2,7 +2,7 @@
 
 ## Ambito
 
-Home, Il progetto, Catalogo, Acarnesi, Autore e Linea del tempo caricano
+Home, Il progetto, Catalogo, Acarnesi, Autore, Linea del tempo e Glossario caricano
 `style/shared.css` prima del proprio foglio di pagina. Le altre pagine legacy
 saranno migrate nelle fasi successive.
 
@@ -36,12 +36,12 @@ interessate senza aumentare la specificità. Gli override di pagina, caricati
 dopo, mantengono la precedenza. Non importare questi componenti nelle pagine
 legacy senza una verifica della cascata e del layout.
 
-Le sei pagine migrate condividono la stessa sequenza di voci nel menu: Home,
-Il progetto, Linea del tempo, Autore, Opere e Lessico; Cerca resta l'azione
+Le sette pagine migrate condividono la stessa sequenza di voci nel menu: Home,
+Il progetto, Linea del tempo, Autore, Glossario, Opere e Lessico; Cerca resta l'azione
 separata. Il menu mobile riusa lo stesso elenco HTML del desktop. Ogni pagina
 indica la propria sezione con un solo `aria-current="page"`. Le pagine legacy,
-inclusi Glossario, Lessico e le dieci schede non ancora migrate, conservano il
-menu precedente fino alle rispettive fasi di lavoro.
+inclusi Lessico e le dieci schede non ancora migrate, conservano il menu
+precedente fino alle rispettive fasi di lavoro.
 
 ## Stati interattivi
 
@@ -66,7 +66,7 @@ sulla Home, come già avveniva nelle altre pagine.
 
 ## Navigazione e responsive
 
-`script/navigation.js` gestisce il menu delle sei pagine migrate: apertura,
+`script/navigation.js` gestisce il menu delle sette pagine migrate: apertura,
 chiusura con Escape e clic esterno, chiusura dopo la navigazione, aggiornamento
 dell'etichetta accessibile e gestione del focus quando cambia il breakpoint.
 Il limite mobile del menu è 760px, riportato sia nel JavaScript sia nelle
@@ -89,7 +89,7 @@ torna accessibile e il focus non resta su pulsanti diventati invisibili.
 
 1. Confrontare le dichiarazioni complete e la specificità dei selettori.
 2. Conservare le differenze come override nei fogli di pagina.
-3. Confrontare le sei pagine migrate a 360, 768, 1024 e 1440px, comprese
+3. Confrontare le sette pagine migrate a 360, 768, 1024 e 1440px, comprese
    interazioni, menu, focus e riduzione del movimento.
 4. Eseguire `python tools/check_project.py` senza richiedere `PYTHONUTF8`.
 

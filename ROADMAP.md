@@ -152,7 +152,7 @@ documentate a 900px (Progetto) e 1040px (card Catalogo). Corretti i titoli
 compressi su tablet e i filtri sovrapposti; il pannello mobile chiuso non
 entra più nel percorso di Tab. Menu e footer mobili usano regole condivise.
 Chiusura della fase: token visivi e navigazione consolidati in `shared.css`;
-le copie residue del menu sono state rimosse dai fogli pagina. Le sei pagine
+le copie residue del menu sono state rimosse dai fogli pagina. Le sette pagine
 migrate condividono ordine del menu, sezione corrente accessibile e un unico
 elenco di voci per desktop e mobile. Le pagine legacy restano fuori da questa
 fase e saranno migrate nelle fasi successive.
@@ -171,13 +171,13 @@ fase e saranno migrate nelle fasi successive.
 
 ### Navigazione
 
-- [x] Uniformare struttura e ordine delle voci nelle sei pagine migrate.
+- [x] Uniformare struttura e ordine delle voci nelle sette pagine migrate.
 - [x] Evidenziare la sezione corrente con `aria-current="page"`.
 - [x] Riutilizzare lo stesso elenco di voci per menu desktop e mobile.
 - [x] Controllare apertura, chiusura e gestione del focus nel menu mobile.
 
 **Criterio di uscita:** Home, Il progetto, Catalogo, Acarnesi, Autore e Linea
-del tempo condividono il sistema visivo e la navigazione senza regressioni
+del tempo e Glossario condividono il sistema visivo e la navigazione senza regressioni
 responsive. Le pagine legacy saranno migrate nelle fasi successive.
 
 ---
@@ -198,7 +198,8 @@ collegamenti alle undici commedie.
 - [x] **Linea del tempo:** migrare dal layout legacy, mantenendo ricerca,
   cronologia e collegamenti alle undici opere; verificata la ricerca e la resa
   su desktop e mobile.
-- [ ] **Glossario:** migliorare ricerca, leggibilità e collegamenti contestuali.
+- [x] **Glossario:** migliorare ricerca, leggibilità e collegamenti contestuali;
+  aggiunti filtri per ambito, schede espandibili e rimandi alle opere e alle fonti.
 - [ ] **Lessico generale:** trasformarlo nella pagina di accesso ai tre strumenti
   lessicali.
 - [ ] Eliminare breadcrumbs e card laterali superflue dalle pagine rinnovate.
