@@ -151,27 +151,34 @@ Quarto intervento: soglie comuni a 480/760/980/1280px, con eccezioni
 documentate a 900px (Progetto) e 1040px (card Catalogo). Corretti i titoli
 compressi su tablet e i filtri sovrapposti; il pannello mobile chiuso non
 entra più nel percorso di Tab. Menu e footer mobili usano regole condivise.
+Chiusura della fase: token visivi e navigazione consolidati in `shared.css`;
+le copie residue del menu sono state rimosse dai fogli pagina. Le sei pagine
+migrate condividono ordine del menu, sezione corrente accessibile e un unico
+elenco di voci per desktop e mobile. Le pagine legacy restano fuori da questa
+fase e saranno migrate nelle fasi successive.
 
 ### Fondamenta grafiche
 
-- [ ] Centralizzare colori, font, spaziature, bordi e ombre in variabili CSS.
-- [ ] Creare stili comuni per navigazione, pulsanti, titoli, card e footer.
+- [x] Centralizzare i token condivisi per colori, font, spaziature, bordi e
+  ombre in variabili CSS, lasciando locali le varianti approvate delle pagine.
+- [x] Creare stili comuni per navigazione, pulsanti, titoli, card e footer.
 - [x] Definire stati coerenti per hover, focus, pagina corrente e disabilitato
   nelle quattro pagine pilota (Home, Progetto, Catalogo, Acarnesi).
-- [ ] Ridurre le regole duplicate fra `home.css`, `intro.css`, `catalogo.css` e
+- [x] Ridurre le regole duplicate fra `home.css`, `intro.css`, `catalogo.css` e
   `work.css` senza alterare le pagine già approvate.
 - [x] Stabilire breakpoint condivisi per mobile, tablet e desktop,
   documentando le eccezioni necessarie alla composizione approvata.
 
 ### Navigazione
 
-- [ ] Uniformare struttura e ordine delle voci su tutte le pagine.
-- [ ] Evidenziare sempre la sezione corrente con `aria-current="page"`.
-- [ ] Rendere il menu mobile identico per contenuti a quello desktop.
-- [ ] Controllare apertura, chiusura e gestione del focus nel menu mobile.
+- [x] Uniformare struttura e ordine delle voci nelle sei pagine migrate.
+- [x] Evidenziare la sezione corrente con `aria-current="page"`.
+- [x] Riutilizzare lo stesso elenco di voci per menu desktop e mobile.
+- [x] Controllare apertura, chiusura e gestione del focus nel menu mobile.
 
-**Criterio di uscita:** Home, Il progetto, Catalogo e Acarnesi condividono lo
-stesso linguaggio visivo e la stessa navigazione senza regressioni responsive.
+**Criterio di uscita:** Home, Il progetto, Catalogo, Acarnesi, Autore e Linea
+del tempo condividono il sistema visivo e la navigazione senza regressioni
+responsive. Le pagine legacy saranno migrate nelle fasi successive.
 
 ---
 
@@ -180,10 +187,17 @@ stesso linguaggio visivo e la stessa navigazione senza regressioni responsive.
 Procedere una pagina alla volta, completando e verificando ciascuna prima di
 passare alla successiva.
 
-- [ ] **Autore:** aggiornare struttura, immagini, fonti e collegamenti alle
-  opere.
-- [ ] **Linea del tempo:** rendere cronologia e navigazione pienamente
-  responsive.
+Le pagine **Autore** e **Linea del tempo** sono state rinnovate con navigazione
+comune e layout responsive. La timeline conserva ricerca, cronologia e
+collegamenti alle undici commedie.
+
+- [x] **Autore:** aggiornare struttura, immagini, fonti e collegamenti alle
+  opere. Layout editoriale a macrosezioni, palette completa, immagini del busto,
+  Teatro di Dioniso e manoscritto delle *Rane* con didascalie e fonti; voce Autore
+  aggiunta alla navigazione del sito.
+- [x] **Linea del tempo:** migrare dal layout legacy, mantenendo ricerca,
+  cronologia e collegamenti alle undici opere; verificata la ricerca e la resa
+  su desktop e mobile.
 - [ ] **Glossario:** migliorare ricerca, leggibilità e collegamenti contestuali.
 - [ ] **Lessico generale:** trasformarlo nella pagina di accesso ai tre strumenti
   lessicali.

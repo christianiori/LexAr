@@ -1,173 +1,113 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-    <title>LexAr-Il lessico nelle commedie aristofanee</title>
-        <link rel="icon" type="image/x-icon" href="../img/aristofane.jpg">
-        <meta charset="UTF-8"  />
-        <meta name="description" content="Sito dedicato al lessico di Aristofane"  />
-        <meta name="keywords" content="Commedie, lessico, testi" />
-        <meta name="author" content="Christian Iori"  />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="DC.Title" content="Commedie aristofanee">
-        <meta name="DC.Creator" content="Christian Iori">
-        <meta name="DC.Subject" content="Testi drammatici">
-        <meta name="DC.Subject" content="Commedie">
-        <meta name="DC.Description" content="Timeline delle opere di Aristofane">
-        <meta name="DC.Publisher" content="Università di Bologna">
-        <meta name="DC.Date" content="2025">
-        <meta name="DC.Type" content="Text">
-        <meta name="DC.Format" content="HTML">
-        <meta name="DC.Identifier" content="tbd">
-        <meta name="DC.Coverage" content="Bologna">
-        <link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"   />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-        <link rel="stylesheet" type="text/css" href="../style/style.css" />
-        <script src="../script/script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Le commedie conservate di Aristofane in ordine cronologico.">
+  <meta name="author" content="Christian Iori">
+  <title>Linea del tempo | LexAr</title>
+  <link rel="icon" type="image/x-icon" href="../img/aristofane.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@600&family=GFS+Didot&family=Marck+Script&family=Poppins:wght@400;500;600;700&family=Spectral:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="../style/shared.css">
+  <link rel="stylesheet" href="../style/home.css">
+  <link rel="stylesheet" href="../style/timeline.css">
+  <script src="../script/navigation.js" defer></script>
+  <script src="../script/timeline.js?v=20260928-1" defer></script>
 </head>
-<body class="vocab">
-    <nav class="navbar navbar-expand-lg navbar-light desktop-navbar d-none d-lg-flex">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">LexAr</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="intro.html">Introduzione</a></li>
-                    <li class="nav-item paginacorrente"><a class="nav-link" href="timeline.html">Linea del tempo</a></li>
-                    <li class="nav-item"><a class="nav-link" href="autore.html">Autore</a></li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="glossario.html">Glossario</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Lessico</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../lessico/lessicogen.html">Lessico generale</a></li>
-                            <li><a class="dropdown-item" href="../lessico/vocaboli.html">Tutti i vocaboli</a></li>
-                            <li><a class="dropdown-item" href="../lessico/lesamb.html">Esplora per campo semantico</a></li>
-                            <li><a class="dropdown-item" href="../lessico/radici.html">Esplora per radice</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Testi</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../item/pluto.html">Ultimo testo inserito</a></li>
-                            <li><a class="dropdown-item" href="../catalogo/catalogo1.html">Catalogo testi</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form>
-                    <input class="searchInput form-control me-2" style="font-family: 'Poppins', sans-serif;" type="search" placeholder="Fai una ricerca" aria-label="Search">
-                </form>
-            </div>
-        </div>
+<body class="home-page timeline-page">
+  <a class="skip-link" href="#contenuto">Salta al contenuto</a>
+  <header class="home-header">
+    <nav class="home-nav" aria-label="Navigazione principale">
+      <a class="home-brand" href="../index.html" aria-label="LexAr, home">LexAr</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-principale" aria-label="Apri il menu">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
+      <div class="home-nav-links" id="menu-principale">
+        <a href="../index.html">Home</a>
+        <a href="intro.html">Il progetto</a>
+        <a aria-current="page" href="timeline.html">Linea del tempo</a>
+        <a href="autore.html">Autore</a>
+        <a href="../catalogo/catalogo1.html">Opere</a>
+        <a href="../lessico/lessicogen.html">Lessico</a>
+      </div>
+      <a class="nav-action" href="../lessico/vocaboli.html"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Cerca</a>
     </nav>
-                    <button id="toggleMenu" class="toggle-button mobile-navbar d-lg-none">
-                        <span>&#9664;</span>
-                    </button>
-            <div class="sidebar" id="mobileSidebar">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="intro.html">Introduzione</a></li>
-                    <li class="nav-item"><a class="nav-link" href="timeline.html">Linea del tempo</a></li>
-                    <li class="nav-item"><a class="nav-link" href="autore.html">Autore</a></li>
-                    <li class="nav-item"><a class="nav-link" href="glossario.html">Glossario</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link paginacorrente dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Lessico
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../lessico/lessicogen.html">Lessico generale</a></li>
-                            <li><a class="dropdown-item" href="../lessico/vocaboli.html">Tutti i vocaboli</a></li>
-                            <li><a class="dropdown-item" href="../lessico/lesamb.html">Campo semantico</a></li>
-                            <li><a class="dropdown-item" href="../lessico/radici.html">Radice</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="../catalogo/catalogo1.html">Catalogo testi</a></li>
-                </ul>
-            </div>
-            <button class="d-md-none"id="toggleFilters">Ricerca</button>
-        <div class="filter-sidebar d-md-none" id="filterSidebar">
-            <button class="close-btn" id="closeFilterSidebar">✖</button>
-            <h3>Barra di ricerca</h3>
-            <div class="d-flex align-items-center">
-                <input class="searchInput form-control mb-3 me-1" id="search-bar-sidebar" data-bs-toggle="tooltip" title="Cerca il titolo, la data o il concorso di un'opera" type="text" placeholder="Cerca un'opera...">
-                <button class="btn btn-primary mb-3" id="searchButton">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
+  </header>
+  <main id="contenuto">
+    <section class="home-hero" aria-labelledby="timeline-title">
+      <div class="hero-pattern" aria-hidden="true"></div>
+      <div class="home-shell hero-grid">
+        <div class="hero-copy">
+          <h1 id="timeline-title">Linea del<br><em>tempo.</em></h1>
+          <p class="hero-lead">Le commedie conservate integralmente di Aristofane, ordinate secondo la prima rappresentazione.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="autore.html">Conosci l’autore <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+            <a class="button button-dark" href="../catalogo/catalogo1.html">Vai al catalogo</a>
+          </div>
         </div>
-    <h1 style="font-family: 'Marck Script', cursive; font-size: 5rem; text-align: center;">Linea del tempo</h1>
-    <div class="timeline">
-        <ult>
-            <li class="searchable-item mt-3"style="--accent-color:#0d6ca6">
-                <div class="date">425 a.C.</div>
-                <div class="title">Acarnesi</div>
-                <div class="descr">Primo posto alle Lenee.<a class="btn pill" href="../item/acarnesi.html" role="button"><span>Vai al testo</span></a></div>
-            </li>
-            <li class="searchable-item"style="--accent-color:#0d6ca6">
-                <div class="date">424 a.C.</div>
-                <div class="title">Cavalieri</div>
-                <div class="descr">Rappresentata alle Lenee.<a class="btn pill" href="../item/cavalieri.html" role="button"><span>Vai al testo</span></a></div>
-            </li>
-            <li class="searchable-item"style="--accent-color:#0d6ca6">
-                <div class="date">423 a.C.</div>
-                <div class="title">Nuvole</div>
-                <div class="descr">Nuvole I rappresentata alle Lenee del 423, Nuvole II data e concorso incerti.<a class="btn pill" href="../item/nuvole.html" role="button"><span>Vai al testo</span></a></div>
-            </li>
-            <li class="searchable-item"style="--accent-color:#0d6ca6">
-                <div class="date">422 a.C.</div>
-                <div class="title">Vespe</div>
-                <div class="descr">Rappresentata alle Lenee.<a class="btn pill" href="../item/vespe.html">Vai al testo</a></div>
-            </li>
-            <li class="searchable-item"style="--accent-color:#00a3cc">
-                <div class="date">421 a.C.</div>
-                <div class="title">Pace</div>
-                <div class="descr">Rappresentata nel 421, concorso incerto.<a class="btn pill" href="../item/pace.html">Vai al testo</a></div>
-            </li>
-            <li class="searchable-item" style="--accent-color:#0dcaf0">
-                <div class="date">414 a.C.</div>
-                <div class="title">Uccelli</div>
-                <div class="descr">Rappresentata alle Grandi Dionisie.<a class="btn pill" href="../item/uccelli.html">Vai al testo</a></div>
-            </li>
-            <li class="searchable-item"style="--accent-color:#0dcaf0">
-                <div class="date">411 a.C.</div>
-                <div class="title">Donne alle Tesmoforie</div>
-                <div class="descr">Rappresentata alle Grandi Dionisie.<a class="btn pill" href="../item/tesmoforie.html">Vai al testo</a></div>
-            </li>
-            <li class="searchable-item"style="--accent-color:#0d6ca6">
-                <div class="date">411 a.C.</div>
-                <div class="title">Lisistrata</div>
-                <div class="descr">Rappresentata alle Lenee.<a class="btn pill" href="../item/lisistrata.html">Vai al testo</a></div>
-            </li>
-            <li class="searchable-item"style="--accent-color:#0d6ca6">
-                <div class="date">405 a.C.</div>
-                <div class="title">Rane</div>
-                <div class="descr">Primo posto alle Lenee.<a class="btn pill" href="../item/rane.html">Vai al testo</a></div>
-            </li>
-            <li class="searchable-item"class="searchable-item"style="--accent-color:#00a3cc">
-                <div class="date">392/1 a.C.</div>
-                <div class="title">Donne al Parlamento</div>
-                <div class="descr">Rappresentata nel 392/1, concorso incerto.<a class="btn pill" href="../item/donne.html">Vai al testo</a></div>
-            </li>
-            <li class="searchable-item"style="--accent-color:#0d6ca6">
-                <div class="date">388 a.C.</div>
-                <div class="title">Pluto</div>
-                <div class="descr">Rappresentata alle Lenee.<a class="btn pill" href="../item/pluto.html">Vai al testo</a></div>
-            </li>
-        </ult>
+        <aside class="hero-note" aria-label="Arco cronologico">
+          <p class="note-greek">425–388</p>
+          <p>Undici commedie conservate integralmente, dalle prime Lenee alle ultime opere.</p>
+          <a href="../catalogo/catalogo1.html">Consulta le opere <span aria-hidden="true">↗</span></a>
+        </aside>
+      </div>
+    </section>
+    <section class="timeline-content timeline-shell" id="cronologia" aria-labelledby="works-title">
+      <h2 class="timeline-visually-hidden" id="works-title">Esplora le commedie</h2>
+      <form class="timeline-filters" id="timeline-filters" role="search" aria-label="Filtra le commedie">
+        <div class="timeline-search">
+          <label for="timeline-search">Cerca un’opera</label>
+          <input id="timeline-search" type="search" placeholder="Titolo, anno o concorso" autocomplete="off" aria-describedby="timeline-search-status">
+        </div>
+        <div class="timeline-filter">
+          <label for="festival-filter">Festival</label>
+          <select id="festival-filter">
+            <option value="">Tutti i festival</option>
+            <option value="lenee">Lenee</option>
+            <option value="dionisie">Grandi Dionisie</option>
+            <option value="incerto">Concorso incerto</option>
+          </select>
+        </div>
+        <div class="timeline-filter">
+          <label for="decade-filter">Periodo</label>
+          <select id="decade-filter">
+            <option value="">Tutti gli anni</option>
+            <option value="420">429–420 a.C.</option>
+            <option value="410">419–410 a.C.</option>
+            <option value="400">409–400 a.C.</option>
+            <option value="390">399–390 a.C.</option>
+            <option value="380">389–380 a.C.</option>
+          </select>
+        </div>
+        <button class="timeline-reset" type="reset">Azzera filtri</button>
+        <p id="timeline-search-status" class="timeline-search-status" aria-live="polite">11 commedie</p>
+      </form>
+      <ul class="timeline-legend" aria-label="Legenda dei concorsi"><li><span class="timeline-legend-mark" aria-hidden="true"></span>Lenee</li><li><span class="timeline-legend-mark dionisie" aria-hidden="true"></span>Grandi Dionisie</li><li><span class="timeline-legend-mark incerto" aria-hidden="true"></span>Concorso incerto</li></ul>
+      <ol class="timeline-list" aria-label="Commedie in ordine cronologico">
+        <li class="searchable-item" data-year="425" data-festival="lenee" data-decade="420"><span class="timeline-node" aria-hidden="true">01</span><div class="timeline-event"><p class="date">425 a.C. · Lenee</p><h3 class="title">Acarnesi</h3><p class="descr">Primo posto alle Lenee.</p><a class="timeline-work-link" href="../item/acarnesi.html">Vai al testo <span aria-hidden="true">↗</span></a></div></li>
+        <li class="searchable-item" data-year="424" data-festival="lenee" data-decade="420"><span class="timeline-node" aria-hidden="true">02</span><div class="timeline-event"><p class="date">424 a.C. · Lenee</p><h3 class="title">Cavalieri</h3><p class="descr">Rappresentata alle Lenee.</p><a class="timeline-work-link" href="../item/cavalieri.html">Vai al testo <span aria-hidden="true">↗</span></a></div></li>
+        <li class="searchable-item" data-year="423" data-festival="lenee" data-decade="420"><span class="timeline-node" aria-hidden="true">03</span><div class="timeline-event"><p class="date">423 a.C. · Lenee</p><h3 class="title">Nuvole</h3><p class="descr">La prima versione fu rappresentata alle Lenee nel 423; data e concorso della seconda restano incerti.</p><a class="timeline-work-link" href="../item/nuvole.html">Vai al testo <span aria-hidden="true">↗</span></a></div></li>
+        <li class="searchable-item" data-year="422" data-festival="lenee" data-decade="420"><span class="timeline-node" aria-hidden="true">04</span><div class="timeline-event"><p class="date">422 a.C. · Lenee</p><h3 class="title">Vespe</h3><p class="descr">Rappresentata alle Lenee.</p><a class="timeline-work-link" href="../item/vespe.html">Vai al testo <span aria-hidden="true">↗</span></a></div></li>
+        <li class="searchable-item" data-year="421" data-festival="incerto" data-decade="420"><span class="timeline-node" aria-hidden="true">05</span><div class="timeline-event"><p class="date">421 a.C. · Concorso incerto</p><h3 class="title">Pace</h3><p class="descr">La commedia è datata al 421; il concorso non è certo.</p><a class="timeline-work-link" href="../item/pace.html">Vai al testo <span aria-hidden="true">↗</span></a></div></li>
+        <li class="searchable-item" data-year="414" data-festival="dionisie" data-decade="410"><span class="timeline-node" aria-hidden="true">06</span><div class="timeline-event"><p class="date">414 a.C. · Grandi Dionisie</p><h3 class="title">Uccelli</h3><p class="descr">Rappresentata alle Grandi Dionisie.</p><a class="timeline-work-link" href="../item/uccelli.html">Vai al testo <span aria-hidden="true">↗</span></a></div></li>
+        <li class="searchable-item" data-year="411" data-festival="dionisie" data-decade="410"><span class="timeline-node" aria-hidden="true">07</span><div class="timeline-event"><p class="date">411 a.C. · Grandi Dionisie</p><h3 class="title">Donne alle Tesmoforie</h3><p class="descr">Rappresentata alle Grandi Dionisie.</p><a class="timeline-work-link" href="../item/tesmoforie.html">Vai al testo <span aria-hidden="true">↗</span></a></div></li>
+        <li class="searchable-item" data-year="411" data-festival="lenee" data-decade="410"><span class="timeline-node" aria-hidden="true">08</span><div class="timeline-event"><p class="date">411 a.C. · Lenee</p><h3 class="title">Lisistrata</h3><p class="descr">Rappresentata alle Lenee.</p><a class="timeline-work-link" href="../item/lisistrata.html">Vai al testo <span aria-hidden="true">↗</span></a></div></li>
+        <li class="searchable-item" data-year="405" data-festival="lenee" data-decade="400"><span class="timeline-node" aria-hidden="true">09</span><div class="timeline-event"><p class="date">405 a.C. · Lenee</p><h3 class="title">Rane</h3><p class="descr">Primo posto alle Lenee.</p><a class="timeline-work-link" href="../item/rane.html">Vai al testo <span aria-hidden="true">↗</span></a></div></li>
+        <li class="searchable-item" data-year="392.5" data-festival="incerto" data-decade="390"><span class="timeline-node" aria-hidden="true">10</span><div class="timeline-event"><p class="date">392/1 a.C. · Concorso incerto</p><h3 class="title">Donne al Parlamento</h3><p class="descr">Rappresentata nel 392/1; il concorso non è certo.</p><a class="timeline-work-link" href="../item/donne.html">Vai al testo <span aria-hidden="true">↗</span></a></div></li>
+        <li class="searchable-item" data-year="388" data-festival="lenee" data-decade="380"><span class="timeline-node" aria-hidden="true">11</span><div class="timeline-event"><p class="date">388 a.C. · Lenee</p><h3 class="title">Pluto</h3><p class="descr">Rappresentata alle Lenee.</p><a class="timeline-work-link" href="../item/pluto.html">Vai al testo <span aria-hidden="true">↗</span></a></div></li>
+      </ol>
+      <p class="timeline-empty" id="timeline-empty" hidden>Nessuna commedia corrisponde ai filtri selezionati.</p>
+    </section>
+  </main>
+  <footer class="home-footer">
+    <div class="home-shell footer-content">
+      <a class="home-brand" href="../index.html">LexAr</a>
+      <p>Lessico nelle commedie aristofanee · Christian Iori</p>
+      <a href="http://creativecommons.org/licenses/by/4.0/">Licenza CC BY 4.0</a>
     </div>
-    <div class="torna-su-container">
-        <a href="#" class="torna-su mb-2">Torna su</a>
-    </div>
-    <div class="pre-footer"> &#128210; <a class="link" href="#">Credits</a> | <a class="link" href="http://creativecommons.org/licenses/by/4.0/">Licenze</a> &#128210;</div>
-    <footer>
-        <div class="footer">&copy; Christian Iori 2024-Digital Humanities e Patrimonio Culturale</div>
-    </footer>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+  </footer>
 </body>
 </html>

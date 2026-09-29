@@ -1,5 +1,27 @@
-/* Base comune delle quattro pagine approvate; varianti nei fogli di pagina. */
+/* Base comune delle pagine migrate; varianti nei fogli di pagina. */
 :root {
+  --brand-blue: #124b75;
+  --brand-aqua: #1b9bc0;
+  --brand-gradient: linear-gradient(120deg, var(--brand-blue), var(--brand-aqua));
+  --hero-highlight: #c8edf5;
+  --hero-copy: #e4f3f4;
+  --border-on-dark: rgba(255, 255, 255, .14);
+  --shadow-overlay: 0 10px 24px rgba(3, 28, 38, .18);
+  --shadow-card: 0 8px 20px rgba(11, 46, 79, .06);
+  --shadow-card-hover: 0 16px 30px rgba(11, 46, 79, .14);
+  --space-1: .5rem;
+  --space-2: .75rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --nav-link-gap: 2.25rem;
+  --nav-height: 82px;
+  --nav-height-mobile: 68px;
+  --nav-width: 1360px;
+  --nav-action-gap: .65rem;
+  --nav-action-padding: .72rem 1.25rem;
+  --control-size: 42px;
+  --pill-radius: 100px;
   --ink: #0b2e4f;
   --ink-soft: #164d70;
   --muted: #52798c;
@@ -36,15 +58,32 @@
 html { scroll-behavior: smooth; }
 a { color: inherit; }
 
+/* Navigazione comune alle pagine migrate al sistema LexAr. */
+.home-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(var(--nav-width), calc(100% - 32px));
+  min-height: var(--nav-height);
+  margin: 0 auto;
+  color: var(--white);
+}
+.home-brand { font: 2.2rem/1 var(--font-script); text-decoration: none; white-space: nowrap; }
+.home-nav-links { display: flex; gap: var(--nav-link-gap); }
+.home-nav-links a,
+.nav-action { font-size: .94rem; font-weight: 600; line-height: 1.4; text-decoration: none; }
+.home-nav-links a { padding: var(--space-1) .1rem; opacity: .92; }
+.home-nav-links a:is(:hover, :focus-visible, [aria-current="page"]) { opacity: 1; }
+
 .nav-action {
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
-  gap: .65rem;
+  gap: var(--nav-action-gap);
   width: 240px;
-  padding: .72rem 1.25rem;
+  padding: var(--nav-action-padding);
   border: 1px solid rgba(255, 255, 255, .6);
-  border-radius: 100px;
+  border-radius: var(--pill-radius);
   transition: border-color .2s, background .2s, color .2s;
 }
 
@@ -59,8 +98,8 @@ a { color: inherit; }
   display: none;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  width: var(--control-size);
+  height: var(--control-size);
   padding: 0;
   border: 1px solid rgba(255, 255, 255, .6);
   background: transparent;
@@ -89,19 +128,19 @@ a { color: inherit; }
   color: var(--ink);
 }
 
-/* Il footer degli Acarnesi conserva la sua griglia dedicata. */
+/* Griglia e impilamento responsive comuni dei footer. */
 :where(.home-page, .project-page, .catalogue-page, .author-page) .footer-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: var(--space-3);
 }
 
 .home-footer,
 .project-footer,
 .catalogue-footer,
 .author-footer {
-  padding: 2rem 0;
+  padding: var(--space-5) 0;
   color: var(--footer-paper);
 }
 
@@ -167,6 +206,7 @@ a { color: inherit; }
 /* Soglie comuni: 480 compatto, 760 mobile, 980 tablet, 1280 desktop compatto.
    Le eccezioni editoriali sono documentate in docs/CSS_SYSTEM.md. */
 @media (max-width: 760px) {
+  .home-nav { width: min(100% - 32px, 1120px); min-height: var(--nav-height-mobile); }
   .menu-toggle {
     display: inline-flex;
     margin-right: .5rem;
@@ -180,19 +220,20 @@ a { color: inherit; }
     display: none;
     flex-direction: column;
     gap: 0;
-    padding: .75rem 1rem;
+    padding: var(--space-2) var(--space-3);
     background: var(--ink);
   }
   #menu-principale.is-open { display: flex; }
-  #menu-principale a { padding: .8rem 0; }
+  #menu-principale a { padding: var(--space-3) 0; }
+  .nav-action { justify-content: center; width: auto; padding: .65rem .9rem; }
   :where(.home-page, .project-page, .catalogue-page, .author-page) .footer-content {
     align-items: flex-start;
     flex-direction: column;
   }
 }
 
-/* Five navigation links stay separated on compact desktop widths. */
+/* Main-menu links stay separated on compact desktop widths. */
 @media (min-width: 761px) and (max-width: 980px) {
   #menu-principale { gap: 1rem; }
-  :is(.home-nav, .project-nav, .catalogue-nav, .work-nav, .author-nav) .nav-action { width: 150px; }
+  .home-nav .nav-action { width: 150px; }
 }

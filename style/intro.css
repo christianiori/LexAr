@@ -39,48 +39,8 @@ button {
   z-index: 20;
   top: 0;
   width: 100%;
-  border-bottom: 1px solid rgba(255, 255, 255, .14);
-  background: linear-gradient(120deg, #124b75, #1b9bc0);
-}
-
-.project-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: min(1360px, calc(100% - 32px));
-  min-height: 82px;
-  margin: 0 auto;
-  color: var(--white);
-}
-
-.project-brand,
-.footer-brand {
-  font: 2.2rem/1 var(--font-script);
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.project-nav-links {
-  display: flex;
-  gap: 2.25rem;
-}
-
-.project-nav-links a,
-.nav-action {
-  font-size: .94rem;
-  font-weight: 600;
-  line-height: 1.4;
-  text-decoration: none;
-}
-
-.project-nav-links a {
-  padding: .5rem .1rem;
-  opacity: .92;
-}
-
-.project-nav-links a:hover,
-.project-nav-links a[aria-current="page"] {
-  opacity: 1;
+  border-bottom: 1px solid var(--border-on-dark);
+  background: var(--brand-gradient);
 }
 
 .project-hero {
@@ -88,7 +48,7 @@ button {
   isolation: isolate;
   overflow: hidden;
   padding: 66px 0 92px;
-  background: linear-gradient(120deg, #124b75, #1b9bc0);
+  background: var(--brand-gradient);
   color: var(--white);
 }
 
@@ -127,14 +87,14 @@ button {
 }
 
 .hero-copy h1 em {
-  color: #c8edf5;
+  color: var(--hero-highlight);
   font-weight: 500;
 }
 
 .hero-lead {
   max-width: 610px;
   margin: 1.8rem 0 0;
-  color: #e4f3f4;
+  color: var(--hero-copy);
   font-size: 1.04rem;
   line-height: 1.75;
 }
@@ -503,23 +463,8 @@ button {
 }
 
 @media (max-width: 760px) {
-  .project-shell,
-  .project-nav {
+  .project-shell {
     width: min(100% - 32px, 1120px);
-  }
-
-  .project-nav {
-    min-height: 68px;
-  }
-
-
-
-
-
-  .nav-action {
-    justify-content: center;
-    width: auto;
-    padding: .65rem .9rem;
   }
 
   .project-hero {
