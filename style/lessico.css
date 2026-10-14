@@ -1,0 +1,37 @@
+.lexicon-page { min-height: 100vh; }
+.lexicon-hero { position: relative; isolation: isolate; overflow: hidden; padding: 140px 0 72px; background: var(--brand-gradient); color: var(--white); }
+.lexicon-hero .hero-pattern { z-index: -2; }
+.lexicon-hero-word { position: absolute; z-index: -1; top: 104px; right: max(2vw, calc((100vw - 1390px) / 2)); color: rgba(228, 247, 251, .24); font: 400 clamp(10rem, 24vw, 22rem)/1 var(--font-greek-georgia); letter-spacing: -.08em; transform: rotate(-7deg); user-select: none; }
+.lexicon-hero-content { position: relative; }
+.lexicon-hero h1 { max-width: 700px; margin: 0; font: 600 clamp(3.8rem, 7vw, 6.5rem)/.9 var(--font-editorial); letter-spacing: -.05em; }
+.lexicon-hero h1 em { display: block; color: var(--hero-highlight); font: 400 .78em/1.15 var(--font-script); letter-spacing: -.02em; }
+.lexicon-lead { max-width: 610px; margin: 1.3rem 0 1.5rem; color: var(--hero-copy); font-size: clamp(1rem, 1.5vw, 1.15rem); line-height: 1.75; }
+.lexicon-hero-link { display: inline-flex; align-items: center; gap: .8rem; padding: .8rem 0; border-bottom: 1px solid var(--hero-highlight); color: var(--white); font-size: .87rem; font-weight: 700; text-decoration: none; }
+.lexicon-hero-link:hover { color: var(--hero-highlight); }
+.lexicon-paths { padding: clamp(4rem, 7vw, 6rem) 0; background: var(--ink-soft); }
+.lexicon-section-heading { max-width: 730px; margin-bottom: 2.4rem; }
+.lexicon-section-heading h2, .lexicon-context h2 { margin: 0; font: 400 clamp(3rem, 5vw, 4.5rem)/1.1 var(--font-script); }
+.lexicon-section-heading h2 { color: var(--white); }
+.lexicon-path-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.lexicon-path { min-height: 350px; box-shadow: 0 12px 28px rgba(3, 28, 38, .18); }
+.lexicon-path p { max-width: 300px; }
+.lexicon-path .pathway-icon { flex: 0 0 64px; }
+.lexicon-venn-icon { display: block; width: 34px; height: 34px; fill: none; stroke: currentColor; stroke-width: 3; }
+.lexicon-context { padding: clamp(4rem, 7vw, 6rem) 0; background: var(--paper-deep); }
+.lexicon-context-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(2.5rem, 7vw, 7rem); row-gap: clamp(2rem, 4vw, 3.5rem); align-items: start; }
+.lexicon-context h2 { grid-column: 1 / -1; grid-row: 2; max-width: none; color: var(--aqua-dark); text-align: center; }
+.lexicon-context-panel { max-width: 540px; }
+.lexicon-context-panel-one { grid-column: 1; grid-row: 1; }
+.lexicon-context-panel-two { grid-column: 2; grid-row: 1; }
+.lexicon-context-panel-three { grid-column: 1; grid-row: 3; }
+.lexicon-context-panel-four { grid-column: 2; grid-row: 3; }
+.lexicon-context-panel h3 { margin: 0 0 .8rem; font: 400 clamp(2rem, 3vw, 2.7rem)/1.1 var(--font-script); }
+.lexicon-context-panel p { margin: 0; color: var(--ink-soft); line-height: 1.8; }
+.lexicon-context-panel a { color: var(--ink); text-decoration-color: var(--aqua); text-underline-offset: .18em; }
+.lexicon-footer { background: var(--footer-deep); }
+.lexicon-footer p { margin: 0; }
+.lexicon-footer a { color: var(--footer-paper); }
+.lexicon-header, .lexicon-hero, .lexicon-footer { --focus-color: var(--white); }
+@media (max-width: 900px) { .lexicon-path-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .lexicon-path:last-child { grid-column: 1 / -1; min-height: 290px; } }
+@media (max-width: 760px) { .lexicon-hero { padding: 120px 0 60px; } .lexicon-hero-word { top: 135px; right: -2rem; font-size: 12rem; opacity: .65; } .lexicon-context-grid { grid-template-columns: 1fr; row-gap: 1.4rem; } .lexicon-context h2 { grid-column: 1; grid-row: 1; margin-bottom: .5rem; text-align: left; } .lexicon-context-panel { grid-column: 1; max-width: 100%; } .lexicon-context-panel-one { grid-row: 2; } .lexicon-context-panel-two { grid-row: 3; } .lexicon-context-panel-three { grid-row: 4; } .lexicon-context-panel-four { grid-row: 5; } }
+@media (max-width: 580px) { .lexicon-hero h1 { font-size: clamp(3.5rem, 15vw, 5rem); } .lexicon-path-grid { grid-template-columns: 1fr; } .lexicon-path, .lexicon-path:last-child { grid-column: auto; min-height: 315px; } .lexicon-footer .footer-content { align-items: flex-start; } }

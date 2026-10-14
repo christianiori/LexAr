@@ -200,7 +200,7 @@ collegamenti alle undici commedie.
   su desktop e mobile.
 - [x] **Glossario:** migliorare ricerca, leggibilità e collegamenti contestuali;
   aggiunti filtri per ambito, schede espandibili e rimandi alle opere e alle fonti.
-- [ ] **Lessico generale:** trasformarlo nella pagina di accesso ai tre strumenti
+- [x] **Lessico generale:** trasformarlo nella pagina di accesso ai tre strumenti
   lessicali.
 - [ ] Eliminare breadcrumbs e card laterali superflue dalle pagine rinnovate.
 - [ ] Verificare titoli, metadati HTML, gerarchia delle intestazioni e testo
